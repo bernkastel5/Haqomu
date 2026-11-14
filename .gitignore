@@ -87,3 +87,23 @@ Thumbs.db
 # локальные модели и данные экспериментов
 models/
 .camel_tools/
+
+# ---------------------------------------------------------------------------
+# Фикстуры и отчёты с текстом словарных статей — НИКОГДА в репозиторий
+# (содержат текст KSAA / Hans Wehr; см. docs/handoff.md §3–4).
+# Легальное место — только data/ (игнорируется целиком).
+# ---------------------------------------------------------------------------
+quality-report.md
+pf_v2.json
+pf_full.json
+pf_v2*.json
+v2_labels.json
+live_labels.json
+live_result.json
+pipeline200.json
+pipeline_full.json
+crossrank200.json
+ksaa_cache/
+ksaa_lemma_cache/
+ksaa_analyzer_cache/
+lemma_cache/
