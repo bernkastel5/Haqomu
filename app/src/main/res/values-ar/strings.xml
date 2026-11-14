@@ -261,7 +261,7 @@
     <string name="share_action">إرسال…</string>
     <string name="copy_done">تم النسخ</string>
     <string name="copy_title_error">رسالة الخطأ</string>
-    <string name="check_fts">فهرس FTS (اختياري)</string>
+    <string name="check_fts_index">فهرس FTS (اختياري)</string>
     <string name="home_update">التحديث</string>
     <string name="home_update_sub">تنزيل نسخة جديدة وتثبيتها مع الاحتفاظ بالبيانات</string>
     <string name="update_title">التحديث</string>

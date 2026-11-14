@@ -261,7 +261,7 @@
     <string name="share_action">Send…</string>
     <string name="copy_done">Copied</string>
     <string name="copy_title_error">Error message</string>
-    <string name="check_fts">FTS index (optional)</string>
+    <string name="check_fts_index">FTS index (optional)</string>
     <string name="home_update">Update</string>
     <string name="home_update_sub">Download and install a new build; your data stays</string>
     <string name="update_title">Update</string>

@@ -358,7 +358,7 @@ private fun checkLabel(id: String): String {
         "senses_nonempty" -> stringResource(R.string.check_senses_nonempty)
         "orphan_senses" -> stringResource(R.string.check_orphans)
         "head_norm_filled" -> stringResource(R.string.check_headnorm)
-        "fts_available" -> stringResource(R.string.check_fts)
+        "fts_available" -> stringResource(R.string.check_fts_index)
         else -> id
     }
 }

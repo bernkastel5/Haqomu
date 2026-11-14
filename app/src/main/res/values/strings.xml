@@ -261,7 +261,7 @@
     <string name="share_action">Отправить…</string>
     <string name="copy_done">Скопировано</string>
     <string name="copy_title_error">Сообщение об ошибке</string>
-    <string name="check_fts">FTS-индекс (необязателен)</string>
+    <string name="check_fts_index">FTS-индекс (необязателен)</string>
     <string name="home_update">Обновление</string>
     <string name="home_update_sub">Скачать и поставить новую сборку, данные сохраняются</string>
     <string name="update_title">Обновление</string>
