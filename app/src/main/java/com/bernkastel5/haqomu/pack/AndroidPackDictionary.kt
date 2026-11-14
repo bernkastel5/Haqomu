@@ -24,6 +24,9 @@ class AndroidPackDictionary private constructor(
     val skipped: Map<String, String>,
 ) : DictionarySource, Closeable {
 
+    /** Сколько словарных паков открыто (0 — словари не установлены). */
+    val packCount: Int get() = packs.size
+
     private class OpenPack(val db: SQLiteDatabase, val family: String, val fileName: String)
 
     override fun findByHeadNorm(queryNorm: String, limitPerSource: Int): List<DictionaryEntry> {

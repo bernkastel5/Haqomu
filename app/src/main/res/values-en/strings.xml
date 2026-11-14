@@ -152,4 +152,27 @@
     <string name="wizard_retry">Retry</string>
     <string name="morph_done">Morphology prepared</string>
     <string name="morph_failed">Could not prepare morphology: %1$s</string>
+
+    <!-- Process-text menu and popup (Ф1, Ф9) -->
+    <string name="lookup_menu_label">Dictionary</string>
+    <string name="popup_close">Close</string>
+    <string name="popup_in_anki">Add to Anki</string>
+    <string name="popup_anki_unavailable">Adding to Anki comes in the next update</string>
+    <string name="popup_clitic_base">Base form: %1$s</string>
+    <string name="popup_source_kaikki">Kaikki</string>
+    <string name="popup_source_wehr">Hans Wehr</string>
+    <string name="popup_source_ksaa">KSAA</string>
+    <string name="popup_source_other">Your pack</string>
+    <string name="popup_attribution">Kaikki (Wiktionary): CC BY-SA 4.0. Hans Wehr: dictionary text, personal use.</string>
+    <string name="plate_name_title">Looks like a proper name</string>
+    <string name="plate_name_body">No dictionary entry exists. Haqomu never substitutes a random lookalike word for this.</string>
+    <string name="plate_invalid_title">Select an Arabic word</string>
+    <string name="plate_invalid_body">Haqomu works with Arabic text. Select a word in any app and choose “Dictionary” from the selection menu.</string>
+    <string name="plate_missing_title">Dictionary not ready</string>
+    <string name="plate_missing_body">Open Haqomu, install the dictionary packs and prepare the CAMeL morphology. Everything is prepared on this device.</string>
+    <string name="plate_open_app">Open Haqomu</string>
+    <string name="plate_error_title">The popup could not be opened</string>
+    <string name="plate_error_body">%1$s</string>
+    <string name="plate_no_articles_title">No entries found</string>
+    <string name="plate_no_articles_body">The word is not in the installed dictionaries. Check that your dictionary packs are installed in the app.</string>
 </resources>

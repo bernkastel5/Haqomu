@@ -23,7 +23,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.LayoutDirection
@@ -169,10 +168,3 @@ private fun SenseRow(number: String, definition: String, gloss: String, scale: F
     }
 }
 
-/** Блок арабского текста всегда в RTL, независимо от языка интерфейса. */
-@Composable
-private fun CompositionRtl(content: @Composable () -> Unit) {
-    androidx.compose.runtime.CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
-        content()
-    }
-}

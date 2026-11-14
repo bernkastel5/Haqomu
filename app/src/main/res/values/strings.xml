@@ -152,4 +152,27 @@
     <string name="wizard_retry">Повторить</string>
     <string name="morph_done">Морфология подготовлена</string>
     <string name="morph_failed">Не удалось подготовить морфологию: %1$s</string>
+
+    <!-- Пункт меню и попап (Ф1, Ф9) -->
+    <string name="lookup_menu_label">Словарь</string>
+    <string name="popup_close">Закрыть</string>
+    <string name="popup_in_anki">В Anki</string>
+    <string name="popup_anki_unavailable">Добавление в Anki появится в следующем обновлении</string>
+    <string name="popup_clitic_base">الأساس: %1$s</string>
+    <string name="popup_source_kaikki">Kaikki</string>
+    <string name="popup_source_wehr">Hans Wehr</string>
+    <string name="popup_source_ksaa">KSAA</string>
+    <string name="popup_source_other">Свой пакет</string>
+    <string name="popup_attribution">Kaikki (Wiktionary): CC BY-SA 4.0. Hans Wehr: текст словаря, личное использование.</string>
+    <string name="plate_name_title">Похоже на имя собственное</string>
+    <string name="plate_name_body">Словарной статьи нет. Haqomu не показывает случайное похожее слово вместо этого.</string>
+    <string name="plate_invalid_title">Выделите арабское слово</string>
+    <string name="plate_invalid_body">Haqomu работает с арабским текстом. Выделите слово в любом приложении и выберите «Словарь» в меню.</string>
+    <string name="plate_missing_title">Словарь не готов</string>
+    <string name="plate_missing_body">Откройте Haqomu, установите словарные пакеты и подготовьте морфологию CAMeL. Всё готовится на этом устройстве.</string>
+    <string name="plate_open_app">Открыть Haqomu</string>
+    <string name="plate_error_title">Не получилось открыть попап</string>
+    <string name="plate_error_body">%1$s</string>
+    <string name="plate_no_articles_title">Статей не нашлось</string>
+    <string name="plate_no_articles_body">Такого слова нет в установленных словарях. Проверьте, что словарные пакеты установлены в приложении.</string>
 </resources>

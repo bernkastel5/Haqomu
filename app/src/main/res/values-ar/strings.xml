@@ -152,4 +152,27 @@
     <string name="wizard_retry">إعادة المحاولة</string>
     <string name="morph_done">تم تجهيز الصرف</string>
     <string name="morph_failed">تعذر تجهيز الصرف: %1$s</string>
+
+    <!-- قائمة التحديد والنافذة (Ф1, Ф9) -->
+    <string name="lookup_menu_label">المعجم</string>
+    <string name="popup_close">إغلاق</string>
+    <string name="popup_in_anki">أضف إلى Anki</string>
+    <string name="popup_anki_unavailable">ستضاف الميزة في التحديث القادم</string>
+    <string name="popup_clitic_base">الأساس: %1$s</string>
+    <string name="popup_source_kaikki">Kaikki</string>
+    <string name="popup_source_wehr">Hans Wehr</string>
+    <string name="popup_source_ksaa">KSAA</string>
+    <string name="popup_source_other">حزمة أخرى</string>
+    <string name="popup_attribution">Kaikki (Wiktionary): CC BY-SA 4.0. Hans Wehr: نص القاموس، للاستخدام الشخصي.</string>
+    <string name="plate_name_title">يبدو أنه اسم علم</string>
+    <string name="plate_name_body">لا توجد مادة في القاموس، ولا يعرض Haqomu كلمة مشابهة عشوائية بدلًا من ذلك.</string>
+    <string name="plate_invalid_title">حدّد كلمة عربية</string>
+    <string name="plate_invalid_body">يعمل Haqomu مع النص العربي. حدّد كلمة في أي تطبيق واختر «المعجم» من قائمة التحديد.</string>
+    <string name="plate_missing_title">القاموس غير جاهز</string>
+    <string name="plate_missing_body">افتح Haqomu وثبّت حزم القواميس وجهّز صارف CAMeL. كل شيء يُجهز على هذا الجهاز.</string>
+    <string name="plate_open_app">افتح Haqomu</string>
+    <string name="plate_error_title">تعذر فتح النافذة</string>
+    <string name="plate_error_body">%1$s</string>
+    <string name="plate_no_articles_title">لا توجد مواد</string>
+    <string name="plate_no_articles_body">لا توجد هذه الكلمة في القواميس المثبتة. تأكد من تثبيت حزم القواميس في التطبيق.</string>
 </resources>
