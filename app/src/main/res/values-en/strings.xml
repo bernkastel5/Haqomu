@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Haqomu</string>
+    <string name="setup_title">Haqomu</string>
+    <string name="setup_body">Look up the Arabic word selected in any app, then send a card to Anki. Dictionary packs are not bundled with the app; the setup wizard on this device prepares them locally.</string>
+    <string name="setup_note">The setup wizard arrives in the next build. Until packs are imported, the app shows no dictionary entries.</string>
+</resources>

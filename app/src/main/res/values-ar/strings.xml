@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Haqomu</string>
+    <string name="setup_title">Haqomu</string>
+    <string name="setup_body">معنى الكلمة العربية المحددة في أي تطبيق، وبطاقة في أنكي. حزم القواميس غير مضمّنة في التطبيق؛ يجهّزها معالج الإعداد على هذا الجهاز.</string>
+    <string name="setup_note">يصل معالج الإعداد في الإصدار القادم. حتى تُستورد الحزم، لا يعرض التطبيق أي مواد قاموسية.</string>
+</resources>

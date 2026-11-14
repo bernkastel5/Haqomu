@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Haqomu</string>
+    <string name="setup_title">Haqomu</string>
+    <string name="setup_body">Значение арабского слова, выделенного в любом приложении, и карточка в Anki. Словарные паки не встроены в приложение: их готовит мастер настройки на этом устройстве.</string>
+    <string name="setup_note">Мастер настройки появится в следующей сборке. До его готовности приложение не показывает словарных статей, так как паки ещё не импортированы.</string>
+</resources>

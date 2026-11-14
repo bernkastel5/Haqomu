@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="paper">#FAF7F2</color>
+    <color name="paper_elevated">#FFFFFF</color>
+    <color name="ink">#1F2A2E</color>
+    <color name="deep_green">#0E6E5C</color>
+    <color name="terracotta">#B34724</color>
+    <color name="night_background">#14181A</color>
+    <color name="night_surface">#1C2224</color>
+    <color name="night_ink">#E8E6E1</color>
+</resources>
