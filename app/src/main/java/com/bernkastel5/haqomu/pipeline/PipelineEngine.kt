@@ -13,6 +13,8 @@ data class PopupArticle(
     val senses: List<DictionarySense>,
     /** Откуда статья: "answer" — ответ пайплайна, иначе "lemma <лемма>". */
     val rank: String,
+    /** Ф10: смысл поднят моделью по предложению (в интерфейсе — пометка «выбран моделью»). */
+    val senseChosenByModel: Boolean = false,
     /** Баллы внешнего подтверждения (для ответа пайплайна). */
     val support: Int,
     val isAnswer: Boolean,

@@ -229,4 +229,32 @@
     <string name="floating_button_letter">H</string>
     <string name="settings_floating_hint">وضعان: زر فوق التطبيقات الأخرى، أو السياق فقط للنافذة. لا يُحفظ نص الشاشة ولا يُرسل إلى أي جهة.</string>
     <string name="settings_accessibility_screen">الوصول إلى الشاشة</string>
+
+    <!-- نموذج ترجيح المعاني (Ф10، Ф13) -->
+    <string name="home_model">نموذج المعاني</string>
+    <string name="home_model_sub">اختياري: يختار المعنى المناسب للجملة</string>
+    <string name="model_title">نموذج المعاني</string>
+    <string name="model_intro">نموذج اختياري يقترح أي معنى في المادة يناسب الجملة التي وردت فيها الكلمة. بدونه تعمل النافذة بالترتيب المعجمي، وهذا وضع طبيعي لا خطأ.</string>
+    <string name="model_status_label">الحالة</string>
+    <string name="model_status_installed">مثبّت: %1$s · %2$s</string>
+    <string name="model_status_missing">غير مثبّت. الأوزان ليست مضمّنة في التطبيق: تنزّلها بنفسك عند الطلب.</string>
+    <string name="model_attribution">المصدر: %1$s · الرخصة %2$s</string>
+    <string name="model_enable_title">استخدام النموذج في النافذة</string>
+    <string name="model_enable_hint">يُرفع المعنى إلى المقدمة فقط إذا كان فرق الاحتمالين ٠٫٣ على الأقل. وإلا يبقى الترتيب المعجمي: يصمت النموذج في معظم الطلبات.</string>
+    <string name="model_download_title">التثبيت</string>
+    <string name="model_download_hint">تحتاج أرشيف النموذج: model.onnx وvocab.txt وmodel.json في ملف zip واحد. نسخة int8 نحو ١٣٥ ميغابايت، وfp16 نحو ٢٧٠. لا يوجد عنوان افتراضي: اكتب عنوانك أو اختر ملفًا جاهزًا.</string>
+    <string name="model_url_label">عنوان أرشيف النموذج</string>
+    <string name="model_download">تنزيل</string>
+    <string name="model_pick_file">اختيار ملف…</string>
+    <string name="model_progress">نُزّل %1$s من %2$s</string>
+    <string name="model_unpacking">التحقق والفك: %1$s</string>
+    <string name="model_need_zip">يلزم أرشيف ‎.zip‎ يحوي model.onnx وvocab.txt وmodel.json</string>
+    <string name="model_need_url">اكتب عنوان الأرشيف أو اختر ملفًا من الجهاز</string>
+    <string name="model_installed">ثُبّت النموذج: %1$s</string>
+    <string name="model_failed">لم ينجح: %1$s</string>
+    <string name="model_remove">حذف النموذج</string>
+    <string name="model_remove_confirm">اضغط مرة أخرى للحذف</string>
+    <string name="model_removed">حُذف النموذج، وتعمل النافذة بالترتيب المعجمي</string>
+    <string name="model_privacy">يعمل النموذج على هذا الجهاز. تُرسل الجملة والتعريفات إليه فقط، ولا إلى أي جهة أخرى.</string>
+    <string name="popup_sense_model">المعنى اختاره النموذج</string>
 </resources>

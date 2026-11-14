@@ -43,6 +43,8 @@ import com.bernkastel5.haqomu.anki.CardText
 import com.bernkastel5.haqomu.anki.PendingCard
 import com.bernkastel5.haqomu.anki.SaveOutcome
 import com.bernkastel5.haqomu.camel.MorphologyPack
+import com.bernkastel5.haqomu.gloss.SenseModelCache
+import com.bernkastel5.haqomu.gloss.SenseResolver
 import com.bernkastel5.haqomu.lookup.LookupQuery
 import com.bernkastel5.haqomu.lookup.PopupFormat
 import com.bernkastel5.haqomu.morph.Analyzer
@@ -99,7 +101,16 @@ fun LookupPopupScreen(
                 } catch (_: Exception) {
                     return@withContext PopupState.MissingPacks
                 }
-                PopupState.Ready(PipelineEngine(Analyzer(camel), dict).lookup(word))
+                val resolved = PipelineEngine(Analyzer(camel), dict).lookup(word)
+                // Ф10: порядок смыслов внутри первой статьи, только если модель уверена
+                // (порог 0.3) и есть предложение; иначе — словарный порядок как раньше.
+                PopupState.Ready(
+                    SenseResolver.resolve(
+                        content = resolved,
+                        sentence = sentence,
+                        model = SenseModelCache.get(context),
+                    )
+                )
             } catch (e: Exception) {
                 PopupState.Error(e.message ?: e.javaClass.simpleName)
             } finally {
@@ -413,6 +424,13 @@ private fun ArticleCard(
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.primary,
                 )
+                if (article.senseChosenByModel) {
+                    Text(
+                        text = " · " + stringResource(R.string.popup_sense_model),
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.secondary,
+                    )
+                }
                 val pos = article.pos
                 if (!pos.isNullOrBlank()) {
                     Text(

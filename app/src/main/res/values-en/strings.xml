@@ -229,4 +229,32 @@
     <string name="floating_button_letter">H</string>
     <string name="settings_floating_hint">Two modes: a button over other apps, or context only for the popup. Screen text is never stored or sent anywhere.</string>
     <string name="settings_accessibility_screen">Screen access</string>
+
+    <!-- Sense model (Ф10, Ф13) -->
+    <string name="home_model">Sense model</string>
+    <string name="home_model_sub">Optional: picks the sense that fits the sentence</string>
+    <string name="model_title">Sense model</string>
+    <string name="model_intro">An optional model that suggests which sense of the entry fits the sentence with the word. Without it the popup keeps the dictionary order, which is a normal mode, not a failure.</string>
+    <string name="model_status_label">Status</string>
+    <string name="model_status_installed">Installed: %1$s · %2$s</string>
+    <string name="model_status_missing">Not installed. Weights are not bundled with the app: you download them separately, on your command.</string>
+    <string name="model_attribution">Source: %1$s · license %2$s</string>
+    <string name="model_enable_title">Use the model in the popup</string>
+    <string name="model_enable_hint">A sense is lifted to the top only when the probability margin is at least 0.3. Otherwise the dictionary order stays: the model stays silent for most lookups.</string>
+    <string name="model_download_title">Installation</string>
+    <string name="model_download_hint">You need a model archive: model.onnx, vocab.txt and model.json in one zip. int8 is about 135 MB, fp16 about 270 MB. No default address: enter your own or pick a ready file.</string>
+    <string name="model_url_label">Model archive address</string>
+    <string name="model_download">Download</string>
+    <string name="model_pick_file">Pick a file…</string>
+    <string name="model_progress">Downloaded %1$s of %2$s</string>
+    <string name="model_unpacking">Checking and unpacking: %1$s</string>
+    <string name="model_need_zip">A .zip with model.onnx, vocab.txt and model.json is required</string>
+    <string name="model_need_url">Enter the archive address or pick a file from the device</string>
+    <string name="model_installed">Model installed: %1$s</string>
+    <string name="model_failed">Failed: %1$s</string>
+    <string name="model_remove">Remove the model</string>
+    <string name="model_remove_confirm">Tap again to remove</string>
+    <string name="model_removed">Model removed, the popup uses the dictionary order</string>
+    <string name="model_privacy">The model runs on this device. The sentence and the definitions go only to it, nowhere else.</string>
+    <string name="popup_sense_model">Sense chosen by the model</string>
 </resources>

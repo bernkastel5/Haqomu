@@ -18,6 +18,8 @@ object HaqomuPrefs {
     private const val KEY_ANKI_EDIT_BEFORE_SAVE = "anki_edit_before_save"
     private const val KEY_ACCESSIBILITY = "accessibility_mode"
     private const val KEY_FLOATING_NOTICE_SEEN = "floating_notice_seen"
+    private const val KEY_SENSE_MODEL = "sense_model_enabled"
+    private const val KEY_MODEL_URL = "sense_model_url"
 
     private fun prefs(context: Context) =
         context.getSharedPreferences(FILE, Context.MODE_PRIVATE)
@@ -86,4 +88,22 @@ object HaqomuPrefs {
 
     fun setFloatingNoticeSeen(context: Context, value: Boolean) =
         prefs(context).edit().putBoolean(KEY_FLOATING_NOTICE_SEEN, value).apply()
+
+    /**
+     * Включена ли модель разрешения смыслов (Ф10). По умолчанию **выключена**:
+     * модель опциональна, скачивается отдельно (D-014) и меняет порядок смыслов,
+     * только когда уверена (порог 0.3).
+     */
+    fun senseModelEnabled(context: Context): Boolean =
+        prefs(context).getBoolean(KEY_SENSE_MODEL, false)
+
+    fun setSenseModelEnabled(context: Context, value: Boolean) =
+        prefs(context).edit().putBoolean(KEY_SENSE_MODEL, value).apply()
+
+    /** Адрес бандла модели для кнопки «Скачать» (по умолчанию — пусто, файл вручную). */
+    fun senseModelUrl(context: Context): String =
+        prefs(context).getString(KEY_MODEL_URL, "") ?: ""
+
+    fun setSenseModelUrl(context: Context, url: String) =
+        prefs(context).edit().putString(KEY_MODEL_URL, url.trim()).apply()
 }

@@ -35,6 +35,13 @@ android {
     buildFeatures {
         compose = true
     }
+
+    packaging {
+        resources {
+            // ONNX Runtime тянет нативные .so для нескольких ABI; лишние не нужны.
+            excludes += setOf("META-INF/AL2.0", "META-INF/LGPL2.1")
+        }
+    }
 }
 
 dependencies {
@@ -47,6 +54,9 @@ dependencies {
     implementation(libs.compose.ui.graphics)
     implementation(libs.compose.material3)
     debugImplementation(libs.compose.ui.tooling)
+
+    // Модель разрешения смыслов (Ф10) — опциональная, грузится в рантайме; в APK весов нет.
+    implementation(libs.onnxruntime.android)
 
     testImplementation(libs.junit)
 }
