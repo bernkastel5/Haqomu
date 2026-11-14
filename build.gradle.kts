@@ -7,26 +7,21 @@ plugins {
 /**
  * Диагностика сборки в CI.
  *
- * Полные логи прогона из рабочей среды недоступны, а разбирать падения надо быстро:
- * упавшая задача печатает сообщение workflow-командой `::error::`, и оно попадает
- * в аннотации прогона (их читать можно). Ничего не публикует и не меняет.
+ * Полные логи прогона из рабочей среды недоступны, а разбирать падения надо быстро.
+ * Поэтому после каждой задачи печатается одна строка статуса workflow-командой:
+ * на успехе — `::notice::`, на падении — `::error::` с текстом ошибки. Аннотации прогона
+ * читаются через API, так что причина видна без доступа к логам.
  */
-gradle.taskGraph.whenReady {
-    if (System.getenv("CI") != "true") return@whenReady
-    allTasks.forEach { task ->
-        task.doFirst {
-            // печатаем только вход в «дорогие» задачи, чтобы не засорять аннотации
-            if (name in setOf("compileDebugKotlin", "testDebugUnitTest", "assembleDebug")) {
-                println("::notice::старт задачи $path")
-            }
-        }
-    }
-}
-
 gradle.taskGraph.afterTask { task ->
     if (System.getenv("CI") != "true") return@afterTask
-    task.failure?.let { failure ->
-        val message = (failure.message ?: failure.javaClass.name).lineSequence().take(6).joinToString(" | ")
-        println("::error::задача ${task.path} упала: $message")
+    val failure = task.failure
+    if (failure == null) {
+        if (task.name in setOf("compileDebugKotlin", "testDebugUnitTest", "assembleDebug", "publishDebugApk")) {
+            println("::notice::ok ${task.path}")
+        }
+    } else {
+        val message = (failure.message ?: failure.javaClass.name)
+            .lineSequence().filter { it.isNotBlank() }.take(4).joinToString(" | ")
+        println("::error::fail ${task.path}: $message")
     }
 }
