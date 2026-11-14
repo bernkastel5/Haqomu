@@ -189,17 +189,17 @@ KSAA без ранкера — 54%, с ранкером — 57%, Hans Wehr — 5
 
 ## Тестовая сборка для телефона
 
-CI собирает debug-APK (`:app:assembleDebug`), а скрипт `tools/publish_apk.sh` после сборки
-кладёт его в ветку **`apk-build`** — одной ревизией без истории — и, если прогону доступен
-токен, в релиз **`apk-latest`**. APK в основной ветке и в истории не появляется.
+CI собирает debug-APK (`:app:assembleDebug`), а `tools/publish_apk.sh` после сборки кладёт его
+в ветку **`apk-build`** — одной ревизией без истории — и в релиз **`apk-latest`**. APK в основной
+ветке и в истории репозитория не появляется.
 
-- Ветка: `apk-build/haqomu-debug.apk` (+ `BUILD.txt` с коммитом и размером)
-- Релиз: <https://github.com/bernkastel5/Haqomu/releases/tag/apk-latest>
+- Релиз (постоянная ссылка): <https://github.com/bernkastel5/Haqomu/releases/download/apk-latest/haqomu-debug.apk>
+- Ветка: [`apk-build/haqomu-debug.apk`](https://github.com/bernkastel5/Haqomu/raw/apk-build/haqomu-debug.apk)
+  (рядом `BUILD.txt` — коммит, размер, sha256)
+- Копия для телефона — в корне Google Drive владельца проекта.
 
-Публикация требует **права записи у токена рабочего процесса**:
-Settings → Actions → General → Workflow permissions → *Read and write permissions*.
-Пока стоит read-only, сборка зелёная, а шаг публикации выдаёт предупреждение
-в аннотациях прогона.
+Размер ~80 МБ: это нативный рантайм ONNX Runtime под три ABI (весов модели в APK нет).
+Публикация требует *Read and write permissions* в Settings → Actions → General → Workflow permissions.
 
 Установка: скачать файл на телефоне, разрешить установку из этого источника, открыть.
 Пакет `com.bernkastel5.haqomu.debug` — ставится рядом с release-версией; подпись —
