@@ -1,7 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Haqomu</string>
-    <string name="setup_title">Haqomu</string>
-    <string name="setup_body">Look up the Arabic word selected in any app, then send a card to Anki. Dictionary packs are not bundled with the app; the setup wizard on this device prepares them locally.</string>
-    <string name="setup_note">The setup wizard arrives in the next build. Until packs are imported, the app shows no dictionary entries.</string>
+
+    <string name="nav_back">Back</string>
+
+    <!-- Home -->
+    <string name="home_tagline">The meaning of the Arabic word, right where you selected it. Dictionaries are prepared on this device, never in the cloud.</string>
+    <string name="home_import">Import packs</string>
+    <string name="home_import_sub">Dictionary, CAMeL morphology, Kaikki</string>
+    <string name="home_anki">Anki setup</string>
+    <string name="home_anki_sub">Haqomu deck, the haqomu.apkg file</string>
+    <string name="home_preview">Popup preview</string>
+    <string name="home_preview_sub">What an entry and the «Add to Anki» button look like</string>
+    <string name="home_settings">Settings</string>
+    <string name="home_settings_sub">Theme, Arabic text size</string>
+    <string name="home_about">About</string>
+    <string name="home_about_sub">Licenses, data sources, privacy</string>
+
+    <!-- First-run wizard -->
+    <string name="wizard_step">Step %1$d of %2$d</string>
+    <string name="wizard_title_1">Dictionaries are not bundled</string>
+    <string name="wizard_body_1">Every dictionary has its own licence, so the APK ships no dictionary entries. The release contains only code and instructions. All dictionaries are prepared locally on this device from files you download yourself.</string>
+    <string name="wizard_title_2">What you will need</string>
+    <string name="wizard_body_2">The official CAMeL morphology archive, calima-msa-r13, 40 MB, GPL-2. It is converted on this device with one button in the import wizard. The KSAA dictionary (معجم الرياض), Hans Wehr and Kaikki are built by scripts in the repository. Without packs the app still works, but it shows no entries.</string>
+    <string name="wizard_title_3">How it works</string>
+    <string name="wizard_body_3">Select an Arabic word in any app and choose «Dictionary» in the selection menu. A popup opens with one to three entries. Every sense has an «Add to Anki» button: the card goes into the deck you choose. The floating button is optional and is off by default.</string>
+    <string name="wizard_back">Back</string>
+    <string name="wizard_next">Next</string>
+    <string name="wizard_done">Done</string>
+
+    <!-- Import packs -->
+    <string name="import_title">Import packs</string>
+    <string name="import_intro">Packs are stored on this device only. The app does not download dictionary data from the network.</string>
+    <string name="import_camel">CAMeL morphology (calima-msa-r13)</string>
+    <string name="import_camel_sub">Word form analysis and lemmas. Built on this device from the official CAMeL-Lab archive.</string>
+    <string name="import_ksaa">معجم الرياض للغة العربية (KSAA)</string>
+    <string name="import_ksaa_sub">The main Arabic-Arabic dictionary. Built on this device; the text is not redistributed.</string>
+    <string name="import_kaikki">Kaikki (Wiktionary)</string>
+    <string name="import_kaikki_sub">English glosses. CC BY-SA 4.0. Built with tools/build_kaikki_index.py.</string>
+    <string name="import_hw">Hans Wehr</string>
+    <string name="import_hw_sub">English senses. Built with tools/build_hw_pack.py. The file is not redistributed.</string>
+    <string name="import_pick">Choose a file…</string>
+    <string name="import_no_file">No file selected</string>
+    <string name="import_file_name">File: %1$s</string>
+    <string name="import_file_size">Size: %1$s</string>
+    <string name="import_file_readable">The file can be read</string>
+    <string name="import_file_unreadable">The file could not be opened</string>
+    <string name="size_mb">%1$.1f MB</string>
+    <string name="size_kb">%1$d KB</string>
+    <string name="import_next_build">Pack verification and installation arrive in the next build. The app does not import anything yet.</string>
+
+    <!-- Anki setup -->
+    <string name="anki_title">Anki setup</string>
+    <string name="anki_intro">Cards from the popup go to AnkiDroid on this phone, or to Anki on your computer via the haqomu.apkg file.</string>
+    <string name="anki_step1">Download haqomu.apkg from the GitHub Releases page of the project.</string>
+    <string name="anki_step2">Open the file or use Share and send it to AnkiDroid. The Haqomu deck and note type appear automatically.</string>
+    <string name="anki_step3">On your computer open the same file: Anki Desktop imports the same deck and the same note type.</string>
+    <string name="anki_step4">Cards from the popup will go to the deck selected below. You can change the target deck at any time.</string>
+    <string name="anki_apkg_note">The haqomu.apkg file appears in GitHub Releases with the first build. Right now the repository contains code only.</string>
+    <string name="anki_deck_label">Target deck</string>
+    <string name="anki_deck_hint">The deck the app sends cards to. Defaults to Haqomu.</string>
+    <string name="anki_connect_note">To add cards on your computer you can enable AnkiConnect in Anki Desktop. This is optional: export via .apkg works without it.</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_theme">Theme</string>
+    <string name="theme_system">System</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="settings_text_size">Arabic text size</string>
+    <string name="text_size_normal">Normal</string>
+    <string name="text_size_large">Large</string>
+    <string name="text_size_xlarge">Largest</string>
+    <string name="text_size_sample">ذَهَبَ الطَّالِبُ إِلَى الْمَدْرَسَةِ.</string>
+    <string name="text_size_hint">The size applies to dictionary entries in the popup.</string>
+    <string name="settings_floating">Floating button</string>
+    <string name="floating_caption">Arrives in the next build. The accessibility service reads only the sentence around the selection; the text is never saved or sent anywhere.</string>
+    <string name="settings_replay">Replay the setup wizard</string>
+
+    <!-- About -->
+    <string name="about_title">About</string>
+    <string name="about_version">Version %1$s · com.bernkastel5.haqomu</string>
+    <string name="about_tagline">A dictionary magnifier for Arabic text. Select a word in any app, choose «Dictionary», and get the meaning. No server, no accounts, no ads.</string>
+    <string name="about_code_title">Source code</string>
+    <string name="about_code_body">github.com/bernkastel5/Haqomu. The code is distributed under the GPL-3.0 license.</string>
+    <string name="about_data_title">Data and attribution</string>
+    <string name="about_data_kaikki">Kaikki (Wiktionary), English glosses: CC BY-SA 4.0</string>
+    <string name="about_data_camel">CAMeL Tools and the calima-msa-r13 database: GPL-2</string>
+    <string name="about_data_gloss">ArabGlossBERT (SinaLab): CC BY-SA 4.0</string>
+    <string name="about_data_ksaa">معجم الرياض للغة العربية, King Salman Global Academy for Arabic Language. The text is not redistributed.</string>
+    <string name="about_data_hw">Hans Wehr, A Dictionary of Modern Written Arabic. © Harrassowitz Verlag. The text is not redistributed.</string>
+    <string name="about_data_analyzer">Word form analysis ported from camel-tools: GPL-3.</string>
+    <string name="about_privacy_title">Privacy</string>
+    <string name="about_privacy_network">The app sends nothing to the network. The only exceptions: downloading the optional model via your button (arrives with the model) and building the morphology pack from the official CAMeL archive on this device.</string>
+    <string name="about_privacy_screen">Screen text is used only to find the sentence around the selected word. It is never stored.</string>
+    <string name="about_privacy_history">No lookup history is kept.</string>
+
+    <!-- Popup preview -->
+    <string name="preview_caption">Popup preview</string>
+    <string name="preview_source">Source: a synthetic example, not a dictionary entry</string>
+    <string name="preview_more">Up to two more entries by other lemmas appear below, as in the real popup.</string>
+    <string name="preview_in_anki">Add to Anki</string>
+    <string name="preview_snack">This is a preview. In the real popup the card goes to AnkiDroid or to your selected deck.</string>
+    <string name="preview_close">Tap outside to close the popup. Every sense of the entry is shown.</string>
 </resources>
