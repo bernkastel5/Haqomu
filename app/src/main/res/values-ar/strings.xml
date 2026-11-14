@@ -67,7 +67,6 @@
     <string name="text_size_sample">ذَهَبَ الطَّالِبُ إِلَى الْمَدْرَسَةِ.</string>
     <string name="text_size_hint">يُطبَّق الحجم على المواد داخل النافذة.</string>
     <string name="settings_floating">الزر العائم</string>
-    <string name="floating_caption">يصل في الإصدار القادم. تقرأ خدمة إمكانية الوصول الجملة المحيطة بالتحديد فقط، ولا يُحفظ النص ولا يُرسل.</string>
     <string name="settings_replay">إعادة معالج الإعداد</string>
 
     <!-- عن التطبيق -->
@@ -210,4 +209,24 @@
     <string name="anki_card_permission">لم يمنح AnkiDroid الإذن، حُفظت البطاقة في التطبيق</string>
     <string name="settings_anki_edit_title">تحرير البطاقة قبل الحفظ</string>
     <string name="settings_anki_edit_hint">عند الإيقاف، يحفظ زر «في Anki» في النافذة المنبثقة البطاقة فورًا دون شاشة التحرير. الإيقاف هو الوضع الافتراضي.</string>
+
+    <!-- الوصول إلى الشاشة: الزر العائم والسياق (Ф2، Ф3) -->
+    <string name="accessibility_service_label">Haqomu: زر عند التحديد</string>
+    <string name="accessibility_service_description">يعرض زرًا صغيرًا بجوار الكلمة العربية المحددة، ويمرّر الجملة المحيطة بها إلى النافذة. لا يُحفظ نص الشاشة ولا يُرسل إلى أي جهة.</string>
+    <string name="accessibility_mode_title">زر عند التحديد</string>
+    <string name="accessibility_mode_hint">متوقف افتراضيًا. الزر العائم يظهر فوق التطبيقات الأخرى؛ والوضع الثاني لا يرسم شيئًا، بل يمرّر الجملة إلى النافذة المفتوحة من قائمة التحديد.</string>
+    <string name="accessibility_mode_off">متوقف</string>
+    <string name="accessibility_mode_floating">زر عائم</string>
+    <string name="accessibility_mode_context">السياق فقط</string>
+    <string name="accessibility_system_off">الوصول إلى الشاشة متوقف في النظام: اضغط «فتح إعدادات إمكانية الوصول» وفعّل Haqomu.</string>
+    <string name="accessibility_system_on">الوصول إلى الشاشة مفعّل في النظام.</string>
+    <string name="accessibility_open_settings">فتح إعدادات إمكانية الوصول</string>
+    <string name="accessibility_notice_title">ما الذي سيقرأه Haqomu</string>
+    <string name="accessibility_notice_body">النص المحيط بالتحديد فقط، في لحظة تحديد الكلمة. الكلمة للبحث، والجملة تصبح المثال في بطاقة Anki. لا يُكتب النص في ملفات ولا يُرسل عبر الشبكة ولا يُحفظ في سجل. لا تُقرأ حقول كلمات المرور. يمكنك الإيقاف من هنا أو من إعدادات النظام في أي وقت.</string>
+    <string name="accessibility_notice_ok">فهمت</string>
+    <string name="accessibility_disabled_note">الخدمة متوقفة: النافذة وقائمة التحديد تعملان كما كانتا، دون جملة السياق.</string>
+    <string name="floating_button_label">Haqomu: فتح القاموس</string>
+    <string name="floating_button_letter">H</string>
+    <string name="settings_floating_hint">وضعان: زر فوق التطبيقات الأخرى، أو السياق فقط للنافذة. لا يُحفظ نص الشاشة ولا يُرسل إلى أي جهة.</string>
+    <string name="settings_accessibility_screen">الوصول إلى الشاشة</string>
 </resources>

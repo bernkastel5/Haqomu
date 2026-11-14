@@ -67,7 +67,6 @@
     <string name="text_size_sample">ذَهَبَ الطَّالِبُ إِلَى الْمَدْرَسَةِ.</string>
     <string name="text_size_hint">The size applies to dictionary entries in the popup.</string>
     <string name="settings_floating">Floating button</string>
-    <string name="floating_caption">Arrives in the next build. The accessibility service reads only the sentence around the selection; the text is never saved or sent anywhere.</string>
     <string name="settings_replay">Replay the setup wizard</string>
 
     <!-- About -->
@@ -210,4 +209,24 @@
     <string name="anki_card_permission">AnkiDroid denied access, card saved in the app</string>
     <string name="settings_anki_edit_title">Edit the card before saving</string>
     <string name="settings_anki_edit_hint">When off, the In Anki button in the popup saves the card right away, without the editor screen. Off by default: the quick flow is the standard scenario.</string>
+
+    <!-- Screen access: floating button and context (Ф2, Ф3) -->
+    <string name="accessibility_service_label">Haqomu: button on selection</string>
+    <string name="accessibility_service_description">Shows a small button next to the selected Arabic word and passes the sentence around it into the popup. Screen text is never stored or sent anywhere.</string>
+    <string name="accessibility_mode_title">Button on selection</string>
+    <string name="accessibility_mode_hint">Off by default. The floating button draws on top of other apps; the second mode draws nothing and only fills the sentence into a popup opened from the selection menu.</string>
+    <string name="accessibility_mode_off">Off</string>
+    <string name="accessibility_mode_floating">Floating button</string>
+    <string name="accessibility_mode_context">Context only</string>
+    <string name="accessibility_system_off">Screen access is off in the system: tap Open accessibility settings and enable Haqomu.</string>
+    <string name="accessibility_system_on">Screen access is enabled in the system.</string>
+    <string name="accessibility_open_settings">Open accessibility settings</string>
+    <string name="accessibility_notice_title">What Haqomu will read</string>
+    <string name="accessibility_notice_body">Only the text around your selection at the moment you select a word. The word is used for lookup, the sentence becomes the example on the Anki card. The text is never written to files, sent over the network or kept in history. Password fields are not read. You can turn this off here or in the system settings at any time.</string>
+    <string name="accessibility_notice_ok">Got it</string>
+    <string name="accessibility_disabled_note">The service is off: the popup and the selection menu work as before, without the sentence context.</string>
+    <string name="floating_button_label">Haqomu: open the dictionary</string>
+    <string name="floating_button_letter">H</string>
+    <string name="settings_floating_hint">Two modes: a button over other apps, or context only for the popup. Screen text is never stored or sent anywhere.</string>
+    <string name="settings_accessibility_screen">Screen access</string>
 </resources>

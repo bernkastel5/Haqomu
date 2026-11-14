@@ -1,5 +1,6 @@
 package com.bernkastel5.haqomu.ui
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -35,6 +36,7 @@ import com.bernkastel5.haqomu.ui.theme.ThemeMode
 fun SettingsScreen(
     themeMode: ThemeMode,
     onThemeMode: (ThemeMode) -> Unit,
+    onOpenAccessibility: () -> Unit,
     onReplaySetup: () -> Unit,
     onBack: () -> Unit,
 ) {
@@ -100,7 +102,12 @@ fun SettingsScreen(
                 modifier = Modifier.padding(top = 8.dp, bottom = 24.dp),
             )
 
-            Row(verticalAlignment = Alignment.CenterVertically) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable(onClick = onOpenAccessibility),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
                         text = stringResource(R.string.settings_floating),
@@ -108,13 +115,18 @@ fun SettingsScreen(
                         color = MaterialTheme.colorScheme.onBackground,
                     )
                     Text(
-                        text = stringResource(R.string.floating_caption),
+                        text = stringResource(R.string.settings_floating_hint),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.padding(top = 2.dp),
                     )
                 }
-                Switch(checked = false, onCheckedChange = null, enabled = false)
+                Text(
+                    text = "›",
+                    style = MaterialTheme.typography.headlineSmall,
+                    color = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.padding(start = 16.dp),
+                )
             }
 
             Spacer(Modifier.height(24.dp))

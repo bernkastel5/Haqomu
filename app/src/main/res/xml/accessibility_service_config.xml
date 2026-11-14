@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Описание сервиса доступности Haqomu (Ф2, Ф3).
+
+  Область чтения минимальна: сервис подписан только на смену выделения текста
+  (и смену окна, чтобы убрать кнопку), не фильтрует клавиатуру, не запрашивает
+  содержимое окон по расписанию и не читает поля паролей. Из выделения берутся
+  слово и предложение вокруг него; текст не сохраняется и не передаётся (TZ §8).
+  Доступ включается только пользователем в системных настройках.
+-->
+<accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
+    android:description="@string/accessibility_service_description"
+    android:accessibilityEventTypes="typeViewTextSelectionChanged|typeWindowStateChanged|typeViewScrolled"
+    android:accessibilityFeedbackType="feedbackGeneric"
+    android:accessibilityFlags="flagDefault"
+    android:canRetrieveWindowContent="true"
+    android:canRequestFilterKeyEvents="false"
+    android:notificationTimeout="80" />

@@ -67,7 +67,6 @@
     <string name="text_size_sample">ذَهَبَ الطَّالِبُ إِلَى الْمَدْرَسَةِ.</string>
     <string name="text_size_hint">Размер применяется к статьям в попапе.</string>
     <string name="settings_floating">Плавающая кнопка</string>
-    <string name="floating_caption">Появится в следующей сборке. Сервис доступности читает только предложение вокруг выделенного слова; текст не сохраняется и не передаётся.</string>
     <string name="settings_replay">Повторить мастер настройки</string>
 
     <!-- О программе -->
@@ -210,4 +209,24 @@
     <string name="anki_card_permission">AnkiDroid не дал доступ, карточка сохранена в приложении</string>
     <string name="settings_anki_edit_title">Редактировать карточку перед сохранением</string>
     <string name="settings_anki_edit_hint">Если выключено, кнопка «В Anki» в попапе сразу сохраняет карточку без экрана редактирования. По умолчанию выключено: быстрый сценарий.</string>
+
+    <!-- Доступ к экрану: плавающая кнопка и контекст (Ф2, Ф3) -->
+    <string name="accessibility_service_label">Haqomu: кнопка у выделения</string>
+    <string name="accessibility_service_description">Показывает маленькую кнопку рядом с выделенным арабским словом и передаёт в попап предложение, в котором это слово стоит. Текст экрана не сохраняется и никуда не отправляется.</string>
+    <string name="accessibility_mode_title">Кнопка у выделения</string>
+    <string name="accessibility_mode_hint">По умолчанию выключено. Плавающая кнопка работает поверх других приложений; второй режим ничего не рисует на экране, а только подставляет предложение в попап, открытый из меню выделения.</string>
+    <string name="accessibility_mode_off">Выключено</string>
+    <string name="accessibility_mode_floating">Плавающая кнопка</string>
+    <string name="accessibility_mode_context">Только контекст</string>
+    <string name="accessibility_system_off">Доступ к экрану в системе выключен: нажмите «Открыть настройки доступности» и включите Haqomu.</string>
+    <string name="accessibility_system_on">Доступ к экрану включён в системе.</string>
+    <string name="accessibility_open_settings">Открыть настройки доступности</string>
+    <string name="accessibility_notice_title">Что будет читать Haqomu</string>
+    <string name="accessibility_notice_body">Только текст вокруг выделения в момент, когда вы выделяете слово. Слово нужно для поиска, предложение — чтобы подставить пример в карточку Anki. Текст не записывается в файлы, не уходит в сеть и не попадает в историю. Поля паролей не читаются. Выключить можно в любой момент здесь или в системных настройках.</string>
+    <string name="accessibility_notice_ok">Понятно</string>
+    <string name="accessibility_disabled_note">Сервис выключен: попап и меню выделения работают как раньше, без предложения-контекста.</string>
+    <string name="floating_button_label">Haqomu: открыть словарь</string>
+    <string name="floating_button_letter">H</string>
+    <string name="settings_floating_hint">Два режима: кнопка поверх других приложений или только чтение контекста для попапа. Текст экрана не сохраняется и никуда не отправляется.</string>
+    <string name="settings_accessibility_screen">Доступ к экрану</string>
 </resources>

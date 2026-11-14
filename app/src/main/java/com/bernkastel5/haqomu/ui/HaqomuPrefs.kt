@@ -1,6 +1,7 @@
 package com.bernkastel5.haqomu.ui
 
 import android.content.Context
+import com.bernkastel5.haqomu.service.AccessibilityMode
 import com.bernkastel5.haqomu.ui.theme.ThemeMode
 
 /**
@@ -15,6 +16,8 @@ object HaqomuPrefs {
     private const val KEY_DECK = "anki_deck"
     private const val KEY_CONNECT_URL = "anki_connect_url"
     private const val KEY_ANKI_EDIT_BEFORE_SAVE = "anki_edit_before_save"
+    private const val KEY_ACCESSIBILITY = "accessibility_mode"
+    private const val KEY_FLOATING_NOTICE_SEEN = "floating_notice_seen"
 
     private fun prefs(context: Context) =
         context.getSharedPreferences(FILE, Context.MODE_PRIVATE)
@@ -66,4 +69,21 @@ object HaqomuPrefs {
 
     fun setAnkiEditBeforeSave(context: Context, value: Boolean) =
         prefs(context).edit().putBoolean(KEY_ANKI_EDIT_BEFORE_SAVE, value).apply()
+
+    /**
+     * Режим сервиса доступности (Ф2): выключен по умолчанию. Значение — настройка
+     * приложения; сам сервис включается только в системных настройках.
+     */
+    fun accessibilityMode(context: Context): AccessibilityMode =
+        AccessibilityMode.fromStored(prefs(context).getString(KEY_ACCESSIBILITY, "off"))
+
+    fun setAccessibilityMode(context: Context, mode: AccessibilityMode) =
+        prefs(context).edit().putString(KEY_ACCESSIBILITY, AccessibilityMode.storedValue(mode)).apply()
+
+    /** Показано ли объяснение при первом включении плавающей кнопки (TZ §8). */
+    fun floatingNoticeSeen(context: Context): Boolean =
+        prefs(context).getBoolean(KEY_FLOATING_NOTICE_SEEN, false)
+
+    fun setFloatingNoticeSeen(context: Context, value: Boolean) =
+        prefs(context).edit().putBoolean(KEY_FLOATING_NOTICE_SEEN, value).apply()
 }

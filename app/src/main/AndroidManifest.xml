@@ -44,6 +44,24 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
+        <!--
+            Ф2/Ф3: сервис доступности. Выключен по умолчанию; читает только текст
+            выделения в момент выделения, ничего не сохраняет и не передаёт (TZ §8).
+            Подписан на описание сервиса (res/xml/accessibility_service_config.xml).
+        -->
+        <service
+            android:name=".service.HaqomuAccessibilityService"
+            android:exported="true"
+            android:label="@string/accessibility_service_label"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_service_config" />
+        </service>
+
         <activity
             android:name=".lookup.LookupPopupActivity"
             android:exported="true"
