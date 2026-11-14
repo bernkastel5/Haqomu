@@ -111,7 +111,7 @@
     <string name="import_install">Install</string>
     <string name="import_cancel">Cancel</string>
     <string name="import_delete">Delete</string>
-    <string name="import_copy_note">Installation copies the file into the app's private folder. Verification does not modify the source file.</string>
+    <string name="import_copy_note">Installation copies the file into the private folder of the app. Verification does not modify the source file.</string>
     <string name="check_readable">The file is readable</string>
     <string name="check_table">Table %1$s</string>
     <string name="check_columns">Columns %1$s</string>
