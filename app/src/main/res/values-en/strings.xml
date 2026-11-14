@@ -41,14 +41,8 @@
     <string name="import_hw">Hans Wehr</string>
     <string name="import_hw_sub">English senses. Built with tools/build_hw_pack.py. The file is not redistributed.</string>
     <string name="import_pick">Choose a file…</string>
-    <string name="import_no_file">No file selected</string>
-    <string name="import_file_name">File: %1$s</string>
-    <string name="import_file_size">Size: %1$s</string>
-    <string name="import_file_readable">The file can be read</string>
-    <string name="import_file_unreadable">The file could not be opened</string>
     <string name="size_mb">%1$.1f MB</string>
     <string name="size_kb">%1$d KB</string>
-    <string name="import_next_build">Pack verification and installation arrive in the next build. The app does not import anything yet.</string>
 
     <!-- Anki setup -->
     <string name="anki_title">Anki setup</string>
@@ -103,4 +97,31 @@
     <string name="preview_in_anki">Add to Anki</string>
     <string name="preview_snack">This is a preview. In the real popup the card goes to AnkiDroid or to your selected deck.</string>
     <string name="preview_close">Tap outside to close the popup. Every sense of the entry is shown.</string>
+    <string name="import_installed">Installed packs</string>
+    <string name="import_install_done">Pack installed</string>
+    <string name="import_delete_done">Pack deleted</string>
+    <string name="import_unreadable">The file could not be read</string>
+    <string name="import_verify_ok">The pack passed verification</string>
+    <string name="import_verify_bad">The pack failed verification</string>
+    <string name="import_meta_source">Source: %1$s</string>
+    <string name="import_meta_license">License: %1$s</string>
+    <string name="import_meta_date">Built: %1$s</string>
+    <string name="import_meta_entries">Entries: %1$s</string>
+    <string name="import_meta_langs">Languages: %1$s to %2$s</string>
+    <string name="import_install">Install</string>
+    <string name="import_cancel">Cancel</string>
+    <string name="import_delete">Delete</string>
+    <string name="import_copy_note">Installation copies the file into the app's private folder. Verification does not modify the source file.</string>
+    <string name="check_readable">The file is readable</string>
+    <string name="check_table">Table %1$s</string>
+    <string name="check_columns">Columns %1$s</string>
+    <string name="check_meta">meta field %1$s</string>
+    <string name="check_langs">Language pair (lang_from/lang_to)</string>
+    <string name="check_schema_version">Schema version is 1</string>
+    <string name="check_entry_count">Entry count matches meta</string>
+    <string name="check_entry_nonempty">The pack has entries</string>
+    <string name="check_senses_nonempty">The pack has senses</string>
+    <string name="check_orphans">All senses reference an entry</string>
+    <string name="check_headnorm">head_norm is filled in</string>
+    <string name="check_fts">FTS5 module works</string>
 </resources>

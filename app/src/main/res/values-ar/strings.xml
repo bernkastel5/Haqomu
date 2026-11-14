@@ -41,14 +41,8 @@
     <string name="import_hw">Hans Wehr</string>
     <string name="import_hw_sub">معانٍ إنجليزية. يُبنى بأداة tools/build_hw_pack.py. لا يُعاد نشر الملف.</string>
     <string name="import_pick">اختيار ملف…</string>
-    <string name="import_no_file">لم يُحدَّد ملف</string>
-    <string name="import_file_name">الملف: %1$s</string>
-    <string name="import_file_size">الحجم: %1$s</string>
-    <string name="import_file_readable">يمكن قراءة الملف</string>
-    <string name="import_file_unreadable">تعذر فتح الملف</string>
     <string name="size_mb">%1$.1f ميغابايت</string>
     <string name="size_kb">%1$d كيلوبايت</string>
-    <string name="import_next_build">تصل ميزة فحص بنية الحزمة وتثبيتها في الإصدار القادم. لا يستورد التطبيق شيئًا بعد.</string>
 
     <!-- إعداد Anki -->
     <string name="anki_title">إعداد Anki</string>
@@ -103,4 +97,31 @@
     <string name="preview_in_anki">أضف إلى Anki</string>
     <string name="preview_snack">هذه معاينة. في النافذة الفعلية تنتقل البطاقة إلى AnkiDroid أو إلى الرزمة المختارة.</string>
     <string name="preview_close">إغلاق النافذة بلمسة خارجها. تظهر جميع معاني المادة.</string>
+    <string name="import_installed">الحزم المثبتة</string>
+    <string name="import_install_done">تم تثبيت الحزمة</string>
+    <string name="import_delete_done">تم حذف الحزمة</string>
+    <string name="import_unreadable">تعذرت قراءة الملف</string>
+    <string name="import_verify_ok">اجتازت الحزمة الفحص</string>
+    <string name="import_verify_bad">لم تجتز الحزمة الفحص</string>
+    <string name="import_meta_source">المصدر: %1$s</string>
+    <string name="import_meta_license">الترخيص: %1$s</string>
+    <string name="import_meta_date">بُنيت: %1$s</string>
+    <string name="import_meta_entries">المواد: %1$s</string>
+    <string name="import_meta_langs">اللغات: %1$s إلى %2$s</string>
+    <string name="import_install">تثبيت</string>
+    <string name="import_cancel">إلغاء</string>
+    <string name="import_delete">حذف</string>
+    <string name="import_copy_note">ينسخ التثبيت الملف إلى مجلد خاص بالتطبيق. لا يغيّر الفحص شيئًا في الملف الأصلي.</string>
+    <string name="check_readable">يمكن قراءة الملف</string>
+    <string name="check_table">جدول %1$s</string>
+    <string name="check_columns">أعمدة %1$s</string>
+    <string name="check_meta">حقل meta.%1$s</string>
+    <string name="check_langs">زوج اللغات (lang_from/lang_to)</string>
+    <string name="check_schema_version">إصدار المخطط 1</string>
+    <string name="check_entry_count">عدد المواد يطابق meta</string>
+    <string name="check_entry_nonempty">تحتوي الحزمة على مواد</string>
+    <string name="check_senses_nonempty">تحتوي الحزمة على معانٍ</string>
+    <string name="check_orphans">ترتبط كل المعاني بمادة</string>
+    <string name="check_headnorm">head_norm مملوء</string>
+    <string name="check_fts">وحدة FTS5 تعمل</string>
 </resources>

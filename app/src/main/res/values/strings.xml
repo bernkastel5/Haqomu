@@ -41,14 +41,8 @@
     <string name="import_hw">Hans Wehr</string>
     <string name="import_hw_sub">Английские значения. Собирается скриптом tools/build_hw_pack.py. Файл не распространяется.</string>
     <string name="import_pick">Выбрать файл…</string>
-    <string name="import_no_file">Файл не выбран</string>
-    <string name="import_file_name">Файл: %1$s</string>
-    <string name="import_file_size">Размер: %1$s</string>
-    <string name="import_file_readable">Файл читается</string>
-    <string name="import_file_unreadable">Не удалось открыть файл</string>
     <string name="size_mb">%1$.1f МБ</string>
     <string name="size_kb">%1$d КБ</string>
-    <string name="import_next_build">Проверка структуры и установка появятся в следующей сборке. Пока приложение ничего не импортирует.</string>
 
     <!-- Настройка Anki -->
     <string name="anki_title">Настройка Anki</string>
@@ -103,4 +97,31 @@
     <string name="preview_in_anki">В Anki</string>
     <string name="preview_snack">Это предпросмотр. В рабочем попапе карточка уйдёт в AnkiDroid или в выбранную колоду.</string>
     <string name="preview_close">Тапом мимо попап закрывается. Все смыслы статьи видны.</string>
+    <string name="import_installed">Установленные паки</string>
+    <string name="import_install_done">Пак установлен</string>
+    <string name="import_delete_done">Пак удалён</string>
+    <string name="import_unreadable">Не удалось прочитать файл</string>
+    <string name="import_verify_ok">Пак прошёл проверку</string>
+    <string name="import_verify_bad">Пак не прошёл проверку</string>
+    <string name="import_meta_source">Источник: %1$s</string>
+    <string name="import_meta_license">Лицензия: %1$s</string>
+    <string name="import_meta_date">Собран: %1$s</string>
+    <string name="import_meta_entries">Статей: %1$s</string>
+    <string name="import_meta_langs">Языки: %1$s → %2$s</string>
+    <string name="import_install">Установить</string>
+    <string name="import_cancel">Отмена</string>
+    <string name="import_delete">Удалить</string>
+    <string name="import_copy_note">Установка копирует файл в приватную папку приложения. Проверка ничего не изменяет в исходном файле.</string>
+    <string name="check_readable">Файл читается</string>
+    <string name="check_table">Таблица %1$s</string>
+    <string name="check_columns">Колонки %1$s</string>
+    <string name="check_meta">Поле meta.%1$s</string>
+    <string name="check_langs">Языковая пара (lang_from/lang_to)</string>
+    <string name="check_schema_version">Версия схемы = 1</string>
+    <string name="check_entry_count">Число статей сходится с meta</string>
+    <string name="check_entry_nonempty">В паке есть статьи</string>
+    <string name="check_senses_nonempty">В паке есть смыслы</string>
+    <string name="check_orphans">Все смыслы связаны со статьями</string>
+    <string name="check_headnorm">head_norm заполнен</string>
+    <string name="check_fts">Модуль FTS5 работает</string>
 </resources>
