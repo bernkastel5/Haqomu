@@ -130,6 +130,26 @@
     <string name="morph_note">Download the official CAMeL-Lab calima-msa-r13 archive (about 40 MB, GPL-2) and pick the .zip or the morphology.db file here. The conversion runs on this device; the file is never sent anywhere.</string>
     <string name="morph_pick">Prepare morphology from a file…</string>
     <string name="morph_working">Lines read: %1$d</string>
+    <string name="wizard_title">Installation wizard</string>
+    <string name="wizard_intro">One button: download official copies from the sources, convert on-device, verify and install. Nothing is sent from your device.</string>
+    <string name="wizard_camel_name">CAMeL morphology (calima-msa-r13)</string>
+    <string name="wizard_camel_desc">40.5 MB, GPL-2: Arabic word-form analysis</string>
+    <string name="wizard_hw_name">Hans Wehr (Arabic-English)</string>
+    <string name="wizard_hw_desc">≈ 20 MB, the text is copyrighted: personal use only</string>
+    <string name="wizard_kaikki_name">Kaikki (Wiktionary ar→en)</string>
+    <string name="wizard_kaikki_desc">≈ 72 MB archived, 233k entries, CC BY-SA 4.0</string>
+    <string name="wizard_ksaa_name">KSAA (معجم الرياض)</string>
+    <string name="wizard_ksaa_desc">Online source: nothing to install. Queries go straight to siwar.ksaa.gov.sa with attribution; bulk download and mirrors are forbidden by KSAA terms.</string>
+    <string name="wizard_consent">I accept the source terms: CAMeL-Lab (GPL-2), Hans Wehr (personal use), Kaikki/Wiktionary (CC BY-SA 4.0)</string>
+    <string name="wizard_install_all">Install everything</string>
+    <string name="wizard_note">Files are downloaded from the official sources; Haqomu does not redistribute anything. Temporary files are deleted after installation.</string>
+    <string name="wizard_step_downloading_pct">Downloading… %1$d%%</string>
+    <string name="wizard_step_downloading_mb">Downloading… %1$s</string>
+    <string name="wizard_step_converting">Converting… lines: %1$d</string>
+    <string name="wizard_step_verifying">Verifying pack…</string>
+    <string name="wizard_step_done">Done: %1$s</string>
+    <string name="wizard_step_failed">Error: %1$s</string>
+    <string name="wizard_retry">Retry</string>
     <string name="morph_done">Morphology prepared</string>
     <string name="morph_failed">Could not prepare morphology: %1$s</string>
 </resources>

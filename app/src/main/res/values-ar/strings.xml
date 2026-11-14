@@ -130,6 +130,26 @@
     <string name="morph_note">نزّل الأرشيف الرسمي من CAMeL-Lab وهو calima-msa-r13 (نحو 40 ميغابايت، GPL-2) ثم اختر هنا ملف .zip أو morphology.db. يتم التحويل على هذا الجهاز، ولا يُرسل الملف إلى أي مكان.</string>
     <string name="morph_pick">تجهيز الصرف من ملف…</string>
     <string name="morph_working">الأسطر المقروءة: %1$d</string>
+    <string name="wizard_title">معالج التثبيت</string>
+    <string name="wizard_intro">زر واحد: تنزيل النسخ الرسمية من المصادر، وتحويلها على الجهاز، والتحقق منها وتثبيتها. لا يُرسَل أي شيء من الجهاز.</string>
+    <string name="wizard_camel_name">صرف CAMeL (calima-msa-r13)</string>
+    <string name="wizard_camel_desc">‏40.5 ميغابايت، رخصة GPL-2: تحليل أشكال الكلمات العربية</string>
+    <string name="wizard_hw_name">هانس فير (عربي-إنجليزي)</string>
+    <string name="wizard_hw_desc">‏≈ 20 ميغابايت، النص محمي بحقوق النشر: للاستخدام الشخصي فقط</string>
+    <string name="wizard_kaikki_name">Kaikki (Wiktionary ar→en)</string>
+    <string name="wizard_kaikki_desc">‏≈ 72 ميغابايت مضغوطة، ‏233 ألف مدخل، رخصة CC BY-SA 4.0</string>
+    <string name="wizard_ksaa_name">KSAA (معجم الرياض)</string>
+    <string name="wizard_ksaa_desc">مصدر إلكتروني: لا شيء للتثبيت. تذهب الاستعلامات مباشرة إلى siwar.ksaa.gov.sa مع النسبة المعجمية؛ والتنزيل الكامل والنسخ المرآوية محظوران وفق شروط KSAA.</string>
+    <string name="wizard_consent">أوافق على شروط المصادر: CAMeL-Lab (رخصة GPL-2)، وهانس فير (للاستخدام الشخصي)، وKaikki/Wiktionary (رخصة CC BY-SA 4.0)</string>
+    <string name="wizard_install_all">تثبيت الكل</string>
+    <string name="wizard_note">تُنزَّل الملفات من المصادر الرسمية؛ لا يعيد Haqomu توزيع أي شيء. تُحذف الملفات المؤقتة بعد التثبيت.</string>
+    <string name="wizard_step_downloading_pct">جارٍ التنزيل… %1$d٪</string>
+    <string name="wizard_step_downloading_mb">جارٍ التنزيل… %1$s</string>
+    <string name="wizard_step_converting">جارٍ التحويل… الأسطر: %1$d</string>
+    <string name="wizard_step_verifying">جارٍ التحقق من الحزمة…</string>
+    <string name="wizard_step_done">تم: %1$s</string>
+    <string name="wizard_step_failed">خطأ: %1$s</string>
+    <string name="wizard_retry">إعادة المحاولة</string>
     <string name="morph_done">تم تجهيز الصرف</string>
     <string name="morph_failed">تعذر تجهيز الصرف: %1$s</string>
 </resources>

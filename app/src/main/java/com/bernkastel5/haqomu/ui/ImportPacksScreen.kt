@@ -110,6 +110,8 @@ fun ImportPacksScreen(onBack: () -> Unit) {
                     color = MaterialTheme.colorScheme.onBackground,
                 )
 
+                PackWizardSection(onPacksChanged = { installed = readInstalledPacks(packsDir) })
+
                 MorphologySection()
 
                 if (installed.isNotEmpty()) {
