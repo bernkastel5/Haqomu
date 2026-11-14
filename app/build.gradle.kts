@@ -86,7 +86,7 @@ val publishDebugApk = tasks.register("publishDebugApk") {
         runCatching {
         val apkFile = apk.get().asFile
         if (!apkFile.isFile) {
-            logger.lifecycle("publishDebugApk: APK не найден, пропускаю")
+            println("::error::publishDebugApk: APK не найден: ${apkFile.absolutePath}")
             return@doLast
         }
         val work = File(repo, "build/apk-publish")
@@ -109,10 +109,12 @@ val publishDebugApk = tasks.register("publishDebugApk") {
             .directory(repo)
             .redirectErrorStream(true).start()
         val out = process.inputStream.bufferedReader().readText().trim()
+        // Сообщения через workflow-команды: они видны в аннотациях прогона,
+        // даже когда полный лог недоступен.
         if (process.waitFor() == 0) {
-            logger.lifecycle("publishDebugApk: APK $sha опубликован в ветку $branch")
+            println("::notice::publishDebugApk: APK $sha в ветке $branch")
         } else {
-            logger.lifecycle("publishDebugApk: публикация в ветку не удалась: $out")
+            println("::error::publishDebugApk: ветка не обновлена: " + out.replace("\n", " | "))
         }
         // Дополнительно — в релиз apk-latest, если у токена есть право contents:write.
         val release = ProcessBuilder(
@@ -120,11 +122,14 @@ val publishDebugApk = tasks.register("publishDebugApk") {
             "build/apk-publish/haqomu-debug.apk#haqomu-debug.apk", "--clobber",
         ).directory(repo).redirectErrorStream(true).start()
         val releaseOut = release.inputStream.bufferedReader().readText().trim()
-        logger.lifecycle(
-            if (release.waitFor() == 0) "publishDebugApk: APK $sha в релизе apk-latest"
-            else "publishDebugApk: релиз недоступен: $releaseOut"
-        )
-        }.onFailure { logger.lifecycle("publishDebugApk: пропущено (${it.message})") }
+        if (release.waitFor() == 0) {
+            println("::notice::publishDebugApk: APK $sha в релизе apk-latest")
+        } else {
+            println("::warning::publishDebugApk: релиз недоступен: " + releaseOut.replace("\n", " | "))
+        }
+        }.onFailure {
+            println("::error::publishDebugApk: исключение: " + (it.message ?: it.javaClass.name))
+        }
     }
 }
 
