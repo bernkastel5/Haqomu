@@ -16,10 +16,10 @@ class AnalyzerTest {
             "بيت" to listOf(StemRow("NOUN_STEM", "NOUN", "بيت", -0.80, "ب ي ت")),
             "بيوت" to listOf(StemRow("NOUN_STEM", "NOUN", "بيت", -0.90, "ب ي ت")),
         )
-        val empty = mapOf("pos" to "-", "lex" to "-", "lex_logprob" to "-99")
+        val empty = mapOf("pos" to "-", "lex" to "-")  # calima-афиксы не несут полезного lex_logprob — стебель сохраняет свой
         val prefixes = mapOf(
-            "و" to listOf(AffixRow("CONJ", mapOf("pos" to "CC", "lex_logprob" to "-99"))),
-            "ال" to listOf(AffixRow("DET", mapOf("pos" to "DET", "lex_logprob" to "-99"))),
+            "و" to listOf(AffixRow("CONJ", mapOf("pos" to "CC"))),
+            "ال" to listOf(AffixRow("DET", mapOf("pos" to "DET"))),
             "" to listOf(AffixRow("NOPREF", empty)),
         )
         val suffixes = mapOf(
