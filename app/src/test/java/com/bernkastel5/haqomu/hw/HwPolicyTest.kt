@@ -32,10 +32,19 @@ class HwPolicyTest {
 
     @Test
     fun parseEntry_xrefSee() {
+        // жадный head «كَتَبَ kataba» съедает латинский токен — как в эталоне rom тогда не извлекается
         val p = HwPolicy.parseEntry("كَتَبَ", "كَتَبَ kataba see كَتَبَ")
         assertEquals("xref", p.kind)
         assertEquals("كَتَبَ", p.seeTarget)
-        assertEquals("kataba", p.romanization)
+        assertNull(p.romanization)
+    }
+
+    @Test
+    fun parseEntry_xrefWithTwoTokenArabicHeadAndRom() {
+        val p = HwPolicy.parseEntry("فرصة", "فرصة ثانية thaniya see فرصة")
+        assertEquals("xref", p.kind)
+        assertEquals("فرصة", p.seeTarget)
+        assertEquals("thaniya", p.romanization)
     }
 
     @Test
