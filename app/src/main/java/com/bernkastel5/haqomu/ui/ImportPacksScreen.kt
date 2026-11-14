@@ -42,7 +42,7 @@ import kotlinx.coroutines.launch
 import java.io.File
 
 private data class InstalledPack(val name: String, val size: Long, val meta: Map<String, String>)
-private data class PickedPack(val report: PackReport, val tempFile: File, val displayName: String, val size: Long)
+internal data class PickedPack(val report: PackReport, val tempFile: File, val displayName: String, val size: Long)
 
 /** Экран «Импорт паков»: выбор файла, полная проверка по архитектуре §4, установка в приватную папку. */
 @Composable
@@ -272,6 +272,9 @@ private fun ReportCard(picked: PickedPack, onInstall: () -> Unit, onDismiss: () 
             for (check in picked.report.checks) {
                 CheckRow(check.id, check.ok, check.detail)
             }
+            // Текст отчёта — целиком в буфер: перепечатывать проверки руками не нужно.
+            val reportText = remember(picked) { reportToText(picked) }
+            CopyActions(text = reportText, modifier = Modifier.padding(top = 6.dp))
             Row(modifier = Modifier.padding(top = 16.dp)) {
                 Button(onClick = onInstall, enabled = ok) {
                     Text(stringResource(R.string.import_install))
@@ -282,6 +285,34 @@ private fun ReportCard(picked: PickedPack, onInstall: () -> Unit, onDismiss: () 
             }
         }
     }
+}
+
+/**
+ * Отчёт о проверке пака в виде текста для буфера обмена и «Отправить…».
+ * Пишем и человеческую строку, и технический id проверки: по первому понятно, что не так,
+ * по второму можно искать в коде. Формат стабильный — им же пользуются тесты.
+ */
+internal fun reportToText(picked: PickedPack): String {
+    val ok = picked.report.passed
+    val head = if (ok) "Проверка пака пройдена" else "Проверка пака не пройдена"
+    val lines = mutableListOf(
+        head,
+        "файл: ${picked.displayName}",
+        "размер: ${picked.size} байт",
+    )
+    picked.report.fatalError?.let { lines += "критическая ошибка: $it" }
+    val meta = picked.report.meta
+    for (key in listOf("source", "license", "build_date", "entry_count", "lang_from", "lang_to", "fts")) {
+        val value = meta[key]?.takeIf { it.isNotBlank() } ?: continue
+        lines += "$key: $value"
+    }
+    lines += "проверки:"
+    for (check in picked.report.checks) {
+        val mark = if (check.ok) "ok" else "FAIL"
+        val detail = check.detail?.takeIf { it.isNotBlank() }?.let { " — $it" } ?: ""
+        lines += "  [$mark] ${check.id}$detail"
+    }
+    return lines.joinToString("\n")
 }
 
 @Composable
@@ -327,7 +358,7 @@ private fun checkLabel(id: String): String {
         "senses_nonempty" -> stringResource(R.string.check_senses_nonempty)
         "orphan_senses" -> stringResource(R.string.check_orphans)
         "head_norm_filled" -> stringResource(R.string.check_headnorm)
-        "fts5_available" -> stringResource(R.string.check_fts)
+        "fts_available" -> stringResource(R.string.check_fts)
         else -> id
     }
 }

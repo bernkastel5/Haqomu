@@ -308,6 +308,7 @@ fun ModelScreen(onBack: () -> Unit) {
                     color = MaterialTheme.colorScheme.secondary,
                     modifier = Modifier.padding(top = 10.dp),
                 )
+                CopyActions(text = text, modifier = Modifier.padding(top = 0.dp))
             }
 
             if (installed) {

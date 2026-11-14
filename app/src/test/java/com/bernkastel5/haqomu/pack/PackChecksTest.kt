@@ -62,18 +62,26 @@ class PackChecksTest {
     }
 
     @Test
-    fun missingFtsTableFails() {
+    fun missingFtsTableStillPasses() {
+        // ADR-0009: FTS-индекс необязателен — системный SQLite в Android обычно без FTS5,
+        // а поиск идёт по entry.head_norm. Отсутствие sense_fts пак не ломает.
         val report = PackChecks.verify(FakePackDataSource(tables = setOf("meta", "entry", "sense")))
-        assertFalse(report.passed)
-        assertEquals(false, report.check("table:sense_fts")?.ok)
+        assertTrue(report.checks.filter { !it.ok }.joinToString("; ") { it.id }, report.passed)
     }
 
     @Test
-    fun fts5UnavailableFails() {
-        val ds = FakePackDataSource(tableCountError = mapOf("sense_fts" to IllegalStateException("no such module: fts5")))
+    fun declaredFtsThatCannotBeReadFails() {
+        val ds = FakePackDataSource(
+            metaValues = mapOf(
+                "schema_version" to "1", "source" to "kaikki", "license" to "CC BY-SA 4.0",
+                "build_date" to "2026-11-14", "entry_count" to "120",
+                "lang_from" to "ar", "lang_to" to "en", "fts" to "fts5",
+            ),
+            tableCountError = mapOf("sense_fts" to IllegalStateException("no such module: fts5")),
+        )
         val report = PackChecks.verify(ds)
         assertFalse(report.passed)
-        assertEquals(false, report.check("fts5_available")?.ok)
+        assertEquals(false, report.check("fts_available")?.ok)
     }
 
     @Test

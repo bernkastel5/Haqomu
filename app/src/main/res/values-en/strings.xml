@@ -257,4 +257,23 @@
     <string name="model_removed">Model removed, the popup uses the dictionary order</string>
     <string name="model_privacy">The model runs on this device. The sentence and the definitions go only to it, nowhere else.</string>
     <string name="popup_sense_model">Sense chosen by the model</string>
+    <string name="copy_action">Copy</string>
+    <string name="share_action">Send…</string>
+    <string name="copy_done">Copied</string>
+    <string name="copy_title_error">Error message</string>
+    <string name="check_fts">FTS index (optional)</string>
+    <string name="home_update">Update</string>
+    <string name="home_update_sub">Download and install a new build; your data stays</string>
+    <string name="update_title">Update</string>
+    <string name="update_intro">The app checks the same channel it was installed from: it compares version numbers and offers the new APK. There is no store, so installation goes through the system installer.</string>
+    <string name="update_current">Installed: %1$s (build %2$d)</string>
+    <string name="update_available">Available: %1$s (build %2$d)</string>
+    <string name="update_commit">Commit: %1$s</string>
+    <string name="update_check">Check for updates</string>
+    <string name="update_install">Download and install</string>
+    <string name="update_progress">Downloading… %1$d%%</string>
+    <string name="update_working">Checking…</string>
+    <string name="update_installer_opened">System installer opened: confirm the update.</string>
+    <string name="update_need_permission">Installing from this source needs permission. Settings opened — allow “Install unknown apps” for Haqomu, then come back and retry.</string>
+    <string name="update_keeps_data">Updating in place keeps packs, settings and the Anki queue: they live in app storage, not in the APK.</string>
 </resources>

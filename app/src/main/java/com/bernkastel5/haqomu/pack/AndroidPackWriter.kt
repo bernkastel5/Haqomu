@@ -8,17 +8,23 @@ import java.util.Date
 import java.util.Locale
 
 /**
- * Запись единого пака §4 (architecture.md): meta/entry/sense/sense_fts.
+ * Запись единого пака §4 (architecture.md): meta/entry/sense и, если движок умеет, sense_fts.
  * Общая для конвертеров Kaikki и Hans Wehr. Один файл на пак; при ошибке вызывающий
- * код удаляет файл. Схема 1:1 с архитектурой (индексы idx_entry_norm, idx_entry_root,
- * idx_sense_entry), FTS5-строка кладётся с rowid = sense.id.
+ * код удаляет файл. Индексы idx_entry_norm, idx_entry_root, idx_sense_entry — как в схеме.
+ *
+ * FTS-индекс **необязателен** (ADR-0009): системный SQLite в Android обычно собран без
+ * FTS5 («no such module: fts5»), а попап ищет по `entry.head_norm` и FTS не использует.
+ * Поэтому индекс создаётся только если движок его поддерживает (FTS5, иначе FTS4),
+ * а в meta пишется ключ `fts` = `fts5` / `fts4` / `none` — по нему проверка импорта
+ * понимает, чего ждать от файла. Пак без индекса полноценен: так же читается и ищется.
  */
 class AndroidPackWriter(private val outPath: String) : AutoCloseable {
 
     private val db: SQLiteDatabase
     private val insEntry: SQLiteStatement
     private val insSense: SQLiteStatement
-    private val insFts: SQLiteStatement
+    private val insFts: SQLiteStatement?
+    private var ftsKind = FTS_NONE
     private var entryCount = 0L
     private var senseCount = 0L
     private var finished = false
@@ -27,6 +33,7 @@ class AndroidPackWriter(private val outPath: String) : AutoCloseable {
         File(outPath).delete()
         db = SQLiteDatabase.openOrCreateDatabase(outPath, null)
         for (stmt in SCHEMA_STATEMENTS) db.execSQL(stmt)
+        ftsKind = createFts(db)
         db.beginTransaction()
         insEntry = db.compileStatement(
             "INSERT INTO entry(id, head, head_norm, root, pos, pattern, source) VALUES (?,?,?,?,?,?,?)"
@@ -34,7 +41,7 @@ class AndroidPackWriter(private val outPath: String) : AutoCloseable {
         insSense = db.compileStatement(
             "INSERT INTO sense(id, entry_id, ord, definition, gloss_en, example, tags) VALUES (?,?,?,?,?,?,?)"
         )
-        insFts = db.compileStatement(
+        insFts = if (ftsKind == FTS_NONE) null else db.compileStatement(
             "INSERT INTO sense_fts(rowid, definition, gloss_en) VALUES (?,?,?)"
         )
     }
@@ -60,10 +67,13 @@ class AndroidPackWriter(private val outPath: String) : AutoCloseable {
         if (example.isNullOrBlank()) insSense.bindNull(6) else insSense.bindString(6, example)
         if (tags.isNullOrBlank()) insSense.bindNull(7) else insSense.bindString(7, tags)
         insSense.executeInsert()
-        insFts.bindLong(1, id)
-        insFts.bindString(2, definition)
-        if (glossEn.isNullOrBlank()) insFts.bindNull(3) else insFts.bindString(3, glossEn)
-        insFts.executeInsert()
+        // Индекс — ускоритель, не источник данных: без него пак остаётся целым.
+        insFts?.let { stmt ->
+            stmt.bindLong(1, id)
+            stmt.bindString(2, definition)
+            if (glossEn.isNullOrBlank()) stmt.bindNull(3) else stmt.bindString(3, glossEn)
+            stmt.executeInsert()
+        }
         senseCount += 1
     }
 
@@ -78,6 +88,7 @@ class AndroidPackWriter(private val outPath: String) : AutoCloseable {
             "entry_count" to entryCount.toString(),
             "lang_from" to langFrom,
             "lang_to" to langTo,
+            "fts" to ftsKind,
         )
         for ((k, v) in meta) {
             db.execSQL("INSERT INTO meta VALUES (?,?)", arrayOf(k, v))
@@ -95,7 +106,7 @@ class AndroidPackWriter(private val outPath: String) : AutoCloseable {
     override fun close() {
         insEntry.close()
         insSense.close()
-        insFts.close()
+        insFts?.close()
         if (!finished) {
             try {
                 db.endTransaction()
@@ -113,8 +124,34 @@ class AndroidPackWriter(private val outPath: String) : AutoCloseable {
             "CREATE INDEX idx_entry_root ON entry(root)",
             "CREATE TABLE sense (id INTEGER PRIMARY KEY, entry_id INTEGER NOT NULL REFERENCES entry(id), ord INTEGER NOT NULL, definition TEXT NOT NULL, gloss_en TEXT, example TEXT, tags TEXT)",
             "CREATE INDEX idx_sense_entry ON sense(entry_id)",
-            "CREATE VIRTUAL TABLE sense_fts USING fts5(definition, gloss_en, content='sense', content_rowid='id')",
         )
+
+        const val FTS_NONE = "none"
+        private const val FTS5 = "fts5"
+        private const val FTS4 = "fts4"
+
+        /**
+         * Пробует завести внешний FTS-индекс по таблице sense: сначала FTS5 (как в архитектуре),
+         * затем FTS4 (есть в системном SQLite почти везде). Возвращает вид индекса для meta.
+         *
+         * Внешний контент (`content='sense'`) в обоих случаях означает, что копии определений
+         * в индексе нет — пак от этого не тяжелеет, а поиск при необходимости идёт по sense.
+         */
+        private fun createFts(db: SQLiteDatabase): String {
+            val attempts = listOf(
+                FTS5 to "CREATE VIRTUAL TABLE sense_fts USING fts5(definition, gloss_en, content='sense', content_rowid='id')",
+                FTS4 to "CREATE VIRTUAL TABLE sense_fts USING fts4(definition, gloss_en, content='sense')",
+            )
+            for ((kind, sql) in attempts) {
+                try {
+                    db.execSQL(sql)
+                    return kind
+                } catch (_: Exception) {
+                    // движок не умеет такой модуль — пробуем следующий вариант
+                }
+            }
+            return FTS_NONE
+        }
 
         /**
          * Пост-проверка готового пака перед установкой: обязан пройти тот же PackChecks,

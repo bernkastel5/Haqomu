@@ -257,4 +257,23 @@
     <string name="model_removed">Модель удалена, попап работает по словарному порядку</string>
     <string name="model_privacy">Модель работает на этом устройстве. Предложение из текста и толкования отправляются только в неё и никуда больше.</string>
     <string name="popup_sense_model">Смысл выбран моделью</string>
+    <string name="copy_action">Скопировать</string>
+    <string name="share_action">Отправить…</string>
+    <string name="copy_done">Скопировано</string>
+    <string name="copy_title_error">Сообщение об ошибке</string>
+    <string name="check_fts">FTS-индекс (необязателен)</string>
+    <string name="home_update">Обновление</string>
+    <string name="home_update_sub">Скачать и поставить новую сборку, данные сохраняются</string>
+    <string name="update_title">Обновление</string>
+    <string name="update_intro">Приложение проверяет сборку в том же канале, откуда вы его установили: сравнивает номер версии и предлагает скачать новый APK. Магазина нет, поэтому установка идёт системным установщиком.</string>
+    <string name="update_current">Установлено: %1$s (сборка %2$d)</string>
+    <string name="update_available">Доступно: %1$s (сборка %2$d)</string>
+    <string name="update_commit">Коммит: %1$s</string>
+    <string name="update_check">Проверить обновление</string>
+    <string name="update_install">Скачать и установить</string>
+    <string name="update_progress">Скачивание… %1$d%%</string>
+    <string name="update_working">Проверяю…</string>
+    <string name="update_installer_opened">Открыт системный установщик: подтвердите обновление.</string>
+    <string name="update_need_permission">Нужно разрешить установку из этого источника. Открыл настройки — включите «Разрешить установку неизвестных приложений» для Haqomu, затем вернитесь и повторите.</string>
+    <string name="update_keeps_data">При обновлении поверх сохраняются паки, настройки и очередь карточек Anki: они лежат в памяти приложения, а не в APK.</string>
 </resources>

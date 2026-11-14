@@ -304,6 +304,12 @@ private fun WizardStepRow(
                     color = MaterialTheme.colorScheme.secondary,
                     modifier = Modifier.padding(top = 2.dp),
                 )
+                // Ошибку конвертации/установки копируем целиком: по ней видно, на каком шаге
+                // и на каком файле всё встало, без перепечатывания с телефона.
+                CopyActions(
+                    text = "$name — ${state.detail ?: "?"}",
+                    modifier = Modifier.padding(top = 0.dp),
+                )
                 OutlinedButton(onClick = onRetry, enabled = !running, modifier = Modifier.padding(top = 6.dp)) {
                     Text(stringResource(R.string.wizard_retry))
                 }

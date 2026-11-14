@@ -33,10 +33,21 @@ cd "$REPO_ROOT" || exit 1
 
 SHA=$(git rev-parse --short=7 HEAD)
 SIZE=$(du -h "$APK" | cut -f1)
+# Версию берём из самой сборки: aapt2 в CI есть, но BUILD.txt нужен и без него,
+# поэтому сначала пробуем манифест, а при неудаче пишем только коммит.
+VERSION_CODE="${HAQOMU_VERSION_CODE:-}"
+VERSION_NAME="${HAQOMU_VERSION_NAME:-}"
 WORK=build/apk-publish
 rm -rf "$WORK" && mkdir -p "$WORK"
 cp "$APK" "$WORK/$NAME"
-printf 'Haqomu — тестовая сборка\nкоммит: %s\nразмер: %s\n' "$SHA" "$SIZE" > "$WORK/BUILD.txt"
+{
+  printf 'Haqomu — тестовая сборка\n'
+  printf 'коммит: %s\n' "$SHA"
+  [ -n "$VERSION_CODE" ] && printf 'version_code: %s\n' "$VERSION_CODE"
+  [ -n "$VERSION_NAME" ] && printf 'version_name: %s\n' "$VERSION_NAME"
+  printf 'размер: %s\n' "$SIZE"
+  printf 'sha256: %s\n' "$(sha256sum "$WORK/$NAME" | cut -d' ' -f1)"
+} > "$WORK/BUILD.txt"
 
 STATUS=0
 

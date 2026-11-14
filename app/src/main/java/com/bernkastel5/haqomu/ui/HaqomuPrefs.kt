@@ -20,6 +20,9 @@ object HaqomuPrefs {
     private const val KEY_FLOATING_NOTICE_SEEN = "floating_notice_seen"
     private const val KEY_SENSE_MODEL = "sense_model_enabled"
     private const val KEY_MODEL_URL = "sense_model_url"
+    private const val KEY_UPDATE_CHECKED_AT = "update_checked_at"
+    private const val KEY_UPDATE_SEEN_CODE = "update_seen_code"
+    private const val KEY_INSTALL_ATTEMPTS = "install_attempts"
 
     private fun prefs(context: Context) =
         context.getSharedPreferences(FILE, Context.MODE_PRIVATE)
@@ -106,4 +109,29 @@ object HaqomuPrefs {
 
     fun setSenseModelUrl(context: Context, url: String) =
         prefs(context).edit().putString(KEY_MODEL_URL, url.trim()).apply()
+
+    /** Когда последний раз проверяли обновление (мс от эпохи, 0 — не проверяли). */
+    fun updateCheckedAt(context: Context): Long =
+        prefs(context).getLong(KEY_UPDATE_CHECKED_AT, 0L)
+
+    fun setUpdateCheckedAt(context: Context, value: Long) =
+        prefs(context).edit().putLong(KEY_UPDATE_CHECKED_AT, value).apply()
+
+    /** versionCode сборки, о которой пользователь уже знает (чтобы не поздравлять дважды). */
+    fun updateSeenCode(context: Context): Int =
+        prefs(context).getInt(KEY_UPDATE_SEEN_CODE, 0)
+
+    fun setUpdateSeenCode(context: Context, value: Int) =
+        prefs(context).edit().putInt(KEY_UPDATE_SEEN_CODE, value).apply()
+
+    /**
+     * Сколько раз подряд не удалось поставить обновление.
+     * После нескольких неудач приложение подсказывает скачать APK вручную:
+     * системный установщик может отказать (например, из-за подписи).
+     */
+    fun installAttempts(context: Context): Int =
+        prefs(context).getInt(KEY_INSTALL_ATTEMPTS, 0)
+
+    fun setInstallAttempts(context: Context, value: Int) =
+        prefs(context).edit().putInt(KEY_INSTALL_ATTEMPTS, value).apply()
 }

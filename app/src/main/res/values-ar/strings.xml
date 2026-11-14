@@ -257,4 +257,23 @@
     <string name="model_removed">حُذف النموذج، وتعمل النافذة بالترتيب المعجمي</string>
     <string name="model_privacy">يعمل النموذج على هذا الجهاز. تُرسل الجملة والتعريفات إليه فقط، ولا إلى أي جهة أخرى.</string>
     <string name="popup_sense_model">المعنى اختاره النموذج</string>
+    <string name="copy_action">نسخ</string>
+    <string name="share_action">إرسال…</string>
+    <string name="copy_done">تم النسخ</string>
+    <string name="copy_title_error">رسالة الخطأ</string>
+    <string name="check_fts">فهرس FTS (اختياري)</string>
+    <string name="home_update">التحديث</string>
+    <string name="home_update_sub">تنزيل نسخة جديدة وتثبيتها مع الاحتفاظ بالبيانات</string>
+    <string name="update_title">التحديث</string>
+    <string name="update_intro">يتحقق التطبيق من النسخة في القناة التي ثُبِّت منها: يقارن رقم الإصدار ويعرض تنزيل ملف APK الجديد. لا يوجد متجر، لذا يجري التثبيت عبر مثبِّت النظام.</string>
+    <string name="update_current">المثبَّت: %1$s (بناء %2$d)</string>
+    <string name="update_available">المتاح: %1$s (بناء %2$d)</string>
+    <string name="update_commit">الإيداع: %1$s</string>
+    <string name="update_check">التحقق من التحديث</string>
+    <string name="update_install">تنزيل وتثبيت</string>
+    <string name="update_progress">جارٍ التنزيل… %1$d%%</string>
+    <string name="update_working">جارٍ التحقق…</string>
+    <string name="update_installer_opened">فُتح مثبِّت النظام: أكِّد التحديث.</string>
+    <string name="update_need_permission">يلزم السماح بالتثبيت من هذا المصدر. فُتحت الإعدادات — اسمح بـ«تثبيت تطبيقات غير معروفة» لتطبيق Haqomu ثم عُد وأعد المحاولة.</string>
+    <string name="update_keeps_data">عند التحديث تبقى الحزم والإعدادات وقائمة بطاقات Anki: إنها في ذاكرة التطبيق لا في ملف APK.</string>
 </resources>

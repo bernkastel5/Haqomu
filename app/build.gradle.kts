@@ -4,6 +4,15 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 }
 
+// Номер версии по умолчанию: в CI — уникальный номер прогона (растёт), локально — время
+// в минутах. APK, собранный позже, всегда новее — иначе установщик откажется обновлять.
+fun resolvedVersionCode(): Int =
+    providers.gradleProperty("haqomuVersionCode").orNull?.toIntOrNull()
+        ?: (System.currentTimeMillis() / 60000L).toInt().and(0x7FFFFFFF)
+
+fun resolvedVersionName(): String =
+    providers.gradleProperty("haqomuVersionName").orNull ?: "0.2.0"
+
 android {
     namespace = "com.bernkastel5.haqomu"
     compileSdk = 35
@@ -12,8 +21,11 @@ android {
         applicationId = "com.bernkastel5.haqomu"
         minSdk = 26
         targetSdk = 35
-        versionCode = 1
-        versionName = "0.1.0-dev"
+        // versionCode растёт от сборки к сборке: по нему проверяется обновление
+        // (UpdateChecker сравнивает с version_code из BUILD.txt релиза). Сборка CI
+        // подставляет номер прогона (`-PhaqomuVersionCode=`), локальная — время.
+        versionCode = resolvedVersionCode()
+        versionName = resolvedVersionName()
     }
 
     buildTypes {
@@ -82,9 +94,17 @@ val publishDebugApk = tasks.register("publishDebugApk") {
             return@doLast
         }
         // Публикация — вспомогательный шаг: её сбой не валит сборку и не красит прогон.
+        // Версию сборки кладём в BUILD.txt: по ней UpdateChecker понимает, новее ли релиз.
+        val versionCode = resolvedVersionCode().toString()
+        val versionName = resolvedVersionName()
         val process = runCatching {
             ProcessBuilder("bash", "tools/publish_apk.sh", apkFile.absolutePath)
-                .directory(repo).redirectErrorStream(true).start()
+                .directory(repo)
+                .apply {
+                    environment()["HAQOMU_VERSION_CODE"] = versionCode
+                    environment()["HAQOMU_VERSION_NAME"] = versionName
+                }
+                .redirectErrorStream(true).start()
         }.getOrNull()
         if (process == null) {
             println("::warning::publishDebugApk: скрипт не запустился")
