@@ -4,6 +4,8 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 }
 
+println("::notice::A: скрипт начал выполняться")
+
 // Номер версии по умолчанию: в CI — уникальный номер прогона (растёт), локально — время
 // в минутах. APK, собранный позже, всегда новее — иначе установщик откажется обновлять.
 fun resolvedVersionCode(): Int =
@@ -13,6 +15,7 @@ fun resolvedVersionCode(): Int =
 fun resolvedVersionName(): String =
     providers.gradleProperty("haqomuVersionName").orNull ?: "0.2.0"
 
+println("::notice::B: функции версии объявлены, начинаю android {}")
 android {
     namespace = "com.bernkastel5.haqomu"
     compileSdk = 35
@@ -56,6 +59,7 @@ android {
     }
 }
 
+println("::notice::C: android {} настроен, versionCode=" + resolvedVersionCode())
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
