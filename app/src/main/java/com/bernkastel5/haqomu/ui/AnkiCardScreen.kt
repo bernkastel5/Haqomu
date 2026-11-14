@@ -75,6 +75,30 @@ fun AnkiCardScreen(
         notes = notes.trim(),
     )
 
+    val permissionLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { granted ->
+        // здесь handleOutcome ещё недоступен — разбираем исход локально
+        val outcome = if (granted) {
+            CardSaver.save(context, HaqomuPrefs.ankiDeck(context), card())
+        } else {
+            CardSaver.saveLocally(context, card(), R.string.anki_card_permission)
+        }
+        when (outcome) {
+            SaveOutcome.Added -> {
+                Toast.makeText(context, R.string.anki_card_added, Toast.LENGTH_SHORT).show()
+                onClose()
+            }
+            is SaveOutcome.Pending -> {
+                Toast.makeText(context, outcome.messageRes, Toast.LENGTH_SHORT).show()
+                onClose()
+            }
+            SaveOutcome.Invalid -> errorText = context.getString(R.string.anki_card_invalid)
+            SaveOutcome.Duplicate -> errorText = context.getString(R.string.anki_card_duplicate)
+            SaveOutcome.NeedsPermission -> errorText = context.getString(R.string.anki_card_permission)
+        }
+    }
+
     fun handleOutcome(outcome: SaveOutcome) {
         when (outcome) {
             SaveOutcome.Added -> {
@@ -94,16 +118,6 @@ fun AnkiCardScreen(
                 Toast.makeText(context, outcome.messageRes, Toast.LENGTH_SHORT).show()
                 onClose()
             }
-        }
-    }
-
-    val permissionLauncher = rememberLauncherForActivityResult(
-        ActivityResultContracts.RequestPermission()
-    ) { granted ->
-        if (granted) {
-            handleOutcome(CardSaver.save(context, HaqomuPrefs.ankiDeck(context), card()))
-        } else {
-            handleOutcome(CardSaver.saveLocally(context, card(), R.string.anki_card_permission))
         }
     }
 
