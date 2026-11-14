@@ -9,7 +9,7 @@ import java.io.Closeable
 import java.io.File
 
 /**
- * Словарь поверх установленных §4-паков (filesDir/packs/*.sqlite).
+ * Словарь поверх установленных §4-паков (filesDir/packs — все файлы с расширением .sqlite).
  *
  * Семейство определяется по meta('source') и по имени файла: Kaikki → kaikki,
  * Hans Wehr → wehr, KSAA → ksaa; морфологический пак calima пропускается (это не
