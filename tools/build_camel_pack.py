@@ -115,6 +115,8 @@ def convert(src, out, keep_feats=False):
     counts['stems'] = len(stems)
     counts['prefixes'] = len(prefixes)
     counts['suffixes'] = len(suffixes)
+    counts['max_prefix_size'] = max((len(p) for p, _, _ in prefixes), default=0)
+    counts['max_suffix_size'] = max((len(s) for s, _, _ in suffixes), default=0)
     counts['compat_ab'] = sum(1 for k, _, _ in compat if k == 'ab')
     counts['compat_bc'] = sum(1 for k, _, _ in compat if k == 'bc')
     counts['compat_ac'] = sum(1 for k, _, _ in compat if k == 'ac')
