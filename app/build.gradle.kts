@@ -4,8 +4,6 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 }
 
-println("::notice::A: скрипт начал выполняться")
-
 // Номер версии по умолчанию: в CI — уникальный номер прогона (растёт), локально — время
 // в минутах. APK, собранный позже, всегда новее — иначе установщик откажется обновлять.
 fun resolvedVersionCode(): Int =
@@ -15,7 +13,6 @@ fun resolvedVersionCode(): Int =
 fun resolvedVersionName(): String =
     providers.gradleProperty("haqomuVersionName").orNull ?: "0.2.0"
 
-println("::notice::B: функции версии объявлены, начинаю android {}")
 android {
     namespace = "com.bernkastel5.haqomu"
     compileSdk = 35
@@ -55,28 +52,6 @@ android {
         resources {
             // ONNX Runtime тянет нативные .so для нескольких ABI; лишние не нужны.
             excludes += setOf("META-INF/AL2.0", "META-INF/LGPL2.1")
-        }
-    }
-}
-
-println("::notice::C: android {} настроен, versionCode=" + resolvedVersionCode())
-
-// Диагностика в CI: полные логи прогона недоступны, поэтому причину падения сборки
-// печатаем workflow-командами — они видны в аннотациях (::error::/::notice::).
-if (System.getenv("CI") == "true") {
-    gradle.buildFinished { result ->
-        val failure = result.failure
-        if (failure == null) {
-            println("::notice::HAQOMU-BUILD: успешно")
-        } else {
-            val text = generateSequence(failure) { it.cause }
-                .flatMap { (it.message ?: it.javaClass.simpleName).lineSequence() }
-                .map { it.trim() }
-                .filter { it.isNotEmpty() }
-                .distinct()
-                .take(12)
-                .joinToString(" | ")
-            println("::error::HAQOMU-BUILD: " + text.take(1200))
         }
     }
 }
