@@ -61,12 +61,16 @@
 ## 4. Сделано
 
 **2026-11-14 (обновление №18 — проверка на реальном устройстве)**
-- [x] Публикация APK **без workflow-файлов** (у подключения к GitHub нет права `workflows` —
-  создание и правка `.github/workflows/*` отклоняются). Gradle-хук `publishDebugApk`
-  (`app/build.gradle.kts`, запускается только при `CI=true` + токен) кладёт APK
-  в ветку **`apk-build`** одной ревизией без истории (`git hash-object` → `mktree` →
-  `commit-tree` → push --force; рабочая копия и индекс не трогаются) и, если у токена есть
-  `contents:write`, дублирует его в релиз `apk-latest`. Сбой публикации сборку не валит.
+- [x] Публикация APK **без workflow-файлов** (у подключения к GitHub нет права `workflows`:
+  создание и правка `.github/workflows/*` отклоняются). Скрипт `tools/publish_apk.sh` +
+  Gradle-хук `publishDebugApk` (`app/build.gradle.kts`, только при `CI=true`) кладёт APK
+  в ветку **`apk-build`** одной ревизией без истории (`hash-object` → `mktree` → `commit-tree`
+  → push --force; рабочая копия и индекс не трогаются) и дублирует в релиз `apk-latest`,
+  если доступен токен. Сбой публикации — предупреждение в аннотациях, сборка остаётся зелёной.
+  **Блокер:** токен Actions у репозитория read-only, `github-actions[bot]` получает 403 при push;
+  нужно Settings → Actions → General → Workflow permissions → *Read and write permissions*
+  (одна галочка, владелец репозитория). Проверено: ветка и релиз создаются, загрузка ассета
+  из песочницы недоступна (`uploads.github.com` вне разрешённых хостов) — только CI.
 - [x] APK **не коммитится**: это артефакт (~40 МБ вместе с нативным рантаймом ONNX),
   `out/` в `.gitignore`. Прямая ссылка для телефона — в README.
 - [ ] Заказчик ставит APK и проверяет на устройстве: импорт паков, попап, сервис доступности,

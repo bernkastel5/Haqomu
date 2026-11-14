@@ -64,14 +64,10 @@ dependencies {
 /**
  * Публикация тестового APK для проверки на телефоне.
  *
- * CI прогоняет `:app:assembleDebug`; после успешной сборки этот хук кладёт готовый APK
- * в ветку `apk-build` — одной ревизией без истории (у коммита нет родителей), через
- * низкоуровневые `git hash-object`/`mktree`/`commit-tree`, чтобы не трогать рабочую копию
- * и индекс основного репозитория. Так APK не попадает ни в основную ветку, ни в историю.
- * Забирается оттуда как обычный файл; инструкция — в README.
- *
- * Работает только в CI и при наличии токена; локальные сборки ничего не публикуют.
- * Отключается флагом `-PpublishApk=false`.
+ * После успешного `:app:assembleDebug` в CI вызывается `tools/publish_apk.sh`: он кладёт APK
+ * в ветку `apk-build` (одной ревизией без истории) и, если доступен токен, в релиз `apk-latest`.
+ * Ветку и историю основного репозитория это не затрагивает; APK в git-историю не попадает.
+ * Локальные сборки ничего не публикуют; отключается флагом `-PpublishApk=false`.
  */
 val publishApkEnabled = providers.gradleProperty("publishApk").orNull != "false" &&
     System.getenv("CI") == "true"
@@ -79,70 +75,28 @@ val publishApkEnabled = providers.gradleProperty("publishApk").orNull != "false"
 val publishDebugApk = tasks.register("publishDebugApk") {
     val apk = layout.buildDirectory.file("outputs/apk/debug/app-debug.apk")
     val repo = rootDir
-    // APK всегда попадает в эту ветку; при наличии токена с правом release — ещё и в релиз.
-    val branch = "apk-build"
     doLast {
-        // Публикация — вспомогательный шаг: её сбой не должен валить сборку.
-        runCatching {
         val apkFile = apk.get().asFile
         if (!apkFile.isFile) {
-            println("::error::publishDebugApk: APK не найден: ${apkFile.absolutePath}")
+            println("::warning::publishDebugApk: APK не найден, пропускаю")
             return@doLast
         }
-        val work = File(repo, "build/apk-publish")
-        work.deleteRecursively()
-        work.mkdirs()
-        apkFile.copyTo(File(work, "haqomu-debug.apk"), overwrite = true)
-        val stamp = File(work, "BUILD.txt")
-        val sha = ProcessBuilder("git", "rev-parse", "--short=7", "HEAD")
-            .directory(repo).start().inputStream.bufferedReader().readText().trim()
-        stamp.writeText("Haqomu debug APK\ncommit: $sha\n")
-        val script = """
-            set -e
-            blob=${'$'}(git hash-object -w build/apk-publish/haqomu-debug.apk)
-            meta=${'$'}(git hash-object -w build/apk-publish/BUILD.txt)
-            tree=${'$'}(printf '100644 blob %s\thaqomu-debug.apk\n100644 blob %s\tBUILD.txt\n' "${'$'}blob" "${'$'}meta" | git mktree)
-            commit=${'$'}(GIT_AUTHOR_NAME=ci GIT_AUTHOR_EMAIL=ci@localhost GIT_COMMITTER_NAME=ci GIT_COMMITTER_EMAIL=ci@localhost git commit-tree "${'$'}tree" -m "APK $sha")
-            git push --force origin "${'$'}commit:refs/heads/$branch"
-        """.trimIndent()
-        val process = ProcessBuilder("bash", "-c", script)
-            .directory(repo)
-            .redirectErrorStream(true).start()
+        // Публикация — вспомогательный шаг: её сбой не валит сборку и не красит прогон.
+        val process = runCatching {
+            ProcessBuilder("bash", "tools/publish_apk.sh", apkFile.absolutePath)
+                .directory(repo).redirectErrorStream(true).start()
+        }.getOrNull()
+        if (process == null) {
+            println("::warning::publishDebugApk: скрипт не запустился")
+            return@doLast
+        }
         val out = process.inputStream.bufferedReader().readText().trim()
-        // Сообщения через workflow-команды: они видны в аннотациях прогона,
-        // даже когда полный лог недоступен.
-        if (process.waitFor() == 0) {
-            println("::notice::publishDebugApk: APK $sha в ветке $branch")
+        val code = process.waitFor()
+        println(out)
+        if (code == 0) {
+            println("::notice::publishDebugApk: APK опубликован")
         } else {
-            println("::error::publishDebugApk: ветка не обновлена: " + out.replace("\n", " | "))
-        }
-        // Дополнительно — в релиз apk-latest: там ссылка постоянная и удобна для телефона.
-        // Токен берём из git-конфига checkout-экшена (в env его нет) и передаём `gh`.
-        val token = runCatching {
-            val header = ProcessBuilder("bash", "-c", "git config --get http.https://github.com/.extraheader")
-                .directory(repo).start().inputStream.bufferedReader().readText()
-                .substringAfter("basic ", "").substringBefore(":", "").trim()
-            String(java.util.Base64.getDecoder().decode(header)).substringAfter("x-access-token:")
-        }.getOrDefault("")
-        if (token.isEmpty()) return@doLast
-        ProcessBuilder("gh", "release", "view", "apk-latest")
-            .directory(repo).redirectErrorStream(true)
-            .apply { environment()["GH_TOKEN"] = token }
-            .start().let { it.inputStream.readBytes(); it.waitFor() }
-        val release = ProcessBuilder(
-            "gh", "release", "upload", "apk-latest",
-            "build/apk-publish/haqomu-debug.apk#haqomu-debug.apk", "--clobber",
-        ).directory(repo).redirectErrorStream(true)
-            .apply { environment()["GH_TOKEN"] = token }
-            .start()
-        val releaseOut = release.inputStream.bufferedReader().readText().trim()
-        if (release.waitFor() == 0) {
-            println("::notice::publishDebugApk: APK $sha в релизе apk-latest")
-        } else {
-            println("::warning::publishDebugApk: релиз недоступен: " + releaseOut.replace("\n", " | "))
-        }
-        }.onFailure {
-            println("::error::publishDebugApk: исключение: " + (it.message ?: it.javaClass.name))
+            println("::warning::publishDebugApk: опубликовать не удалось (см. лог шага)")
         }
     }
 }

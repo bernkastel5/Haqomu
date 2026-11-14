@@ -189,14 +189,17 @@ KSAA без ранкера — 54%, с ранкером — 57%, Hans Wehr — 5
 
 ## Тестовая сборка для телефона
 
-CI собирает debug-APK при каждом push (`:app:assembleDebug`), а Gradle-хук
-`publishDebugApk` кладёт его в ветку **`apk-build`** — одной ревизией без истории
-(и, если токен CI это позволяет, в релиз `apk-latest`). APK в основной ветке и в истории
-не появляется: это артефакт сборки.
+CI собирает debug-APK (`:app:assembleDebug`), а скрипт `tools/publish_apk.sh` после сборки
+кладёт его в ветку **`apk-build`** — одной ревизией без истории — и, если прогону доступен
+токен, в релиз **`apk-latest`**. APK в основной ветке и в истории не появляется.
 
-- Файл: [`haqomu-debug.apk`](https://github.com/bernkastel5/Haqomu/raw/apk-build/haqomu-debug.apk)
-  (рядом лежит `BUILD.txt` с коммитом, из которого он собран)
-- Копия для телефона — в корне Google Drive (`haqomu-debug.apk`), кладётся отдельно.
+- Ветка: `apk-build/haqomu-debug.apk` (+ `BUILD.txt` с коммитом и размером)
+- Релиз: <https://github.com/bernkastel5/Haqomu/releases/tag/apk-latest>
+
+Публикация требует **права записи у токена рабочего процесса**:
+Settings → Actions → General → Workflow permissions → *Read and write permissions*.
+Пока стоит read-only, сборка зелёная, а шаг публикации выдаёт предупреждение
+в аннотациях прогона.
 
 Установка: скачать файл на телефоне, разрешить установку из этого источника, открыть.
 Пакет `com.bernkastel5.haqomu.debug` — ставится рядом с release-версией; подпись —
