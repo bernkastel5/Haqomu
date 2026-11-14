@@ -26,7 +26,7 @@ class AndroidPackWriter(private val outPath: String) : AutoCloseable {
     init {
         File(outPath).delete()
         db = SQLiteDatabase.openOrCreateDatabase(outPath, null)
-        db.execSQL(SCHEMA)
+        for (stmt in SCHEMA_STATEMENTS) db.execSQL(stmt)
         db.beginTransaction()
         insEntry = db.compileStatement(
             "INSERT INTO entry(id, head, head_norm, root, pos, pattern, source) VALUES (?,?,?,?,?,?,?)"
@@ -106,31 +106,15 @@ class AndroidPackWriter(private val outPath: String) : AutoCloseable {
     }
 
     companion object {
-        private const val SCHEMA = """
-        CREATE TABLE meta (key TEXT PRIMARY KEY, value TEXT);
-        CREATE TABLE entry (
-          id INTEGER PRIMARY KEY,
-          head TEXT NOT NULL,
-          head_norm TEXT NOT NULL,
-          root TEXT,
-          pos TEXT,
-          pattern TEXT,
-          source TEXT
-        );
-        CREATE INDEX idx_entry_norm ON entry(head_norm);
-        CREATE INDEX idx_entry_root ON entry(root);
-        CREATE TABLE sense (
-          id INTEGER PRIMARY KEY,
-          entry_id INTEGER NOT NULL REFERENCES entry(id),
-          ord INTEGER NOT NULL,
-          definition TEXT NOT NULL,
-          gloss_en TEXT,
-          example TEXT,
-          tags TEXT
-        );
-        CREATE INDEX idx_sense_entry ON sense(entry_id);
-        CREATE VIRTUAL TABLE sense_fts USING fts5(definition, gloss_en, content='sense', content_rowid='id');
-        """
+        private val SCHEMA_STATEMENTS = listOf(
+            "CREATE TABLE meta (key TEXT PRIMARY KEY, value TEXT)",
+            "CREATE TABLE entry (id INTEGER PRIMARY KEY, head TEXT NOT NULL, head_norm TEXT NOT NULL, root TEXT, pos TEXT, pattern TEXT, source TEXT)",
+            "CREATE INDEX idx_entry_norm ON entry(head_norm)",
+            "CREATE INDEX idx_entry_root ON entry(root)",
+            "CREATE TABLE sense (id INTEGER PRIMARY KEY, entry_id INTEGER NOT NULL REFERENCES entry(id), ord INTEGER NOT NULL, definition TEXT NOT NULL, gloss_en TEXT, example TEXT, tags TEXT)",
+            "CREATE INDEX idx_sense_entry ON sense(entry_id)",
+            "CREATE VIRTUAL TABLE sense_fts USING fts5(definition, gloss_en, content='sense', content_rowid='id')",
+        )
 
         /**
          * Пост-проверка готового пака перед установкой: обязан пройти тот же PackChecks,

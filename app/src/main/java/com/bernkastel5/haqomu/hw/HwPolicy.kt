@@ -226,7 +226,7 @@ object HwPolicy {
             return " " !in w && key.length in 2..5 && AR_ONLY.matches(stripDiacritics(w))
         }
 
-        val roots = rows.filter(::isCandidate).map { it.id }.sorted().toSet()
+        val roots = rows.filter { isCandidate(it) }.map { it.id }.sorted().toSet()
         val rootList = roots.sorted()
         val rootOf = HashMap<Long, Long>(rows.size * 2)
         var prev: Long? = null
