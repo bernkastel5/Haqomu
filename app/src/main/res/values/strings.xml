@@ -130,26 +130,6 @@
     <string name="morph_note">Скачайте официальный архив CAMeL-Lab calima-msa-r13 (около 40 МБ, GPL-2) и выберите здесь архив .zip или файл morphology.db. Конвертация происходит на этом устройстве; файл никуда не передаётся.</string>
     <string name="morph_pick">Подготовить морфологию из файла…</string>
     <string name="morph_working">Строк прочитано: %1$d</string>
-    <string name="wizard_title">Мастер установки</string>
-    <string name="wizard_intro">Одна кнопка: скачать официальные копии у источников, сконвертировать на устройстве, проверить и установить. Ничего не отправляется с устройства.</string>
-    <string name="wizard_camel_name">Морфология CAMeL (calima-msa-r13)</string>
-    <string name="wizard_camel_desc">40,5 МБ, GPL-2: разбор арабских словоформ</string>
-    <string name="wizard_hw_name">Hans Wehr (арабско-английский)</string>
-    <string name="wizard_hw_desc">≈ 20 МБ, текст охраняется авторским правом: только личное использование</string>
-    <string name="wizard_kaikki_name">Kaikki (Wiktionary ar→en)</string>
-    <string name="wizard_kaikki_desc">≈ 72 МБ в архиве, 233 тыс. статей, CC BY-SA 4.0</string>
-    <string name="wizard_ksaa_name">KSAA (معجم الرياض)</string>
-    <string name="wizard_ksaa_desc">Онлайн-источник: ставить нечего. Запросы уходят напрямую в siwar.ksaa.gov.sa с атрибуцией; скачивание и зеркало запрещены условиями KSAA.</string>
-    <string name="wizard_consent">Я принимаю условия источников: CAMeL-Lab (GPL-2), Hans Wehr (личное использование), Kaikki/Wiktionary (CC BY-SA 4.0)</string>
-    <string name="wizard_install_all">Установить всё</string>
-    <string name="wizard_note">Файлы качаются у официальных источников; Haqomu ничего не раздаёт. Временные файлы удаляются после установки.</string>
-    <string name="wizard_step_downloading_pct">Скачивание… %1$d%%</string>
-    <string name="wizard_step_downloading_mb">Скачивание… %1$s</string>
-    <string name="wizard_step_converting">Конвертация… строк: %1$d</string>
-    <string name="wizard_step_verifying">Проверка пака…</string>
-    <string name="wizard_step_done">Готово: %1$s</string>
-    <string name="wizard_step_failed">Ошибка: %1$s</string>
-    <string name="wizard_retry">Повторить</string>
     <string name="morph_done">Морфология подготовлена</string>
     <string name="morph_failed">Не удалось подготовить морфологию: %1$s</string>
 </resources>

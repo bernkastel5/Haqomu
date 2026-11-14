@@ -35,7 +35,7 @@ class AndroidCamelPackWriter(private val outPath: String) : PackSink, Closeable 
     init {
         File(outPath).delete()
         db = SQLiteDatabase.openOrCreateDatabase(outPath, null)
-        for (stmt in SCHEMA_STATEMENTS) db.execSQL(stmt)
+        db.execSQL(SCHEMA)
         db.beginTransaction()
         insStem = db.compileStatement("INSERT INTO stems VALUES (?,?,?,?,?,?,?)")
         insAffix = db.compileStatement("INSERT INTO affixes VALUES (?,?,?,?)")
@@ -97,12 +97,19 @@ class AndroidCamelPackWriter(private val outPath: String) : PackSink, Closeable 
     }
 
     companion object {
-        private val SCHEMA_STATEMENTS = listOf(
-            "CREATE TABLE meta (key TEXT PRIMARY KEY, value TEXT)",
-            "CREATE TABLE stems (stem TEXT NOT NULL, cat TEXT NOT NULL, pos TEXT NOT NULL, lex TEXT NOT NULL, lex_logprob REAL NOT NULL, root TEXT, feats TEXT)",
-            "CREATE TABLE affixes (form TEXT NOT NULL, kind TEXT NOT NULL CHECK(kind IN ('prefix','suffix')), cat TEXT NOT NULL, feats TEXT NOT NULL)",
-            "CREATE TABLE compat (kind TEXT NOT NULL CHECK(kind IN ('ab','bc','ac')), a TEXT NOT NULL, b TEXT NOT NULL)",
-        )
+        private const val SCHEMA = """
+        CREATE TABLE meta (key TEXT PRIMARY KEY, value TEXT);
+        CREATE TABLE stems (
+          stem TEXT NOT NULL, cat TEXT NOT NULL, pos TEXT NOT NULL,
+          lex TEXT NOT NULL, lex_logprob REAL NOT NULL, root TEXT, feats TEXT
+        );
+        CREATE TABLE affixes (
+          form TEXT NOT NULL, kind TEXT NOT NULL CHECK(kind IN ('prefix','suffix')),
+          cat TEXT NOT NULL, feats TEXT NOT NULL
+        );
+        CREATE TABLE compat (kind TEXT NOT NULL CHECK(kind IN ('ab','bc','ac')),
+                             a TEXT NOT NULL, b TEXT NOT NULL);
+        """
 
         /**
          * Строки morphology.db из потока (или из .zip, содержащего его).
