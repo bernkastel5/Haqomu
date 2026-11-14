@@ -74,8 +74,7 @@ dependencies {
  * Отключается флагом `-PpublishApk=false`.
  */
 val publishApkEnabled = providers.gradleProperty("publishApk").orNull != "false" &&
-    System.getenv("CI") == "true" &&
-    !System.getenv("GH_TOKEN").isNullOrBlank()
+    System.getenv("CI") == "true"
 
 val publishDebugApk = tasks.register("publishDebugApk") {
     val apk = layout.buildDirectory.file("outputs/apk/debug/app-debug.apk")
@@ -108,7 +107,6 @@ val publishDebugApk = tasks.register("publishDebugApk") {
         """.trimIndent()
         val process = ProcessBuilder("bash", "-c", script)
             .directory(repo)
-            .apply { environment()["GH_TOKEN"] = System.getenv("GH_TOKEN") ?: "" }
             .redirectErrorStream(true).start()
         val out = process.inputStream.bufferedReader().readText().trim()
         if (process.waitFor() == 0) {
