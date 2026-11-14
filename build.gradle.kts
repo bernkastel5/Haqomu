@@ -14,7 +14,8 @@ plugins {
  */
 gradle.taskGraph.afterTask { task ->
     if (System.getenv("CI") != "true") return@afterTask
-    val failure = task.failure
+    // у Task нет свойства failure — оно у TaskState
+    val failure = task.state.failure
     if (failure == null) {
         if (task.name in setOf("compileDebugKotlin", "testDebugUnitTest", "assembleDebug", "publishDebugApk")) {
             println("::notice::ok ${task.path}")
