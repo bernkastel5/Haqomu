@@ -189,12 +189,14 @@ KSAA без ранкера — 54%, с ранкером — 57%, Hans Wehr — 5
 
 ## Тестовая сборка для телефона
 
-Каждый push в ветку собирает debug-APK и выкладывает его в «плавающий» релиз
-**apk-latest** (workflow `apk.yml`; пока лежит только в рабочей копии — GitHub-подключение
-без права `workflows`, см. PROJECT_STATE №18). APK в git не коммитится — это артефакт сборки.
+CI собирает debug-APK при каждом push (`:app:assembleDebug`), а Gradle-хук
+`publishDebugApk` кладёт его в ветку **`apk-build`** — одной ревизией без истории
+(и, если токен CI это позволяет, в релиз `apk-latest`). APK в основной ветке и в истории
+не появляется: это артефакт сборки.
 
-- Постоянная ссылка: <https://github.com/bernkastel5/Haqomu/releases/download/apk-latest/haqomu-debug.apk>
-- Страница со всеми сборками: <https://github.com/bernkastel5/Haqomu/releases/tag/apk-latest>
+- Файл: [`haqomu-debug.apk`](https://github.com/bernkastel5/Haqomu/raw/apk-build/haqomu-debug.apk)
+  (рядом лежит `BUILD.txt` с коммитом, из которого он собран)
+- Копия для телефона — в корне Google Drive (`haqomu-debug.apk`), кладётся отдельно.
 
 Установка: скачать файл на телефоне, разрешить установку из этого источника, открыть.
 Пакет `com.bernkastel5.haqomu.debug` — ставится рядом с release-версией; подпись —

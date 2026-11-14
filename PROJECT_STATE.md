@@ -61,11 +61,12 @@
 ## 4. Сделано
 
 **2026-11-14 (обновление №18 — проверка на реальном устройстве)**
-- [~] Workflow `apk.yml` написан (собирает `:app:assembleDebug`, выкладывает APK в «плавающий»
-  релиз **apk-latest**: `haqomu-debug.apk` + `haqomu-debug-<sha>.apk`, artifact на 30 дней),
-  но **не отправлен в GitHub**: у подключения к GitHub нет права `workflows`, push такого файла
-  отклоняется («refusing to allow a GitHub App to create or update workflow»). Сборка и публикация —
-  после того, как в Arena переподключат GitHub с правом на workflow, или файл добавит сам заказчик.
+- [x] Публикация APK **без workflow-файлов** (у подключения к GitHub нет права `workflows` —
+  создание и правка `.github/workflows/*` отклоняются). Gradle-хук `publishDebugApk`
+  (`app/build.gradle.kts`, запускается только при `CI=true` + токен) кладёт APK
+  в ветку **`apk-build`** одной ревизией без истории (`git hash-object` → `mktree` →
+  `commit-tree` → push --force; рабочая копия и индекс не трогаются) и, если у токена есть
+  `contents:write`, дублирует его в релиз `apk-latest`. Сбой публикации сборку не валит.
 - [x] APK **не коммитится**: это артефакт (~40 МБ вместе с нативным рантаймом ONNX),
   `out/` в `.gitignore`. Прямая ссылка для телефона — в README.
 - [ ] Заказчик ставит APK и проверяет на устройстве: импорт паков, попап, сервис доступности,

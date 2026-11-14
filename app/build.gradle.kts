@@ -60,3 +60,77 @@ dependencies {
 
     testImplementation(libs.junit)
 }
+
+/**
+ * Публикация тестового APK для проверки на телефоне.
+ *
+ * CI прогоняет `:app:assembleDebug`; после успешной сборки этот хук кладёт готовый APK
+ * в ветку `apk-build` — одной ревизией без истории (у коммита нет родителей), через
+ * низкоуровневые `git hash-object`/`mktree`/`commit-tree`, чтобы не трогать рабочую копию
+ * и индекс основного репозитория. Так APK не попадает ни в основную ветку, ни в историю.
+ * Забирается оттуда как обычный файл; инструкция — в README.
+ *
+ * Работает только в CI и при наличии токена; локальные сборки ничего не публикуют.
+ * Отключается флагом `-PpublishApk=false`.
+ */
+val publishApkEnabled = providers.gradleProperty("publishApk").orNull != "false" &&
+    System.getenv("CI") == "true" &&
+    !System.getenv("GH_TOKEN").isNullOrBlank()
+
+val publishDebugApk = tasks.register("publishDebugApk") {
+    val apk = layout.buildDirectory.file("outputs/apk/debug/app-debug.apk")
+    val repo = rootDir
+    // APK всегда попадает в эту ветку; при наличии токена с правом release — ещё и в релиз.
+    val branch = "apk-build"
+    doLast {
+        // Публикация — вспомогательный шаг: её сбой не должен валить сборку.
+        runCatching {
+        val apkFile = apk.get().asFile
+        if (!apkFile.isFile) {
+            logger.lifecycle("publishDebugApk: APK не найден, пропускаю")
+            return@doLast
+        }
+        val work = File(repo, "build/apk-publish")
+        work.deleteRecursively()
+        work.mkdirs()
+        apkFile.copyTo(File(work, "haqomu-debug.apk"), overwrite = true)
+        val stamp = File(work, "BUILD.txt")
+        val sha = ProcessBuilder("git", "rev-parse", "--short=7", "HEAD")
+            .directory(repo).start().inputStream.bufferedReader().readText().trim()
+        stamp.writeText("Haqomu debug APK\ncommit: $sha\n")
+        val script = """
+            set -e
+            blob=${'$'}(git hash-object -w build/apk-publish/haqomu-debug.apk)
+            meta=${'$'}(git hash-object -w build/apk-publish/BUILD.txt)
+            tree=${'$'}(printf '100644 blob %s\thaqomu-debug.apk\n100644 blob %s\tBUILD.txt\n' "${'$'}blob" "${'$'}meta" | git mktree)
+            commit=${'$'}(GIT_AUTHOR_NAME=ci GIT_AUTHOR_EMAIL=ci@localhost GIT_COMMITTER_NAME=ci GIT_COMMITTER_EMAIL=ci@localhost git commit-tree "${'$'}tree" -m "APK $sha")
+            git push --force origin "${'$'}commit:refs/heads/$branch"
+        """.trimIndent()
+        val process = ProcessBuilder("bash", "-c", script)
+            .directory(repo)
+            .apply { environment()["GH_TOKEN"] = System.getenv("GH_TOKEN") ?: "" }
+            .redirectErrorStream(true).start()
+        val out = process.inputStream.bufferedReader().readText().trim()
+        if (process.waitFor() == 0) {
+            logger.lifecycle("publishDebugApk: APK $sha опубликован в ветку $branch")
+        } else {
+            logger.lifecycle("publishDebugApk: публикация в ветку не удалась: $out")
+        }
+        // Дополнительно — в релиз apk-latest, если у токена есть право contents:write.
+        val release = ProcessBuilder(
+            "gh", "release", "upload", "apk-latest",
+            "build/apk-publish/haqomu-debug.apk#haqomu-debug.apk", "--clobber",
+        ).directory(repo).redirectErrorStream(true).start()
+        val releaseOut = release.inputStream.bufferedReader().readText().trim()
+        logger.lifecycle(
+            if (release.waitFor() == 0) "publishDebugApk: APK $sha в релизе apk-latest"
+            else "publishDebugApk: релиз недоступен: $releaseOut"
+        )
+        }.onFailure { logger.lifecycle("publishDebugApk: пропущено (${it.message})") }
+    }
+}
+
+// Хук привязан к задаче сборки debug-варианта, чтобы не зависеть от имени агрегата.
+tasks.matching { it.name == "assembleDebug" }.configureEach {
+    if (publishApkEnabled) finalizedBy(publishDebugApk)
+}
