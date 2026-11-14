@@ -124,4 +124,12 @@
     <string name="check_orphans">All senses reference an entry</string>
     <string name="check_headnorm">head_norm is filled in</string>
     <string name="check_fts">FTS5 module works</string>
+    <string name="morph_title">CAMeL morphology</string>
+    <string name="morph_status_missing">Not prepared yet. Required for word analysis, clitics and lemmas.</string>
+    <string name="morph_status_ready">Prepared: %1$s stems · %2$s · built %3$s</string>
+    <string name="morph_note">Download the official CAMeL-Lab calima-msa-r13 archive (about 40 MB, GPL-2) and pick the .zip or the morphology.db file here. The conversion runs on this device; the file is never sent anywhere.</string>
+    <string name="morph_pick">Prepare morphology from a file…</string>
+    <string name="morph_working">Lines read: %1$d</string>
+    <string name="morph_done">Morphology prepared</string>
+    <string name="morph_failed">Could not prepare morphology: %1$s</string>
 </resources>

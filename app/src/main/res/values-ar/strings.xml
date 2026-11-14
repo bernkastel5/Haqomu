@@ -124,4 +124,12 @@
     <string name="check_orphans">ترتبط كل المعاني بمادة</string>
     <string name="check_headnorm">head_norm مملوء</string>
     <string name="check_fts">وحدة FTS5 تعمل</string>
+    <string name="morph_title">صرف CAMeL</string>
+    <string name="morph_status_missing">غير مجهّزة بعد. مطلوبة لتحليل الكلمات والسوابق والأصول.</string>
+    <string name="morph_status_ready">مجهّزة: %1$s جذعًا · %2$s · بُنيت %3$s</string>
+    <string name="morph_note">نزّل الأرشيف الرسمي من CAMeL-Lab وهو calima-msa-r13 (نحو 40 ميغابايت، GPL-2) ثم اختر هنا ملف .zip أو morphology.db. يتم التحويل على هذا الجهاز، ولا يُرسل الملف إلى أي مكان.</string>
+    <string name="morph_pick">تجهيز الصرف من ملف…</string>
+    <string name="morph_working">الأسطر المقروءة: %1$d</string>
+    <string name="morph_done">تم تجهيز الصرف</string>
+    <string name="morph_failed">تعذر تجهيز الصرف: %1$s</string>
 </resources>

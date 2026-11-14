@@ -124,4 +124,12 @@
     <string name="check_orphans">Все смыслы связаны со статьями</string>
     <string name="check_headnorm">head_norm заполнен</string>
     <string name="check_fts">Модуль FTS5 работает</string>
+    <string name="morph_title">Морфология CAMeL</string>
+    <string name="morph_status_missing">Не подготовлена. Нужна для разбора слов, клитик и лемм.</string>
+    <string name="morph_status_ready">Подготовлена: %1$s стеблей · %2$s · собрана %3$s</string>
+    <string name="morph_note">Скачайте официальный архив CAMeL-Lab calima-msa-r13 (около 40 МБ, GPL-2) и выберите здесь архив .zip или файл morphology.db. Конвертация происходит на этом устройстве; файл никуда не передаётся.</string>
+    <string name="morph_pick">Подготовить морфологию из файла…</string>
+    <string name="morph_working">Строк прочитано: %1$d</string>
+    <string name="morph_done">Морфология подготовлена</string>
+    <string name="morph_failed">Не удалось подготовить морфологию: %1$s</string>
 </resources>

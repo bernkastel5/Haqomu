@@ -110,6 +110,8 @@ fun ImportPacksScreen(onBack: () -> Unit) {
                     color = MaterialTheme.colorScheme.onBackground,
                 )
 
+                MorphologySection()
+
                 if (installed.isNotEmpty()) {
                     Text(
                         text = stringResource(R.string.import_installed),
