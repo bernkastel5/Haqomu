@@ -61,20 +61,26 @@ android {
 
 println("::notice::C: android {} настроен, versionCode=" + resolvedVersionCode())
 
-// Временная диагностика: печатаем причину падения задач в аннотации прогона.
-tasks.configureEach {
-    if (System.getenv("CI") != "true") return@configureEach
-    if (name !in setOf("compileDebugKotlin", "testDebugUnitTest", "assembleDebug")) return@configureEach
-    doFirst { println("::notice::start " + path) }
-    doLast { println("::notice::done " + path) }
+// Диагностика в CI: полные логи прогона недоступны, поэтому причину падения сборки
+// печатаем workflow-командами — они видны в аннотациях (::error::/::notice::).
+if (System.getenv("CI") == "true") {
+    gradle.buildFinished { result ->
+        val failure = result.failure
+        if (failure == null) {
+            println("::notice::HAQOMU-BUILD: успешно")
+        } else {
+            val text = generateSequence(failure) { it.cause }
+                .flatMap { (it.message ?: it.javaClass.simpleName).lineSequence() }
+                .map { it.trim() }
+                .filter { it.isNotEmpty() }
+                .distinct()
+                .take(12)
+                .joinToString(" | ")
+            println("::error::HAQOMU-BUILD: " + text.take(1200))
+        }
+    }
 }
-gradle.taskGraph.afterTask { task ->
-    if (System.getenv("CI") != "true") return@afterTask
-    val failure = task.state.failure ?: return@afterTask
-    val message = (failure.message ?: failure.javaClass.name)
-        .lineSequence().filter { it.isNotBlank() }.take(6).joinToString(" | ")
-    println("::error::fail " + task.path + ": " + message)
-}
+
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
