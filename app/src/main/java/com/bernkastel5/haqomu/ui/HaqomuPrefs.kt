@@ -13,6 +13,7 @@ object HaqomuPrefs {
     private const val KEY_THEME = "theme_mode"
     private const val KEY_TEXT_SCALE = "arabic_text_scale"
     private const val KEY_DECK = "anki_deck"
+    private const val KEY_CONNECT_URL = "anki_connect_url"
 
     private fun prefs(context: Context) =
         context.getSharedPreferences(FILE, Context.MODE_PRIVATE)
@@ -51,4 +52,10 @@ object HaqomuPrefs {
 
     fun setAnkiDeck(context: Context, deck: String) =
         prefs(context).edit().putString(KEY_DECK, deck.trim().ifEmpty { "Haqomu" }).apply()
+
+    fun ankiConnectUrl(context: Context): String =
+        prefs(context).getString(KEY_CONNECT_URL, "http://localhost:8765") ?: "http://localhost:8765"
+
+    fun setAnkiConnectUrl(context: Context, url: String) =
+        prefs(context).edit().putString(KEY_CONNECT_URL, url.trim().ifEmpty { "http://localhost:8765" }).apply()
 }

@@ -20,8 +20,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -29,7 +27,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -38,6 +35,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.bernkastel5.haqomu.AnkiCardActivity
 import com.bernkastel5.haqomu.R
 import com.bernkastel5.haqomu.camel.MorphologyPack
 import com.bernkastel5.haqomu.lookup.LookupQuery
@@ -121,10 +119,6 @@ fun LookupPopupScreen(
                 .background(MaterialTheme.colorScheme.surface)
                 .padding(horizontal = 18.dp, vertical = 14.dp),
         ) {
-            val snackbarHost = remember { SnackbarHostState() }
-            SnackbarHost(snackbarHost, modifier = Modifier.fillMaxWidth()) { data ->
-                androidx.compose.material3.Snackbar(data)
-            }
             when (val st = state) {
                 PopupState.Loading -> LoadingSheet(modifier = Modifier.weight(1f))
                 PopupState.Invalid -> PlateSheet(
@@ -150,7 +144,6 @@ fun LookupPopupScreen(
                 is PopupState.Ready -> ReadySheet(
                     modifier = Modifier.weight(1f),
                     content = st.content,
-                    snackbarHost = snackbarHost,
                     onClose = onClose,
                 )
             }
@@ -208,13 +201,10 @@ private fun PlateSheet(
 private fun ReadySheet(
     modifier: Modifier = Modifier,
     content: PopupContent,
-    snackbarHost: SnackbarHostState,
     onClose: () -> Unit,
 ) {
     val context = LocalContext.current
     val scale = HaqomuPrefs.arabicTextScale(context)
-    val scope = rememberCoroutineScope()
-    val ankiSnack = stringResource(R.string.popup_anki_unavailable)
 
     Column(modifier = modifier.fillMaxWidth().padding(top = 4.dp)) {
         CompositionRtl {
@@ -296,7 +286,7 @@ private fun ReadySheet(
                 }
             } else {
                 content.articles.forEach { article ->
-                    ArticleCard(article = article, scale = scale)
+                    ArticleCard(article = article, scale = scale, onClose = onClose)
                 }
             }
         }
@@ -311,12 +301,6 @@ private fun ReadySheet(
         }
         Row(modifier = Modifier.fillMaxWidth().padding(top = 8.dp)) {
             TextButton(onClick = onClose) { Text(stringResource(R.string.popup_close)) }
-            Spacer(Modifier.weight(1f))
-            if (content.mode == PopupMode.ARTICLES && content.articles.isNotEmpty()) {
-                Button(onClick = { scope.launch { snackbarHost.showSnackbar(ankiSnack) } }) {
-                    Text(stringResource(R.string.popup_in_anki))
-                }
-            }
         }
     }
 }
@@ -324,7 +308,30 @@ private fun ReadySheet(
 // ---------------------------------------------------------------- статья
 
 @Composable
-private fun ArticleCard(article: PopupArticle, scale: Float) {
+private fun ArticleCard(article: PopupArticle, scale: Float, onClose: () -> Unit) {
+    val context = LocalContext.current
+    val dictionaryLabel = sourceLabel(article.sourceFamily)
+
+    fun openAnki(senseDefinition: String, glossEn: String?) {
+        val meaning = if (!glossEn.isNullOrBlank() && glossEn.trim() != senseDefinition.trim()) {
+            senseDefinition.trim() + "\n\n" + glossEn.trim()
+        } else {
+            senseDefinition.trim()
+        }
+        context.startActivity(
+            AnkiCardActivity.newIntent(
+                context = context,
+                expression = article.head,
+                tashkeel = article.head,
+                meaning = meaning,
+                sentence = "",
+                root = article.root.orEmpty(),
+                dictionary = dictionaryLabel,
+            )
+        )
+        onClose()
+    }
+
     Card(
         modifier = Modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.55f)),
@@ -360,6 +367,7 @@ private fun ArticleCard(article: PopupArticle, scale: Float) {
                     definition = sense.definition,
                     glossEn = sense.glossEn,
                     scale = scale,
+                    onAnki = { openAnki(sense.definition, sense.glossEn) },
                 )
             }
         }
@@ -367,8 +375,11 @@ private fun ArticleCard(article: PopupArticle, scale: Float) {
 }
 
 @Composable
-private fun SenseRow(number: String, definition: String, glossEn: String?, scale: Float) {
-    Row(modifier = Modifier.padding(bottom = 8.dp)) {
+private fun SenseRow(number: String, definition: String, glossEn: String?, scale: Float, onAnki: () -> Unit) {
+    Row(
+        modifier = Modifier.padding(bottom = 8.dp),
+        verticalAlignment = androidx.compose.ui.Alignment.CenterVertically,
+    ) {
         Text(
             text = number,
             fontFamily = FontFamily.Serif,
@@ -377,7 +388,7 @@ private fun SenseRow(number: String, definition: String, glossEn: String?, scale
             color = MaterialTheme.colorScheme.primary,
             modifier = Modifier.width(28.dp),
         )
-        Column {
+        Column(modifier = Modifier.weight(1f)) {
             CompositionRtl {
                 Text(
                     text = definition,
@@ -394,6 +405,9 @@ private fun SenseRow(number: String, definition: String, glossEn: String?, scale
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
+        }
+        TextButton(onClick = onAnki) {
+            Text(stringResource(R.string.popup_in_anki), style = MaterialTheme.typography.labelMedium)
         }
     }
 }

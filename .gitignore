@@ -19,6 +19,9 @@ packs/
 *.dict
 *.stardict
 *.apkg
+# собственный набор Haqomu (колода + note type + вводная карточка; словарных данных нет)
+# вшит в APK как raw-ресурс и публикуется в GitHub Releases
+!app/src/main/res/raw/haqomu.apkg
 *.zip
 
 # отчёты сборки содержат текст словарных статей — тоже не публикуем
