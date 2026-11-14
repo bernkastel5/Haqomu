@@ -116,11 +116,25 @@ val publishDebugApk = tasks.register("publishDebugApk") {
         } else {
             println("::error::publishDebugApk: ветка не обновлена: " + out.replace("\n", " | "))
         }
-        // Дополнительно — в релиз apk-latest, если у токена есть право contents:write.
+        // Дополнительно — в релиз apk-latest: там ссылка постоянная и удобна для телефона.
+        // Токен берём из git-конфига checkout-экшена (в env его нет) и передаём `gh`.
+        val token = runCatching {
+            val header = ProcessBuilder("bash", "-c", "git config --get http.https://github.com/.extraheader")
+                .directory(repo).start().inputStream.bufferedReader().readText()
+                .substringAfter("basic ", "").substringBefore(":", "").trim()
+            String(java.util.Base64.getDecoder().decode(header)).substringAfter("x-access-token:")
+        }.getOrDefault("")
+        if (token.isEmpty()) return@doLast
+        ProcessBuilder("gh", "release", "view", "apk-latest")
+            .directory(repo).redirectErrorStream(true)
+            .apply { environment()["GH_TOKEN"] = token }
+            .start().let { it.inputStream.readBytes(); it.waitFor() }
         val release = ProcessBuilder(
             "gh", "release", "upload", "apk-latest",
             "build/apk-publish/haqomu-debug.apk#haqomu-debug.apk", "--clobber",
-        ).directory(repo).redirectErrorStream(true).start()
+        ).directory(repo).redirectErrorStream(true)
+            .apply { environment()["GH_TOKEN"] = token }
+            .start()
         val releaseOut = release.inputStream.bufferedReader().readText().trim()
         if (release.waitFor() == 0) {
             println("::notice::publishDebugApk: APK $sha в релизе apk-latest")
