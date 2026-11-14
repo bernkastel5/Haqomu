@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Haqomu</string>
+
+    <string name="nav_back">Back</string>
+
+    <!-- Home -->
+    <string name="home_tagline">The meaning of the Arabic word, right where you selected it. Dictionaries are prepared on this device, never in the cloud.</string>
+    <string name="home_import">Import packs</string>
+    <string name="home_import_sub">Dictionary, CAMeL morphology, Kaikki</string>
+    <string name="home_anki">Anki setup</string>
+    <string name="home_anki_sub">Haqomu deck, the haqomu.apkg file</string>
+    <string name="home_preview">Popup preview</string>
+    <string name="home_preview_sub">What an entry and the «Add to Anki» button look like</string>
+    <string name="home_settings">Settings</string>
+    <string name="home_settings_sub">Theme, Arabic text size</string>
+    <string name="home_about">About</string>
+    <string name="home_about_sub">Licenses, data sources, privacy</string>
+
+    <!-- First-run wizard -->
+    <string name="wizard_step">Step %1$d of %2$d</string>
+    <string name="wizard_title_1">Dictionaries are not bundled</string>
+    <string name="wizard_body_1">Every dictionary has its own licence, so the APK ships no dictionary entries. The release contains only code and instructions. All dictionaries are prepared locally on this device from files you download yourself.</string>
+    <string name="wizard_title_2">What you will need</string>
+    <string name="wizard_body_2">The official CAMeL morphology archive, calima-msa-r13, 40 MB, GPL-2. It is converted on this device with one button in the import wizard. The KSAA dictionary (معجم الرياض), Hans Wehr and Kaikki are built by scripts in the repository. Without packs the app still works, but it shows no entries.</string>
+    <string name="wizard_title_3">How it works</string>
+    <string name="wizard_body_3">Select an Arabic word in any app and choose «Dictionary» in the selection menu. A popup opens with one to three entries. Every sense has an «Add to Anki» button: the card goes into the deck you choose. The floating button is optional and is off by default.</string>
+    <string name="wizard_back">Back</string>
+    <string name="wizard_next">Next</string>
+    <string name="wizard_done">Done</string>
+
+    <!-- Import packs -->
+    <string name="import_title">Import packs</string>
+    <string name="import_intro">Packs are stored on this device only. The app does not download dictionary data from the network.</string>
+    <string name="import_camel">CAMeL morphology (calima-msa-r13)</string>
+    <string name="import_camel_sub">Word form analysis and lemmas. Built on this device from the official CAMeL-Lab archive.</string>
+    <string name="import_ksaa">معجم الرياض للغة العربية (KSAA)</string>
+    <string name="import_ksaa_sub">The main Arabic-Arabic dictionary. Built on this device; the text is not redistributed.</string>
+    <string name="import_kaikki">Kaikki (Wiktionary)</string>
+    <string name="import_kaikki_sub">English glosses. CC BY-SA 4.0. Built with tools/build_kaikki_index.py.</string>
+    <string name="import_hw">Hans Wehr</string>
+    <string name="import_hw_sub">English senses. Built with tools/build_hw_pack.py. The file is not redistributed.</string>
+    <string name="import_pick">Choose a file…</string>
+    <string name="size_mb">%1$.1f MB</string>
+    <string name="size_kb">%1$d KB</string>
+
+    <!-- Anki setup -->
+    <string name="anki_title">Anki setup</string>
+    <string name="anki_intro">Cards from the popup go to AnkiDroid on this phone, or to Anki on your computer via the haqomu.apkg file.</string>
+    <string name="anki_step2">Open the file or use Share and send it to AnkiDroid. The Haqomu deck and note type appear automatically.</string>
+    <string name="anki_step3">On your computer open the same file: Anki Desktop imports the same deck and the same note type.</string>
+    <string name="anki_step4">Cards from the popup will go to the deck selected below. You can change the target deck at any time.</string>
+    <string name="anki_deck_label">Target deck</string>
+    <string name="anki_deck_hint">The deck the app sends cards to. Defaults to Haqomu.</string>
+    <string name="anki_connect_note">To add cards on your computer you can enable AnkiConnect in Anki Desktop. This is optional: export via .apkg works without it.</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_theme">Theme</string>
+    <string name="theme_system">System</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="settings_text_size">Arabic text size</string>
+    <string name="text_size_normal">Normal</string>
+    <string name="text_size_large">Large</string>
+    <string name="text_size_xlarge">Largest</string>
+    <string name="text_size_sample">ذَهَبَ الطَّالِبُ إِلَى الْمَدْرَسَةِ.</string>
+    <string name="text_size_hint">The size applies to dictionary entries in the popup.</string>
+    <string name="settings_floating">Floating button</string>
+    <string name="floating_caption">Arrives in the next build. The accessibility service reads only the sentence around the selection; the text is never saved or sent anywhere.</string>
+    <string name="settings_replay">Replay the setup wizard</string>
+
+    <!-- About -->
+    <string name="about_title">About</string>
+    <string name="about_version">Version %1$s · com.bernkastel5.haqomu</string>
+    <string name="about_tagline">A dictionary magnifier for Arabic text. Select a word in any app, choose «Dictionary», and get the meaning. No server, no accounts, no ads.</string>
+    <string name="about_code_title">Source code</string>
+    <string name="about_code_body">github.com/bernkastel5/Haqomu. The code is distributed under the GPL-3.0 license.</string>
+    <string name="about_data_title">Data and attribution</string>
+    <string name="about_data_kaikki">Kaikki (Wiktionary), English glosses: CC BY-SA 4.0</string>
+    <string name="about_data_camel">CAMeL Tools and the calima-msa-r13 database: GPL-2</string>
+    <string name="about_data_gloss">ArabGlossBERT (SinaLab): CC BY-SA 4.0</string>
+    <string name="about_data_ksaa">معجم الرياض للغة العربية, King Salman Global Academy for Arabic Language. The text is not redistributed.</string>
+    <string name="about_data_hw">Hans Wehr, A Dictionary of Modern Written Arabic. © Harrassowitz Verlag. The text is not redistributed.</string>
+    <string name="about_data_analyzer">Word form analysis ported from camel-tools: GPL-3.</string>
+    <string name="about_privacy_title">Privacy</string>
+    <string name="about_privacy_network">The app sends nothing to the network. The only exceptions: downloading the optional model via your button (arrives with the model) and building the morphology pack from the official CAMeL archive on this device.</string>
+    <string name="about_privacy_screen">Screen text is used only to find the sentence around the selected word. It is never stored.</string>
+    <string name="about_privacy_history">No lookup history is kept.</string>
+
+    <!-- Popup preview -->
+    <string name="preview_caption">Popup preview</string>
+    <string name="preview_source">Source: a synthetic example, not a dictionary entry</string>
+    <string name="preview_more">Up to two more entries by other lemmas appear below, as in the real popup.</string>
+    <string name="preview_in_anki">Add to Anki</string>
+    <string name="preview_snack">This is a preview. In the real popup the card goes to AnkiDroid or to your selected deck.</string>
+    <string name="preview_close">Tap outside to close the popup. Every sense of the entry is shown.</string>
+    <string name="import_installed">Installed packs</string>
+    <string name="import_install_done">Pack installed</string>
+    <string name="import_delete_done">Pack deleted</string>
+    <string name="import_unreadable">The file could not be read</string>
+    <string name="import_verify_ok">The pack passed verification</string>
+    <string name="import_verify_bad">The pack failed verification</string>
+    <string name="import_meta_source">Source: %1$s</string>
+    <string name="import_meta_license">License: %1$s</string>
+    <string name="import_meta_date">Built: %1$s</string>
+    <string name="import_meta_entries">Entries: %1$s</string>
+    <string name="import_meta_langs">Languages: %1$s to %2$s</string>
+    <string name="import_install">Install</string>
+    <string name="import_cancel">Cancel</string>
+    <string name="import_delete">Delete</string>
+    <string name="import_copy_note">Installation copies the file into the private folder of the app. Verification does not modify the source file.</string>
+    <string name="check_readable">The file is readable</string>
+    <string name="check_table">Table %1$s</string>
+    <string name="check_columns">Columns %1$s</string>
+    <string name="check_meta">meta field %1$s</string>
+    <string name="check_langs">Language pair (lang_from/lang_to)</string>
+    <string name="check_schema_version">Schema version is 1</string>
+    <string name="check_entry_count">Entry count matches meta</string>
+    <string name="check_entry_nonempty">The pack has entries</string>
+    <string name="check_senses_nonempty">The pack has senses</string>
+    <string name="check_orphans">All senses reference an entry</string>
+    <string name="check_headnorm">head_norm is filled in</string>
+    <string name="check_fts">FTS5 module works</string>
+    <string name="morph_title">CAMeL morphology</string>
+    <string name="morph_status_missing">Not prepared yet. Required for word analysis, clitics and lemmas.</string>
+    <string name="morph_status_ready">Prepared: %1$s stems · %2$s · built %3$s</string>
+    <string name="morph_note">Download the official CAMeL-Lab calima-msa-r13 archive (about 40 MB, GPL-2) and pick the .zip or the morphology.db file here. The conversion runs on this device; the file is never sent anywhere.</string>
+    <string name="morph_pick">Prepare morphology from a file…</string>
+    <string name="morph_working">Lines read: %1$d</string>
+    <string name="wizard_title">Installation wizard</string>
+    <string name="wizard_intro">One button: download official copies from the sources, convert on-device, verify and install. Nothing is sent from your device.</string>
+    <string name="wizard_camel_name">CAMeL morphology (calima-msa-r13)</string>
+    <string name="wizard_camel_desc">40.5 MB, GPL-2: Arabic word-form analysis</string>
+    <string name="wizard_hw_name">Hans Wehr (Arabic-English)</string>
+    <string name="wizard_hw_desc">≈ 20 MB, the text is copyrighted: personal use only</string>
+    <string name="wizard_kaikki_name">Kaikki (Wiktionary ar→en)</string>
+    <string name="wizard_kaikki_desc">≈ 72 MB archived, 233k entries, CC BY-SA 4.0</string>
+    <string name="wizard_ksaa_name">KSAA (معجم الرياض)</string>
+    <string name="wizard_ksaa_desc">Online source: nothing to install. Queries go straight to siwar.ksaa.gov.sa with attribution; bulk download and mirrors are forbidden by KSAA terms.</string>
+    <string name="wizard_consent">I accept the source terms: CAMeL-Lab (GPL-2), Hans Wehr (personal use), Kaikki/Wiktionary (CC BY-SA 4.0)</string>
+    <string name="wizard_install_all">Install everything</string>
+    <string name="wizard_note">Files are downloaded from the official sources; Haqomu does not redistribute anything. Temporary files are deleted after installation.</string>
+    <string name="wizard_step_downloading_pct">Downloading… %1$d%%</string>
+    <string name="wizard_step_downloading_mb">Downloading… %1$s</string>
+    <string name="wizard_step_converting">Converting… lines: %1$d</string>
+    <string name="wizard_step_verifying">Verifying pack…</string>
+    <string name="wizard_step_done">Done: %1$s</string>
+    <string name="wizard_step_failed">Error: %1$s</string>
+    <string name="wizard_retry">Retry</string>
+    <string name="morph_done">Morphology prepared</string>
+    <string name="morph_failed">Could not prepare morphology: %1$s</string>
+
+    <!-- Process-text menu and popup (Ф1, Ф9) -->
+    <string name="lookup_menu_label">Dictionary</string>
+    <string name="popup_close">Close</string>
+    <string name="popup_in_anki">Add to Anki</string>
+    <string name="popup_clitic_base">Base form: %1$s</string>
+    <string name="popup_source_kaikki">Kaikki</string>
+    <string name="popup_source_wehr">Hans Wehr</string>
+    <string name="popup_source_ksaa">KSAA</string>
+    <string name="popup_source_other">Your pack</string>
+    <string name="popup_attribution">Kaikki (Wiktionary): CC BY-SA 4.0. Hans Wehr: dictionary text, personal use.</string>
+    <string name="plate_name_title">Looks like a proper name</string>
+    <string name="plate_name_body">No dictionary entry exists. Haqomu never substitutes a random lookalike word for this.</string>
+    <string name="plate_invalid_title">Select an Arabic word</string>
+    <string name="plate_invalid_body">Haqomu works with Arabic text. Select a word in any app and choose “Dictionary” from the selection menu.</string>
+    <string name="plate_missing_title">Dictionary not ready</string>
+    <string name="plate_missing_body">Open Haqomu, install the dictionary packs and prepare the CAMeL morphology. Everything is prepared on this device.</string>
+    <string name="plate_open_app">Open Haqomu</string>
+    <string name="plate_error_title">The popup could not be opened</string>
+    <string name="plate_error_body">%1$s</string>
+    <string name="plate_no_articles_title">No entries found</string>
+    <string name="plate_no_articles_body">The word is not in the installed dictionaries. Check that your dictionary packs are installed in the app.</string>
+    <string name="anki_step1">The haqomu.apkg set is built into the app: the Share button below passes it to AnkiDroid. Alternatively, download the file from GitHub Releases.</string>
+    <string name="anki_apkg_note">haqomu.apkg contains no dictionary data. It will be published on GitHub Releases with the first build.</string>
+    <string name="anki_share_button">Share Haqomu set (.apkg)</string>
+    <string name="anki_share_error">Could not share the file</string>
+    <string name="anki_ankidroid_installed">AnkiDroid: installed, cards are added right away</string>
+    <string name="anki_ankidroid_missing">AnkiDroid: not installed, cards are saved in the app</string>
+    <string name="anki_pending_title">Accumulated cards</string>
+    <string name="anki_pending_count">Accumulated: %1$d</string>
+    <string name="anki_export_button">Export .apkg</string>
+    <string name="anki_export_error">Could not create the .apkg file</string>
+    <string name="anki_pending_clear">Delete accumulated</string>
+    <string name="anki_pending_clear_confirm">Tap again to delete all</string>
+    <string name="anki_connect_url_label">AnkiConnect address (PC)</string>
+    <string name="anki_connect_check">Check connection</string>
+    <string name="anki_connect_ok">AnkiConnect is available</string>
+    <string name="anki_connect_failed">AnkiConnect is unreachable: %1$s</string>
+    <string name="anki_connect_send">Send accumulated over HTTP</string>
+    <string name="anki_connect_sent">Sent: %1$d</string>
+    <string name="anki_connect_failed_count">Not sent: %1$d</string>
+    <string name="anki_connect_empty">No accumulated cards</string>
+    <string name="anki_card_title">Anki card</string>
+    <string name="anki_card_expression">Word (as in the text)</string>
+    <string name="anki_card_tashkeel">Voweled word</string>
+    <string name="anki_card_meaning">Meaning</string>
+    <string name="anki_card_sentence">Example (optional)</string>
+    <string name="anki_card_root">Root</string>
+    <string name="anki_card_dictionary">Dictionary</string>
+    <string name="anki_card_notes">Notes (optional)</string>
+    <string name="anki_card_save">Save to Anki</string>
+    <string name="anki_card_save_local">Save card</string>
+    <string name="anki_card_invalid">A word and a meaning are required</string>
+    <string name="anki_card_added">Added to Anki</string>
+    <string name="anki_card_pending">AnkiDroid not found, card saved in the app</string>
+    <string name="anki_card_no_model">AnkiDroid has no Haqomu Arabic note type, import haqomu.apkg. The card was saved in the app</string>
+    <string name="anki_card_duplicate">This card already exists in the deck</string>
+    <string name="anki_card_permission">AnkiDroid denied access, card saved in the app</string>
+    <string name="settings_anki_edit_title">Edit the card before saving</string>
+    <string name="settings_anki_edit_hint">When off, the In Anki button in the popup saves the card right away, without the editor screen. Off by default: the quick flow is the standard scenario.</string>
+</resources>

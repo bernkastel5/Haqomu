@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Haqomu</string>
+
+    <string name="nav_back">رجوع</string>
+
+    <!-- Home -->
+    <string name="home_tagline">معنى الكلمة العربية في أي تطبيق تقرأ فيه. تُبنى القواميس على هذا الجهاز، وبدون أي سحابة.</string>
+    <string name="home_import">استيراد الحزم</string>
+    <string name="home_import_sub">القاموس، صارف CAMeL، Kaikki</string>
+    <string name="home_anki">إعداد Anki</string>
+    <string name="home_anki_sub">رزمة Haqomu وملف haqomu.apkg</string>
+    <string name="home_preview">معاينة النافذة</string>
+    <string name="home_preview_sub">كيف تبدو مادة القاموس وزر «أضف إلى Anki»</string>
+    <string name="home_settings">الإعدادات</string>
+    <string name="home_settings_sub">السمة وحجم النص العربي</string>
+    <string name="home_about">عن التطبيق</string>
+    <string name="home_about_sub">التراخيص ومصادر البيانات والخصوصية</string>
+
+    <!-- معالج الإعداد -->
+    <string name="wizard_step">الخطوة %1$d من %2$d</string>
+    <string name="wizard_title_1">القواميس غير مضمّنة في التطبيق</string>
+    <string name="wizard_body_1">لكل قاموس رخصته الخاصة، لذلك لا يتضمن ملف APK أي مواد قاموسية. النسخة العامة تحمل الكود والتعليمات فقط. تُجهَّز كل القواميس محليًا على هذا الجهاز من ملفات تنزّلها بنفسك.</string>
+    <string name="wizard_title_2">ما الذي ستحتاجه</string>
+    <string name="wizard_body_2">الأرشيف الرسمي لقاعدة الصرف من CAMeL، وهو calima-msa-r13 بحجم 40 ميغابايت ورخصة GPL-2. تُحوَّل القاعدة على هذا الجهاز بزر واحد في معالج الاستيراد. أما معجم الرياض وHans Wehr وKaikki فتُبنى بأدوات من المستودع. وبدون الحزم يعمل التطبيق لكنه لا يعرض المواد.</string>
+    <string name="wizard_title_3">كيف يعمل</string>
+    <string name="wizard_body_3">حدّد كلمة عربية في أي تطبيق واختر «القاموس» من قائمة التحديد. ستفتح نافذة فيها مادة إلى ثلاث مواد. لكل معنى زر «أضف إلى Anki»؛ تُضاف البطاقة إلى الرزمة التي تختارها. الزر العائم اختياري وهو متوقف افتراضيًا.</string>
+    <string name="wizard_back">رجوع</string>
+    <string name="wizard_next">التالي</string>
+    <string name="wizard_done">تم</string>
+
+    <!-- استيراد الحزم -->
+    <string name="import_title">استيراد الحزم</string>
+    <string name="import_intro">تُحفظ الحزم على هذا الجهاز فقط. لا يحمّل التطبيق أي مواد قاموسية من الشبكة.</string>
+    <string name="import_camel">صارف CAMeL (calima-msa-r13)</string>
+    <string name="import_camel_sub">تحليل الصيغ والجذور. يُبنى على هذا الجهاز من الأرشيف الرسمي لـ CAMeL-Lab.</string>
+    <string name="import_ksaa">معجم الرياض للغة العربية (KSAA)</string>
+    <string name="import_ksaa_sub">القاموس العربي العربي الرئيسي. يُبنى على هذا الجهاز؛ ولا يُعاد نشر نصه.</string>
+    <string name="import_kaikki">Kaikki (Wiktionary)</string>
+    <string name="import_kaikki_sub">شروح إنجليزية. رخصة CC BY-SA 4.0. يُبنى بأداة tools/build_kaikki_index.py.</string>
+    <string name="import_hw">Hans Wehr</string>
+    <string name="import_hw_sub">معانٍ إنجليزية. يُبنى بأداة tools/build_hw_pack.py. لا يُعاد نشر الملف.</string>
+    <string name="import_pick">اختيار ملف…</string>
+    <string name="size_mb">%1$.1f ميغابايت</string>
+    <string name="size_kb">%1$d كيلوبايت</string>
+
+    <!-- إعداد Anki -->
+    <string name="anki_title">إعداد Anki</string>
+    <string name="anki_intro">تنتقل البطاقات من النافذة إلى AnkiDroid على هذا الهاتف، أو إلى Anki على الحاسوب عبر ملف haqomu.apkg.</string>
+    <string name="anki_step2">افتح الملف أو شاركه مع AnkiDroid. تظهر رزمة Haqomu ونوع الملاحظة تلقائيًا.</string>
+    <string name="anki_step3">على الحاسوب افتح الملف نفسه: يستورد Anki Desktop الرزمة نفسها ونوع الملاحظة نفسه.</string>
+    <string name="anki_step4">ستذهب بطاقات النافذة إلى الرزمة المحددة بالأسفل. يمكنك تغيير الرزمة الهدف في أي وقت.</string>
+    <string name="anki_deck_label">الرزمة الهدف</string>
+    <string name="anki_deck_hint">الرزمة التي يضيف إليها التطبيق البطاقات. الافتراضي Haqomu.</string>
+    <string name="anki_connect_note">لإضافة البطاقات على الحاسوب يمكن تفعيل AnkiConnect في إعدادات Anki Desktop. هذا اختياري: التصدير عبر .apkg يعمل بدونه.</string>
+
+    <!-- الإعدادات -->
+    <string name="settings_title">الإعدادات</string>
+    <string name="settings_theme">السمة</string>
+    <string name="theme_system">النظام</string>
+    <string name="theme_light">فاتحة</string>
+    <string name="theme_dark">داكنة</string>
+    <string name="settings_text_size">حجم النص العربي</string>
+    <string name="text_size_normal">عادي</string>
+    <string name="text_size_large">كبير</string>
+    <string name="text_size_xlarge">الأكبر</string>
+    <string name="text_size_sample">ذَهَبَ الطَّالِبُ إِلَى الْمَدْرَسَةِ.</string>
+    <string name="text_size_hint">يُطبَّق الحجم على المواد داخل النافذة.</string>
+    <string name="settings_floating">الزر العائم</string>
+    <string name="floating_caption">يصل في الإصدار القادم. تقرأ خدمة إمكانية الوصول الجملة المحيطة بالتحديد فقط، ولا يُحفظ النص ولا يُرسل.</string>
+    <string name="settings_replay">إعادة معالج الإعداد</string>
+
+    <!-- عن التطبيق -->
+    <string name="about_title">عن التطبيق</string>
+    <string name="about_version">الإصدار %1$s · com.bernkastel5.haqomu</string>
+    <string name="about_tagline">عدسة قاموسية للنص العربي. حدّد كلمة في أي تطبيق واختر «القاموس» واحصل على المعنى. بلا خادم، بلا حسابات، بلا إعلانات.</string>
+    <string name="about_code_title">الكود المصدري</string>
+    <string name="about_code_body">github.com/bernkastel5/Haqomu. ينشر الكود برخصة GPL-3.0.</string>
+    <string name="about_data_title">البيانات والإحالات</string>
+    <string name="about_data_kaikki">Kaikki (Wiktionary)، شروح إنجليزية: CC BY-SA 4.0</string>
+    <string name="about_data_camel">CAMeL Tools وقاعدة calima-msa-r13: GPL-2</string>
+    <string name="about_data_gloss">ArabGlossBERT (SinaLab): CC BY-SA 4.0</string>
+    <string name="about_data_ksaa">معجم الرياض للغة العربية، مجمع الملك سلمان العالمي للغة العربية. لا يُعاد نشر نص القاموس.</string>
+    <string name="about_data_hw">Hans Wehr، A Dictionary of Modern Written Arabic. © Harrassowitz Verlag. لا يُعاد نشر نص القاموس.</string>
+    <string name="about_data_analyzer">تحليل الصيغ منقول من camel-tools: GPL-3.</string>
+    <string name="about_privacy_title">الخصوصية</string>
+    <string name="about_privacy_network">لا يرسل التطبيق أي شيء إلى الشبكة. الاستثناءات الوحيدة: تنزيل النموذج الاختياري بزرك (يصل مع النموذج) وبناء حزمة الصرف من أرشيف CAMeL على هذا الجهاز.</string>
+    <string name="about_privacy_screen">يُستخدم نص الشاشة لتحديد الجملة المحيطة بالكلمة المحددة فقط، ولا يُحفظ في أي مكان.</string>
+    <string name="about_privacy_history">لا يحتفظ التطبيق بسجل استعلامات.</string>
+
+    <!-- معاينة النافذة -->
+    <string name="preview_caption">معاينة النافذة</string>
+    <string name="preview_source">المصدر: مثال مصطنع، وليس مادة قاموسية</string>
+    <string name="preview_more">ستظهر حتى مادتين إضافيتين عن لمّين آخرين بالأسفل، كما في النافذة الفعلية.</string>
+    <string name="preview_in_anki">أضف إلى Anki</string>
+    <string name="preview_snack">هذه معاينة. في النافذة الفعلية تنتقل البطاقة إلى AnkiDroid أو إلى الرزمة المختارة.</string>
+    <string name="preview_close">إغلاق النافذة بلمسة خارجها. تظهر جميع معاني المادة.</string>
+    <string name="import_installed">الحزم المثبتة</string>
+    <string name="import_install_done">تم تثبيت الحزمة</string>
+    <string name="import_delete_done">تم حذف الحزمة</string>
+    <string name="import_unreadable">تعذرت قراءة الملف</string>
+    <string name="import_verify_ok">اجتازت الحزمة الفحص</string>
+    <string name="import_verify_bad">لم تجتز الحزمة الفحص</string>
+    <string name="import_meta_source">المصدر: %1$s</string>
+    <string name="import_meta_license">الترخيص: %1$s</string>
+    <string name="import_meta_date">بُنيت: %1$s</string>
+    <string name="import_meta_entries">المواد: %1$s</string>
+    <string name="import_meta_langs">اللغات: %1$s إلى %2$s</string>
+    <string name="import_install">تثبيت</string>
+    <string name="import_cancel">إلغاء</string>
+    <string name="import_delete">حذف</string>
+    <string name="import_copy_note">ينسخ التثبيت الملف إلى مجلد خاص بالتطبيق. لا يغيّر الفحص شيئًا في الملف الأصلي.</string>
+    <string name="check_readable">يمكن قراءة الملف</string>
+    <string name="check_table">جدول %1$s</string>
+    <string name="check_columns">أعمدة %1$s</string>
+    <string name="check_meta">حقل meta.%1$s</string>
+    <string name="check_langs">زوج اللغات (lang_from/lang_to)</string>
+    <string name="check_schema_version">إصدار المخطط 1</string>
+    <string name="check_entry_count">عدد المواد يطابق meta</string>
+    <string name="check_entry_nonempty">تحتوي الحزمة على مواد</string>
+    <string name="check_senses_nonempty">تحتوي الحزمة على معانٍ</string>
+    <string name="check_orphans">ترتبط كل المعاني بمادة</string>
+    <string name="check_headnorm">head_norm مملوء</string>
+    <string name="check_fts">وحدة FTS5 تعمل</string>
+    <string name="morph_title">صرف CAMeL</string>
+    <string name="morph_status_missing">غير مجهّزة بعد. مطلوبة لتحليل الكلمات والسوابق والأصول.</string>
+    <string name="morph_status_ready">مجهّزة: %1$s جذعًا · %2$s · بُنيت %3$s</string>
+    <string name="morph_note">نزّل الأرشيف الرسمي من CAMeL-Lab وهو calima-msa-r13 (نحو 40 ميغابايت، GPL-2) ثم اختر هنا ملف .zip أو morphology.db. يتم التحويل على هذا الجهاز، ولا يُرسل الملف إلى أي مكان.</string>
+    <string name="morph_pick">تجهيز الصرف من ملف…</string>
+    <string name="morph_working">الأسطر المقروءة: %1$d</string>
+    <string name="wizard_title">معالج التثبيت</string>
+    <string name="wizard_intro">زر واحد: تنزيل النسخ الرسمية من المصادر، وتحويلها على الجهاز، والتحقق منها وتثبيتها. لا يُرسَل أي شيء من الجهاز.</string>
+    <string name="wizard_camel_name">صرف CAMeL (calima-msa-r13)</string>
+    <string name="wizard_camel_desc">‏40.5 ميغابايت، رخصة GPL-2: تحليل أشكال الكلمات العربية</string>
+    <string name="wizard_hw_name">هانس فير (عربي-إنجليزي)</string>
+    <string name="wizard_hw_desc">‏≈ 20 ميغابايت، النص محمي بحقوق النشر: للاستخدام الشخصي فقط</string>
+    <string name="wizard_kaikki_name">Kaikki (Wiktionary ar→en)</string>
+    <string name="wizard_kaikki_desc">‏≈ 72 ميغابايت مضغوطة، ‏233 ألف مدخل، رخصة CC BY-SA 4.0</string>
+    <string name="wizard_ksaa_name">KSAA (معجم الرياض)</string>
+    <string name="wizard_ksaa_desc">مصدر إلكتروني: لا شيء للتثبيت. تذهب الاستعلامات مباشرة إلى siwar.ksaa.gov.sa مع النسبة المعجمية؛ والتنزيل الكامل والنسخ المرآوية محظوران وفق شروط KSAA.</string>
+    <string name="wizard_consent">أوافق على شروط المصادر: CAMeL-Lab (رخصة GPL-2)، وهانس فير (للاستخدام الشخصي)، وKaikki/Wiktionary (رخصة CC BY-SA 4.0)</string>
+    <string name="wizard_install_all">تثبيت الكل</string>
+    <string name="wizard_note">تُنزَّل الملفات من المصادر الرسمية؛ لا يعيد Haqomu توزيع أي شيء. تُحذف الملفات المؤقتة بعد التثبيت.</string>
+    <string name="wizard_step_downloading_pct">جارٍ التنزيل… %1$d٪</string>
+    <string name="wizard_step_downloading_mb">جارٍ التنزيل… %1$s</string>
+    <string name="wizard_step_converting">جارٍ التحويل… الأسطر: %1$d</string>
+    <string name="wizard_step_verifying">جارٍ التحقق من الحزمة…</string>
+    <string name="wizard_step_done">تم: %1$s</string>
+    <string name="wizard_step_failed">خطأ: %1$s</string>
+    <string name="wizard_retry">إعادة المحاولة</string>
+    <string name="morph_done">تم تجهيز الصرف</string>
+    <string name="morph_failed">تعذر تجهيز الصرف: %1$s</string>
+
+    <!-- قائمة التحديد والنافذة (Ф1, Ф9) -->
+    <string name="lookup_menu_label">المعجم</string>
+    <string name="popup_close">إغلاق</string>
+    <string name="popup_in_anki">أضف إلى Anki</string>
+    <string name="popup_clitic_base">الأساس: %1$s</string>
+    <string name="popup_source_kaikki">Kaikki</string>
+    <string name="popup_source_wehr">Hans Wehr</string>
+    <string name="popup_source_ksaa">KSAA</string>
+    <string name="popup_source_other">حزمة أخرى</string>
+    <string name="popup_attribution">Kaikki (Wiktionary): CC BY-SA 4.0. Hans Wehr: نص القاموس، للاستخدام الشخصي.</string>
+    <string name="plate_name_title">يبدو أنه اسم علم</string>
+    <string name="plate_name_body">لا توجد مادة في القاموس، ولا يعرض Haqomu كلمة مشابهة عشوائية بدلًا من ذلك.</string>
+    <string name="plate_invalid_title">حدّد كلمة عربية</string>
+    <string name="plate_invalid_body">يعمل Haqomu مع النص العربي. حدّد كلمة في أي تطبيق واختر «المعجم» من قائمة التحديد.</string>
+    <string name="plate_missing_title">القاموس غير جاهز</string>
+    <string name="plate_missing_body">افتح Haqomu وثبّت حزم القواميس وجهّز صارف CAMeL. كل شيء يُجهز على هذا الجهاز.</string>
+    <string name="plate_open_app">افتح Haqomu</string>
+    <string name="plate_error_title">تعذر فتح النافذة</string>
+    <string name="plate_error_body">%1$s</string>
+    <string name="plate_no_articles_title">لا توجد مواد</string>
+    <string name="plate_no_articles_body">لا توجد هذه الكلمة في القواميس المثبتة. تأكد من تثبيت حزم القواميس في التطبيق.</string>
+    <string name="anki_step1">مجموعة haqomu.apkg مدمجة في التطبيق: زر المشاركة بالأسفل ينقلها إلى AnkiDroid. أو نزّل الملف من GitHub Releases.</string>
+    <string name="anki_apkg_note">لا يحتوي haqomu.apkg على بيانات قواميس. سيُنشر في GitHub Releases مع أول بناء.</string>
+    <string name="anki_share_button">مشاركة مجموعة Haqomu (.apkg)</string>
+    <string name="anki_share_error">تعذرت مشاركة الملف</string>
+    <string name="anki_ankidroid_installed">AnkiDroid: مثبّت، تُضاف البطاقات فورًا</string>
+    <string name="anki_ankidroid_missing">AnkiDroid: غير مثبّت، تُحفظ البطاقات في التطبيق</string>
+    <string name="anki_pending_title">البطاقات المتراكمة</string>
+    <string name="anki_pending_count">المتراكم: %1$d</string>
+    <string name="anki_export_button">تصدير .apkg</string>
+    <string name="anki_export_error">تعذر إنشاء ملف .apkg</string>
+    <string name="anki_pending_clear">حذف المتراكمة</string>
+    <string name="anki_pending_clear_confirm">انقر مرة أخرى للحذف الكامل</string>
+    <string name="anki_connect_url_label">عنوان AnkiConnect (الكمبيوتر)</string>
+    <string name="anki_connect_check">فحص الاتصال</string>
+    <string name="anki_connect_ok">AnkiConnect متاح</string>
+    <string name="anki_connect_failed">AnkiConnect غير متاح: %1$s</string>
+    <string name="anki_connect_send">إرسال المتراكمة عبر HTTP</string>
+    <string name="anki_connect_sent">أُرسلت: %1$d</string>
+    <string name="anki_connect_failed_count">لم تُرسل: %1$d</string>
+    <string name="anki_connect_empty">لا توجد بطاقات متراكمة</string>
+    <string name="anki_card_title">بطاقة Anki</string>
+    <string name="anki_card_expression">الكلمة (كما وردت في النص)</string>
+    <string name="anki_card_tashkeel">الكلمة المشكولة</string>
+    <string name="anki_card_meaning">المعنى</string>
+    <string name="anki_card_sentence">مثال (اختياري)</string>
+    <string name="anki_card_root">الجذر</string>
+    <string name="anki_card_dictionary">القاموس</string>
+    <string name="anki_card_notes">ملاحظات (اختياري)</string>
+    <string name="anki_card_save">احفظ في Anki</string>
+    <string name="anki_card_save_local">احفظ البطاقة</string>
+    <string name="anki_card_invalid">الكلمة والمعنى مطلوبان</string>
+    <string name="anki_card_added">أُضيفت إلى Anki</string>
+    <string name="anki_card_pending">لم يُعثر على AnkiDroid، حُفظت البطاقة في التطبيق</string>
+    <string name="anki_card_no_model">لا يوجد نوع ملاحظة Haqomu Arabic في AnkiDroid، استورد haqomu.apkg. حُفظت البطاقة في التطبيق</string>
+    <string name="anki_card_duplicate">هذه البطاقة موجودة بالفعل في الرزمة</string>
+    <string name="anki_card_permission">لم يمنح AnkiDroid الإذن، حُفظت البطاقة في التطبيق</string>
+    <string name="settings_anki_edit_title">تحرير البطاقة قبل الحفظ</string>
+    <string name="settings_anki_edit_hint">عند الإيقاف، يحفظ زر «في Anki» في النافذة المنبثقة البطاقة فورًا دون شاشة التحرير. الإيقاف هو الوضع الافتراضي.</string>
+</resources>

@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Haqomu</string>
+
+    <string name="nav_back">Назад</string>
+
+    <!-- Home -->
+    <string name="home_tagline">Значение арабского слова прямо в приложении, где вы его выделили. Словарь готовится на этом устройстве, без облака.</string>
+    <string name="home_import">Импорт паков</string>
+    <string name="home_import_sub">Словарь, морфология CAMeL, Kaikki</string>
+    <string name="home_anki">Настройка Anki</string>
+    <string name="home_anki_sub">Колода Haqomu, файл haqomu.apkg</string>
+    <string name="home_preview">Предпросмотр попапа</string>
+    <string name="home_preview_sub">Как выглядит статья и кнопка «В Anki»</string>
+    <string name="home_settings">Настройки</string>
+    <string name="home_settings_sub">Тема, размер арабского текста</string>
+    <string name="home_about">О программе</string>
+    <string name="home_about_sub">Лицензии, источники данных, приватность</string>
+
+    <!-- Мастер первого запуска -->
+    <string name="wizard_step">Шаг %1$d из %2$d</string>
+    <string name="wizard_title_1">Словарь не встроен в приложение</string>
+    <string name="wizard_body_1">У каждого словаря своя лицензия, поэтому APK не содержит словарных статей. В релизе только код и инструкции. Все словари готовятся локально на этом устройстве из файлов, которые вы скачаете сами.</string>
+    <string name="wizard_title_2">Что понадобится</string>
+    <string name="wizard_body_2">Официальный архив морфологической базы CAMeL calima-msa-r13, 40 МБ, GPL-2. Он конвертируется на этом устройстве одной кнопкой в мастере импорта. Словари معجم الرياض (KSAA), Hans Wehr и Kaikki собираются скриптами из репозитория. Без паков приложение тоже работает, но статей не показывает.</string>
+    <string name="wizard_title_3">Как это работает</string>
+    <string name="wizard_body_3">Выделите арабское слово в любом приложении и выберите «Словарь» в меню выделения. Откроется попап с одной-тремя статьями. У каждого смысла есть кнопка «В Anki»: карточка уходит в выбранную колоду. Плавающая кнопка включается в настройках, она выключена по умолчанию.</string>
+    <string name="wizard_back">Назад</string>
+    <string name="wizard_next">Дальше</string>
+    <string name="wizard_done">Готово</string>
+
+    <!-- Импорт паков -->
+    <string name="import_title">Импорт паков</string>
+    <string name="import_intro">Паки хранятся только на этом устройстве. Приложение не загружает словарные данные из сети.</string>
+    <string name="import_camel">Морфология CAMeL (calima-msa-r13)</string>
+    <string name="import_camel_sub">Разбор словоформ и леммы. Собирается на устройстве из официального архива CAMeL-Lab.</string>
+    <string name="import_ksaa">معجم الرياض للغة العربية (KSAA)</string>
+    <string name="import_ksaa_sub">Основной арабско-арабский словарь. Собирается на устройстве; текст не распространяется.</string>
+    <string name="import_kaikki">Kaikki (Wiktionary)</string>
+    <string name="import_kaikki_sub">Английские глоссы. CC BY-SA 4.0. Собирается скриптом tools/build_kaikki_index.py.</string>
+    <string name="import_hw">Hans Wehr</string>
+    <string name="import_hw_sub">Английские значения. Собирается скриптом tools/build_hw_pack.py. Файл не распространяется.</string>
+    <string name="import_pick">Выбрать файл…</string>
+    <string name="size_mb">%1$.1f МБ</string>
+    <string name="size_kb">%1$d КБ</string>
+
+    <!-- Настройка Anki -->
+    <string name="anki_title">Настройка Anki</string>
+    <string name="anki_intro">Карточки из попапа уходят в AnkiDroid на этом телефоне или в Anki на компьютере через файл haqomu.apkg.</string>
+    <string name="anki_step2">Откройте файл или выберите «Поделиться» и передайте его в AnkiDroid. Колода Haqomu и формат заметки появятся автоматически.</string>
+    <string name="anki_step3">На компьютере откройте тот же файл: Anki Desktop импортирует ту же колоду и тот же формат.</string>
+    <string name="anki_step4">Карточки из попапа будут уходить в колоду, выбранную ниже. Целевую колоду можно сменить в любой момент.</string>
+    <string name="anki_deck_label">Целевая колода</string>
+    <string name="anki_deck_hint">Колода, в которую приложение добавляет карточки. По умолчанию Haqomu.</string>
+    <string name="anki_connect_note">Для добавления карточек на компьютере можно включить AnkiConnect в настройках Anki Desktop. Это опционально: без него работает экспорт .apkg.</string>
+
+    <!-- Настройки -->
+    <string name="settings_title">Настройки</string>
+    <string name="settings_theme">Тема</string>
+    <string name="theme_system">Система</string>
+    <string name="theme_light">Светлая</string>
+    <string name="theme_dark">Тёмная</string>
+    <string name="settings_text_size">Размер арабского текста</string>
+    <string name="text_size_normal">Обычный</string>
+    <string name="text_size_large">Крупный</string>
+    <string name="text_size_xlarge">Самый крупный</string>
+    <string name="text_size_sample">ذَهَبَ الطَّالِبُ إِلَى الْمَدْرَسَةِ.</string>
+    <string name="text_size_hint">Размер применяется к статьям в попапе.</string>
+    <string name="settings_floating">Плавающая кнопка</string>
+    <string name="floating_caption">Появится в следующей сборке. Сервис доступности читает только предложение вокруг выделенного слова; текст не сохраняется и не передаётся.</string>
+    <string name="settings_replay">Повторить мастер настройки</string>
+
+    <!-- О программе -->
+    <string name="about_title">О программе</string>
+    <string name="about_version">Версия %1$s · com.bernkastel5.haqomu</string>
+    <string name="about_tagline">Словарь-лупа для арабского текста. Выделите слово в любом приложении, выберите «Словарь» и получите значение. Без сервера, без учётных записей, без рекламы.</string>
+    <string name="about_code_title">Исходный код</string>
+    <string name="about_code_body">github.com/bernkastel5/Haqomu. Код распространяется по лицензии GPL-3.0.</string>
+    <string name="about_data_title">Данные и атрибуция</string>
+    <string name="about_data_kaikki">Kaikki (Wiktionary), английские глоссы: CC BY-SA 4.0</string>
+    <string name="about_data_camel">CAMeL Tools и база calima-msa-r13: GPL-2</string>
+    <string name="about_data_gloss">ArabGlossBERT (SinaLab): CC BY-SA 4.0</string>
+    <string name="about_data_ksaa">معجم الرياض للغة العربية, مجمع الملك سلمان العالمي للغة العربية. Текст словаря не распространяется.</string>
+    <string name="about_data_hw">Hans Wehr, A Dictionary of Modern Written Arabic. © Harrassowitz Verlag. Текст словаря не распространяется.</string>
+    <string name="about_data_analyzer">Анализ словоформ портирован из camel-tools: GPL-3.</string>
+    <string name="about_privacy_title">Конфиденциальность</string>
+    <string name="about_privacy_network">Приложение ничего не отправляет в сеть. Исключения: загрузка опциональной модели по вашей кнопке (появится вместе с моделью) и подготовка морфологического пака из официального архива CAMeL на этом устройстве.</string>
+    <string name="about_privacy_screen">Текст экрана используется только для поиска предложения вокруг выделенного слова и нигде не сохраняется.</string>
+    <string name="about_privacy_history">История запросов не ведётся.</string>
+
+    <!-- Предпросмотр попапа -->
+    <string name="preview_caption">Предпросмотр попапа</string>
+    <string name="preview_source">Источник: синтетический пример, не словарная статья</string>
+    <string name="preview_more">Ниже будут ещё до двух статей по другим леммам, как в рабочем попапе.</string>
+    <string name="preview_in_anki">В Anki</string>
+    <string name="preview_snack">Это предпросмотр. В рабочем попапе карточка уйдёт в AnkiDroid или в выбранную колоду.</string>
+    <string name="preview_close">Тапом мимо попап закрывается. Все смыслы статьи видны.</string>
+    <string name="import_installed">Установленные паки</string>
+    <string name="import_install_done">Пак установлен</string>
+    <string name="import_delete_done">Пак удалён</string>
+    <string name="import_unreadable">Не удалось прочитать файл</string>
+    <string name="import_verify_ok">Пак прошёл проверку</string>
+    <string name="import_verify_bad">Пак не прошёл проверку</string>
+    <string name="import_meta_source">Источник: %1$s</string>
+    <string name="import_meta_license">Лицензия: %1$s</string>
+    <string name="import_meta_date">Собран: %1$s</string>
+    <string name="import_meta_entries">Статей: %1$s</string>
+    <string name="import_meta_langs">Языки: %1$s → %2$s</string>
+    <string name="import_install">Установить</string>
+    <string name="import_cancel">Отмена</string>
+    <string name="import_delete">Удалить</string>
+    <string name="import_copy_note">Установка копирует файл в приватную папку приложения. Проверка ничего не изменяет в исходном файле.</string>
+    <string name="check_readable">Файл читается</string>
+    <string name="check_table">Таблица %1$s</string>
+    <string name="check_columns">Колонки %1$s</string>
+    <string name="check_meta">Поле meta.%1$s</string>
+    <string name="check_langs">Языковая пара (lang_from/lang_to)</string>
+    <string name="check_schema_version">Версия схемы = 1</string>
+    <string name="check_entry_count">Число статей сходится с meta</string>
+    <string name="check_entry_nonempty">В паке есть статьи</string>
+    <string name="check_senses_nonempty">В паке есть смыслы</string>
+    <string name="check_orphans">Все смыслы связаны со статьями</string>
+    <string name="check_headnorm">head_norm заполнен</string>
+    <string name="check_fts">Модуль FTS5 работает</string>
+    <string name="morph_title">Морфология CAMeL</string>
+    <string name="morph_status_missing">Не подготовлена. Нужна для разбора слов, клитик и лемм.</string>
+    <string name="morph_status_ready">Подготовлена: %1$s стеблей · %2$s · собрана %3$s</string>
+    <string name="morph_note">Скачайте официальный архив CAMeL-Lab calima-msa-r13 (около 40 МБ, GPL-2) и выберите здесь архив .zip или файл morphology.db. Конвертация происходит на этом устройстве; файл никуда не передаётся.</string>
+    <string name="morph_pick">Подготовить морфологию из файла…</string>
+    <string name="morph_working">Строк прочитано: %1$d</string>
+    <string name="wizard_title">Мастер установки</string>
+    <string name="wizard_intro">Одна кнопка: скачать официальные копии у источников, сконвертировать на устройстве, проверить и установить. Ничего не отправляется с устройства.</string>
+    <string name="wizard_camel_name">Морфология CAMeL (calima-msa-r13)</string>
+    <string name="wizard_camel_desc">40,5 МБ, GPL-2: разбор арабских словоформ</string>
+    <string name="wizard_hw_name">Hans Wehr (арабско-английский)</string>
+    <string name="wizard_hw_desc">≈ 20 МБ, текст охраняется авторским правом: только личное использование</string>
+    <string name="wizard_kaikki_name">Kaikki (Wiktionary ar→en)</string>
+    <string name="wizard_kaikki_desc">≈ 72 МБ в архиве, 233 тыс. статей, CC BY-SA 4.0</string>
+    <string name="wizard_ksaa_name">KSAA (معجم الرياض)</string>
+    <string name="wizard_ksaa_desc">Онлайн-источник: ставить нечего. Запросы уходят напрямую в siwar.ksaa.gov.sa с атрибуцией; скачивание и зеркало запрещены условиями KSAA.</string>
+    <string name="wizard_consent">Я принимаю условия источников: CAMeL-Lab (GPL-2), Hans Wehr (личное использование), Kaikki/Wiktionary (CC BY-SA 4.0)</string>
+    <string name="wizard_install_all">Установить всё</string>
+    <string name="wizard_note">Файлы качаются у официальных источников; Haqomu ничего не раздаёт. Временные файлы удаляются после установки.</string>
+    <string name="wizard_step_downloading_pct">Скачивание… %1$d%%</string>
+    <string name="wizard_step_downloading_mb">Скачивание… %1$s</string>
+    <string name="wizard_step_converting">Конвертация… строк: %1$d</string>
+    <string name="wizard_step_verifying">Проверка пака…</string>
+    <string name="wizard_step_done">Готово: %1$s</string>
+    <string name="wizard_step_failed">Ошибка: %1$s</string>
+    <string name="wizard_retry">Повторить</string>
+    <string name="morph_done">Морфология подготовлена</string>
+    <string name="morph_failed">Не удалось подготовить морфологию: %1$s</string>
+
+    <!-- Пункт меню и попап (Ф1, Ф9) -->
+    <string name="lookup_menu_label">Словарь</string>
+    <string name="popup_close">Закрыть</string>
+    <string name="popup_in_anki">В Anki</string>
+    <string name="popup_clitic_base">الأساس: %1$s</string>
+    <string name="popup_source_kaikki">Kaikki</string>
+    <string name="popup_source_wehr">Hans Wehr</string>
+    <string name="popup_source_ksaa">KSAA</string>
+    <string name="popup_source_other">Свой пакет</string>
+    <string name="popup_attribution">Kaikki (Wiktionary): CC BY-SA 4.0. Hans Wehr: текст словаря, личное использование.</string>
+    <string name="plate_name_title">Похоже на имя собственное</string>
+    <string name="plate_name_body">Словарной статьи нет. Haqomu не показывает случайное похожее слово вместо этого.</string>
+    <string name="plate_invalid_title">Выделите арабское слово</string>
+    <string name="plate_invalid_body">Haqomu работает с арабским текстом. Выделите слово в любом приложении и выберите «Словарь» в меню.</string>
+    <string name="plate_missing_title">Словарь не готов</string>
+    <string name="plate_missing_body">Откройте Haqomu, установите словарные пакеты и подготовьте морфологию CAMeL. Всё готовится на этом устройстве.</string>
+    <string name="plate_open_app">Открыть Haqomu</string>
+    <string name="plate_error_title">Не получилось открыть попап</string>
+    <string name="plate_error_body">%1$s</string>
+    <string name="plate_no_articles_title">Статей не нашлось</string>
+    <string name="plate_no_articles_body">Такого слова нет в установленных словарях. Проверьте, что словарные пакеты установлены в приложении.</string>
+    <string name="anki_step1">Набор haqomu.apkg вшит в приложение: кнопка «Поделиться набором Haqomu» ниже передаст его в AnkiDroid. Либо скачайте файл из GitHub Releases.</string>
+    <string name="anki_apkg_note">haqomu.apkg не содержит словарных данных. В GitHub Releases он появится вместе с первой сборкой.</string>
+    <string name="anki_share_button">Поделиться набором Haqomu (.apkg)</string>
+    <string name="anki_share_error">Не удалось поделиться файлом</string>
+    <string name="anki_ankidroid_installed">AnkiDroid: установлен, карточки добавляются сразу</string>
+    <string name="anki_ankidroid_missing">AnkiDroid: не установлен, карточки сохраняются в приложении</string>
+    <string name="anki_pending_title">Накопленные карточки</string>
+    <string name="anki_pending_count">Накоплено: %1$d</string>
+    <string name="anki_export_button">Экспортировать .apkg</string>
+    <string name="anki_export_error">Не удалось создать файл .apkg</string>
+    <string name="anki_pending_clear">Удалить накопленные</string>
+    <string name="anki_pending_clear_confirm">Нажмите ещё раз, чтобы удалить все</string>
+    <string name="anki_connect_url_label">Адрес AnkiConnect (ПК)</string>
+    <string name="anki_connect_check">Проверить соединение</string>
+    <string name="anki_connect_ok">AnkiConnect доступен</string>
+    <string name="anki_connect_failed">AnkiConnect недоступен: %1$s</string>
+    <string name="anki_connect_send">Отправить накопленные по HTTP</string>
+    <string name="anki_connect_sent">Отправлено: %1$d</string>
+    <string name="anki_connect_failed_count">Не отправлено: %1$d</string>
+    <string name="anki_connect_empty">Накопленных карточек нет</string>
+    <string name="anki_card_title">Карточка в Anki</string>
+    <string name="anki_card_expression">Слово (как в тексте)</string>
+    <string name="anki_card_tashkeel">Слово с огласовкой</string>
+    <string name="anki_card_meaning">Значение</string>
+    <string name="anki_card_sentence">Пример (необязательно)</string>
+    <string name="anki_card_root">Корень</string>
+    <string name="anki_card_dictionary">Словарь</string>
+    <string name="anki_card_notes">Заметки (необязательно)</string>
+    <string name="anki_card_save">Сохранить в Anki</string>
+    <string name="anki_card_save_local">Сохранить карточку</string>
+    <string name="anki_card_invalid">Нужны хотя бы слово и значение</string>
+    <string name="anki_card_added">Добавлено в Anki</string>
+    <string name="anki_card_pending">AnkiDroid не найден, карточка сохранена в приложении</string>
+    <string name="anki_card_no_model">В AnkiDroid нет типа заметки Haqomu Arabic, импортируйте haqomu.apkg. Карточка сохранена в приложении</string>
+    <string name="anki_card_duplicate">Такая карточка уже есть в колоде</string>
+    <string name="anki_card_permission">AnkiDroid не дал доступ, карточка сохранена в приложении</string>
+    <string name="settings_anki_edit_title">Редактировать карточку перед сохранением</string>
+    <string name="settings_anki_edit_hint">Если выключено, кнопка «В Anki» в попапе сразу сохраняет карточку без экрана редактирования. По умолчанию выключено: быстрый сценарий.</string>
+</resources>
