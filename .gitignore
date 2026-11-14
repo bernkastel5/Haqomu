@@ -121,3 +121,7 @@ lemma_cache/
 # пользователь собирает бандл сам (tools/make_model_bundle.py) в data/model/.
 data/model/
 *.onnx
+
+# APK — артефакт сборки, не в git: тестовые сборки публикуются в GitHub Releases
+# (workflow apk.yml, релиз apk-latest), там ссылка удобна для телефона.
+out/
