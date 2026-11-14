@@ -208,4 +208,6 @@
     <string name="anki_card_no_model">لا يوجد نوع ملاحظة Haqomu Arabic في AnkiDroid، استورد haqomu.apkg. حُفظت البطاقة في التطبيق</string>
     <string name="anki_card_duplicate">هذه البطاقة موجودة بالفعل في الرزمة</string>
     <string name="anki_card_permission">لم يمنح AnkiDroid الإذن، حُفظت البطاقة في التطبيق</string>
+    <string name="settings_anki_edit_title">تحرير البطاقة قبل الحفظ</string>
+    <string name="settings_anki_edit_hint">عند الإيقاف، يحفظ زر «في Anki» في النافذة المنبثقة البطاقة فورًا دون شاشة التحرير. الإيقاف هو الوضع الافتراضي.</string>
 </resources>

@@ -208,4 +208,6 @@
     <string name="anki_card_no_model">AnkiDroid has no Haqomu Arabic note type, import haqomu.apkg. The card was saved in the app</string>
     <string name="anki_card_duplicate">This card already exists in the deck</string>
     <string name="anki_card_permission">AnkiDroid denied access, card saved in the app</string>
+    <string name="settings_anki_edit_title">Edit the card before saving</string>
+    <string name="settings_anki_edit_hint">When off, the In Anki button in the popup saves the card right away, without the editor screen. Off by default: the quick flow is the standard scenario.</string>
 </resources>

@@ -14,6 +14,7 @@ object HaqomuPrefs {
     private const val KEY_TEXT_SCALE = "arabic_text_scale"
     private const val KEY_DECK = "anki_deck"
     private const val KEY_CONNECT_URL = "anki_connect_url"
+    private const val KEY_ANKI_EDIT_BEFORE_SAVE = "anki_edit_before_save"
 
     private fun prefs(context: Context) =
         context.getSharedPreferences(FILE, Context.MODE_PRIVATE)
@@ -58,4 +59,11 @@ object HaqomuPrefs {
 
     fun setAnkiConnectUrl(context: Context, url: String) =
         prefs(context).edit().putString(KEY_CONNECT_URL, url.trim().ifEmpty { "http://localhost:8765" }).apply()
+
+    /** false (по умолчанию): кнопка «В Anki» сохраняет сразу. true: открывать редактор. */
+    fun ankiEditBeforeSave(context: Context): Boolean =
+        prefs(context).getBoolean(KEY_ANKI_EDIT_BEFORE_SAVE, false)
+
+    fun setAnkiEditBeforeSave(context: Context, value: Boolean) =
+        prefs(context).edit().putBoolean(KEY_ANKI_EDIT_BEFORE_SAVE, value).apply()
 }

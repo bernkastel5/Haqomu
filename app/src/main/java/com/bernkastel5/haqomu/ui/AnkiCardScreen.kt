@@ -1,6 +1,5 @@
 package com.bernkastel5.haqomu.ui
 
-import android.content.Context
 import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -32,9 +31,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.bernkastel5.haqomu.R
 import com.bernkastel5.haqomu.anki.AnkiDroidBridge
-import com.bernkastel5.haqomu.anki.AnkiModel
+import com.bernkastel5.haqomu.anki.CardSaver
 import com.bernkastel5.haqomu.anki.PendingCard
-import com.bernkastel5.haqomu.anki.PendingStore
+import com.bernkastel5.haqomu.anki.SaveOutcome
 
 /**
  * Ф11 / TZ §3.3: редактор карточки перед сохранением. Поля предзаполнены выбором
@@ -76,37 +75,25 @@ fun AnkiCardScreen(
         notes = notes.trim(),
     )
 
-    fun saveLocally(messageRes: Int) {
-        PendingStore.add(context, card())
-        Toast.makeText(context, messageRes, Toast.LENGTH_SHORT).show()
-        onClose()
-    }
-
-    fun addViaAnkiDroid(bridge: AnkiDroidBridge) {
-        val deckName = HaqomuPrefs.ankiDeck(context)
-        val modelId = bridge.findModelId(AnkiModel.MODEL_NAME)
-        if (modelId == null) {
-            saveLocally(R.string.anki_card_no_model)
-            return
-        }
-        var deckId = bridge.findDeckId(deckName)
-        if (deckId == null) {
-            deckId = bridge.createDeck(deckName)
-        }
-        if (deckId == null) {
-            saveLocally(R.string.anki_card_pending)
-            return
-        }
-        if (bridge.findDuplicates(modelId, expression.trim())) {
-            errorText = context.getString(R.string.anki_card_duplicate)
-            return
-        }
-        val noteId = bridge.addNote(modelId, deckId, card().toFields(), setOf("haqomu"))
-        if (noteId != null) {
-            Toast.makeText(context, R.string.anki_card_added, Toast.LENGTH_SHORT).show()
-            onClose()
-        } else {
-            saveLocally(R.string.anki_card_pending)
+    fun handleOutcome(outcome: SaveOutcome) {
+        when (outcome) {
+            SaveOutcome.Added -> {
+                Toast.makeText(context, R.string.anki_card_added, Toast.LENGTH_SHORT).show()
+                onClose()
+            }
+            SaveOutcome.NeedsPermission -> {
+                permissionLauncher.launch(AnkiDroidBridge.PERMISSION)
+            }
+            SaveOutcome.Invalid -> {
+                errorText = context.getString(R.string.anki_card_invalid)
+            }
+            SaveOutcome.Duplicate -> {
+                errorText = context.getString(R.string.anki_card_duplicate)
+            }
+            is SaveOutcome.Pending -> {
+                Toast.makeText(context, outcome.messageRes, Toast.LENGTH_SHORT).show()
+                onClose()
+            }
         }
     }
 
@@ -114,28 +101,15 @@ fun AnkiCardScreen(
         ActivityResultContracts.RequestPermission()
     ) { granted ->
         if (granted) {
-            addViaAnkiDroid(AnkiDroidBridge(context))
+            handleOutcome(CardSaver.save(context, HaqomuPrefs.ankiDeck(context), card()))
         } else {
-            saveLocally(R.string.anki_card_permission)
+            handleOutcome(CardSaver.saveLocally(context, card(), R.string.anki_card_permission))
         }
     }
 
     fun performSave() {
         errorText = null
-        if (!PendingCard.isValid(expression, meaning)) {
-            errorText = context.getString(R.string.anki_card_invalid)
-            return
-        }
-        val bridge = AnkiDroidBridge(context)
-        if (bridge.isAnkiDroidInstalled()) {
-            if (bridge.hasWritePermission()) {
-                addViaAnkiDroid(bridge)
-            } else {
-                permissionLauncher.launch(AnkiDroidBridge.PERMISSION)
-            }
-        } else {
-            saveLocally(R.string.anki_card_pending)
-        }
+        handleOutcome(CardSaver.save(context, HaqomuPrefs.ankiDeck(context), card()))
     }
 
     Scaffold(

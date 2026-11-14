@@ -40,6 +40,7 @@ fun SettingsScreen(
 ) {
     val context = LocalContext.current
     val textScale = remember { mutableStateOf(HaqomuPrefs.arabicTextScale(context)) }
+    val ankiEditMode = remember { mutableStateOf(HaqomuPrefs.ankiEditBeforeSave(context)) }
 
     ScreenScaffold(title = stringResource(R.string.settings_title), onBack = onBack) {
         Column(
@@ -114,6 +115,30 @@ fun SettingsScreen(
                     )
                 }
                 Switch(checked = false, onCheckedChange = null, enabled = false)
+            }
+
+            Spacer(Modifier.height(24.dp))
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = stringResource(R.string.settings_anki_edit_title),
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.onBackground,
+                    )
+                    Text(
+                        text = stringResource(R.string.settings_anki_edit_hint),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(top = 2.dp),
+                    )
+                }
+                Switch(
+                    checked = ankiEditMode.value,
+                    onCheckedChange = { value ->
+                        ankiEditMode.value = value
+                        HaqomuPrefs.setAnkiEditBeforeSave(context, value)
+                    },
+                )
             }
 
             Spacer(Modifier.height(24.dp))

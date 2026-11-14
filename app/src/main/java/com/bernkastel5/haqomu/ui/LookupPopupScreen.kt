@@ -35,8 +35,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import android.widget.Toast
 import com.bernkastel5.haqomu.AnkiCardActivity
 import com.bernkastel5.haqomu.R
+import com.bernkastel5.haqomu.anki.CardSaver
+import com.bernkastel5.haqomu.anki.CardText
+import com.bernkastel5.haqomu.anki.PendingCard
+import com.bernkastel5.haqomu.anki.SaveOutcome
 import com.bernkastel5.haqomu.camel.MorphologyPack
 import com.bernkastel5.haqomu.lookup.LookupQuery
 import com.bernkastel5.haqomu.lookup.PopupFormat
@@ -312,24 +317,46 @@ private fun ArticleCard(article: PopupArticle, scale: Float, onClose: () -> Unit
     val context = LocalContext.current
     val dictionaryLabel = sourceLabel(article.sourceFamily)
 
-    fun openAnki(senseDefinition: String, glossEn: String?) {
-        val meaning = if (!glossEn.isNullOrBlank() && glossEn.trim() != senseDefinition.trim()) {
-            senseDefinition.trim() + "\n\n" + glossEn.trim()
-        } else {
-            senseDefinition.trim()
-        }
-        context.startActivity(
-            AnkiCardActivity.newIntent(
-                context = context,
-                expression = article.head,
-                tashkeel = article.head,
-                meaning = meaning,
-                sentence = "",
-                root = article.root.orEmpty(),
-                dictionary = dictionaryLabel,
-            )
-        )
+    fun cardIntent(meaning: String) = AnkiCardActivity.newIntent(
+        context = context,
+        expression = article.head,
+        tashkeel = article.head,
+        meaning = meaning,
+        sentence = "",
+        root = article.root.orEmpty(),
+        dictionary = dictionaryLabel,
+    )
+
+    fun openEditor(meaning: String) {
+        context.startActivity(cardIntent(meaning))
         onClose()
+    }
+
+    fun ankiClick(senseDefinition: String, glossEn: String?) {
+        val meaning = CardText.meaningText(senseDefinition, glossEn)
+        if (HaqomuPrefs.ankiEditBeforeSave(context)) {
+            openEditor(meaning)
+            return
+        }
+        // стандартный сценарий: нажать «В Anki» и больше не взаимодействовать с карточкой
+        val card = PendingCard(
+            expression = article.head,
+            tashkeel = article.head,
+            meaning = meaning,
+            sentence = "",
+            root = article.root.orEmpty(),
+            dictionary = dictionaryLabel,
+        )
+        when (val outcome = CardSaver.save(context, HaqomuPrefs.ankiDeck(context), card)) {
+            SaveOutcome.Added ->
+                Toast.makeText(context, R.string.anki_card_added, Toast.LENGTH_SHORT).show()
+            SaveOutcome.NeedsPermission -> openEditor(meaning)
+            SaveOutcome.Invalid -> openEditor(meaning)
+            SaveOutcome.Duplicate ->
+                Toast.makeText(context, R.string.anki_card_duplicate, Toast.LENGTH_SHORT).show()
+            is SaveOutcome.Pending ->
+                Toast.makeText(context, outcome.messageRes, Toast.LENGTH_SHORT).show()
+        }
     }
 
     Card(
@@ -367,7 +394,7 @@ private fun ArticleCard(article: PopupArticle, scale: Float, onClose: () -> Unit
                     definition = sense.definition,
                     glossEn = sense.glossEn,
                     scale = scale,
-                    onAnki = { openAnki(sense.definition, sense.glossEn) },
+                    onAnki = { ankiClick(sense.definition, sense.glossEn) },
                 )
             }
         }

@@ -208,4 +208,6 @@
     <string name="anki_card_no_model">В AnkiDroid нет типа заметки Haqomu Arabic, импортируйте haqomu.apkg. Карточка сохранена в приложении</string>
     <string name="anki_card_duplicate">Такая карточка уже есть в колоде</string>
     <string name="anki_card_permission">AnkiDroid не дал доступ, карточка сохранена в приложении</string>
+    <string name="settings_anki_edit_title">Редактировать карточку перед сохранением</string>
+    <string name="settings_anki_edit_hint">Если выключено, кнопка «В Anki» в попапе сразу сохраняет карточку без экрана редактирования. По умолчанию выключено: быстрый сценарий.</string>
 </resources>

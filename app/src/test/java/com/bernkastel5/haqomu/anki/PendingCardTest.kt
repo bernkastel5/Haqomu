@@ -73,3 +73,21 @@ class JsonTest {
         assertEquals("\\u0001", Json.escape("\u0001"))
     }
 }
+
+class CardTextTest {
+    @Test
+    fun meaningTextKeepsGlossWhenDifferent() {
+        assertEquals("ساحب\n\nto drag", CardText.meaningText("ساحب", "to drag"))
+    }
+
+    @Test
+    fun meaningTextSkipsDuplicateGloss() {
+        assertEquals("to drag", CardText.meaningText("to drag", "to drag"))
+    }
+
+    @Test
+    fun meaningTextTrimsAndHandlesBlankGloss() {
+        assertEquals("word", CardText.meaningText("  word  ", "   "))
+        assertEquals("word", CardText.meaningText("  word  ", null))
+    }
+}
