@@ -142,10 +142,12 @@ object ModelStore {
             tmp.deleteRecursively()
             return BundleCheck.Failed("манифест не прочитан: ${e.message}")
         }
-        val parsed = ModelBundle.parseManifest(manifest)
-        if (parsed is BundleCheck.Failed) {
-            tmp.deleteRecursively()
-            return parsed
+        val parsed = when (val check = ModelBundle.parseManifest(manifest)) {
+            is BundleCheck.Failed -> {
+                tmp.deleteRecursively()
+                return check
+            }
+            is BundleCheck.Ok -> check
         }
         val vocab = try {
             String(File(tmp, ModelBundle.FILE_VOCAB).readBytes(), Charsets.UTF_8)

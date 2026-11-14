@@ -78,6 +78,18 @@ fun ModelScreen(onBack: () -> Unit) {
         SenseModelCache.invalidate()
     }
 
+    fun finish(outcome: BundleCheck) {
+        when (outcome) {
+            is BundleCheck.Ok -> {
+                refresh()
+                message = context.getString(R.string.model_installed, outcome.meta.model)
+                HaqomuPrefs.setSenseModelEnabled(context, true)
+                enabled = true
+            }
+            is BundleCheck.Failed -> error = outcome.reason
+        }
+    }
+
     val picker = rememberLauncherForActivityResult(
         ActivityResultContracts.OpenDocument()
     ) { uri: Uri? ->
@@ -115,18 +127,6 @@ fun ModelScreen(onBack: () -> Unit) {
             downloaded = 0L
             finish(outcome)
             if (note != null && message != null) message = "$message ($note)"
-        }
-    }
-
-    fun finish(outcome: BundleCheck) {
-        when (outcome) {
-            is BundleCheck.Ok -> {
-                refresh()
-                message = context.getString(R.string.model_installed, outcome.meta.model)
-                HaqomuPrefs.setSenseModelEnabled(context, true)
-                enabled = true
-            }
-            is BundleCheck.Failed -> error = outcome.reason
         }
     }
 
