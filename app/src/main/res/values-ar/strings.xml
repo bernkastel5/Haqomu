@@ -172,12 +172,12 @@
     <string name="plate_error_body">%1$s</string>
     <string name="plate_no_articles_title">لا توجد مواد</string>
     <string name="plate_no_articles_body">لا توجد هذه الكلمة في القواميس المثبتة. تأكد من تثبيت حزم القواميس في التطبيق.</string>
-    <string name="anki_step1">مجموعة haqomu.apkg مدمجة في التطبيق — زر المشاركة بالأسفل ينقلها إلى AnkiDroid. أو نزّل الملف من GitHub Releases.</string>
+    <string name="anki_step1">مجموعة haqomu.apkg مدمجة في التطبيق: زر المشاركة بالأسفل ينقلها إلى AnkiDroid. أو نزّل الملف من GitHub Releases.</string>
     <string name="anki_apkg_note">لا يحتوي haqomu.apkg على بيانات قواميس. سيُنشر في GitHub Releases مع أول بناء.</string>
     <string name="anki_share_button">مشاركة مجموعة Haqomu (.apkg)</string>
     <string name="anki_share_error">تعذرت مشاركة الملف</string>
-    <string name="anki_ankidroid_installed">AnkiDroid: مثبّت — تُضاف البطاقات فورًا</string>
-    <string name="anki_ankidroid_missing">AnkiDroid: غير مثبّت — تُحفظ البطاقات في التطبيق</string>
+    <string name="anki_ankidroid_installed">AnkiDroid: مثبّت، تُضاف البطاقات فورًا</string>
+    <string name="anki_ankidroid_missing">AnkiDroid: غير مثبّت، تُحفظ البطاقات في التطبيق</string>
     <string name="anki_pending_title">البطاقات المتراكمة</string>
     <string name="anki_pending_count">المتراكم: %1$d</string>
     <string name="anki_export_button">تصدير .apkg</string>
@@ -204,8 +204,8 @@
     <string name="anki_card_save_local">احفظ البطاقة</string>
     <string name="anki_card_invalid">الكلمة والمعنى مطلوبان</string>
     <string name="anki_card_added">أُضيفت إلى Anki</string>
-    <string name="anki_card_pending">لم يُعثر على AnkiDroid — حُفظت البطاقة في التطبيق</string>
-    <string name="anki_card_no_model">لا يوجد نوع ملاحظة Haqomu Arabic في AnkiDroid — استورد haqomu.apkg. حُفظت البطاقة في التطبيق</string>
+    <string name="anki_card_pending">لم يُعثر على AnkiDroid، حُفظت البطاقة في التطبيق</string>
+    <string name="anki_card_no_model">لا يوجد نوع ملاحظة Haqomu Arabic في AnkiDroid، استورد haqomu.apkg. حُفظت البطاقة في التطبيق</string>
     <string name="anki_card_duplicate">هذه البطاقة موجودة بالفعل في الرزمة</string>
-    <string name="anki_card_permission">لم يمنح AnkiDroid الإذن — حُفظت البطاقة في التطبيق</string>
+    <string name="anki_card_permission">لم يمنح AnkiDroid الإذن، حُفظت البطاقة في التطبيق</string>
 </resources>
