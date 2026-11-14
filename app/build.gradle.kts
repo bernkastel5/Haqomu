@@ -60,6 +60,21 @@ android {
 }
 
 println("::notice::C: android {} настроен, versionCode=" + resolvedVersionCode())
+
+// Временная диагностика: печатаем причину падения задач в аннотации прогона.
+tasks.configureEach {
+    if (System.getenv("CI") != "true") return@configureEach
+    if (name !in setOf("compileDebugKotlin", "testDebugUnitTest", "assembleDebug")) return@configureEach
+    doFirst { println("::notice::start " + path) }
+    doLast { println("::notice::done " + path) }
+}
+gradle.taskGraph.afterTask { task ->
+    if (System.getenv("CI") != "true") return@afterTask
+    val failure = task.state.failure ?: return@afterTask
+    val message = (failure.message ?: failure.javaClass.name)
+        .lineSequence().filter { it.isNotBlank() }.take(6).joinToString(" | ")
+    println("::error::fail " + task.path + ": " + message)
+}
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
