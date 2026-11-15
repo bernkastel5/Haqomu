@@ -140,18 +140,29 @@
     <string name="wizard_consent">أوافق على شروط المصادر: CAMeL-Lab (رخصة GPL-2)، وهانس فير (للاستخدام الشخصي)، وKaikki/Wiktionary (رخصة CC BY-SA 4.0)</string>
     <string name="wizard_install_all">تثبيت الكل</string>
     <string name="wizard_note">تُنزَّل الملفات من المصادر الرسمية؛ لا يعيد Haqomu توزيع أي شيء. تُحذف الملفات المؤقتة بعد التثبيت.</string>
+    <string name="ready_title">الجاهزية للعمل</string>
+    <string name="ready_ok">كل شيء جاهز: الصرف والحزم المعجمية مثبّتة. حدّد كلمة عربية واختر Haqomu.</string>
+    <string name="ready_missing_morph">صرف CAMeL غير مهيّأ — بدونه لا تُحلّل الصيغ واللواصق.</string>
+    <string name="ready_missing_packs">الحزم المعجمية غير مثبّتة — لا يوجد ما يُعرض في النافذة.</string>
+    <string name="ready_counts">الصرف: %1$s جذر. الحزم المعجمية: %2$d.</string>
+    <string name="manual_title">الوضع اليدوي (للمتقدمين)</string>
+    <string name="manual_hint">غالباً غير مطلوب: زر «تثبيت الكل» أعلاه يفعل الشيء نفسه. استخدمه فقط إذا نزّلت الملفات يدوياً أو تحتاج حزمة خاصة.</string>
+    <string name="manual_pack_title">تثبيت حزمة من ملف (الوضع اليدوي)</string>
+    <string name="manual_morph_title">الصرف من ملف (الوضع اليدوي)</string>
+    <string name="menu_label">Haqomu</string>
     <string name="wizard_step_downloading_pct">جارٍ التنزيل… %1$d٪</string>
     <string name="wizard_step_downloading_mb">جارٍ التنزيل… %1$s</string>
     <string name="wizard_step_converting">جارٍ التحويل… الأسطر: %1$d</string>
     <string name="wizard_step_verifying">جارٍ التحقق من الحزمة…</string>
     <string name="wizard_step_done">تم: %1$s</string>
     <string name="wizard_step_failed">خطأ: %1$s</string>
+    <string name="wizard_all_done">تم: كل شيء مثبّت ومُتحقَّق منه. التطبيق جاهز — حدّد كلمة واختر Haqomu.</string>
     <string name="wizard_retry">إعادة المحاولة</string>
     <string name="morph_done">تم تجهيز الصرف</string>
     <string name="morph_failed">تعذر تجهيز الصرف: %1$s</string>
 
     <!-- قائمة التحديد والنافذة (Ф1, Ф9) -->
-    <string name="lookup_menu_label">المعجم</string>
+    <string name="lookup_menu_label">Haqomu</string>
     <string name="popup_close">إغلاق</string>
     <string name="popup_in_anki">أضف إلى Anki</string>
     <string name="popup_clitic_base">الأساس: %1$s</string>

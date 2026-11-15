@@ -140,18 +140,29 @@
     <string name="wizard_consent">Я принимаю условия источников: CAMeL-Lab (GPL-2), Hans Wehr (личное использование), Kaikki/Wiktionary (CC BY-SA 4.0)</string>
     <string name="wizard_install_all">Установить всё</string>
     <string name="wizard_note">Файлы качаются у официальных источников; Haqomu ничего не раздаёт. Временные файлы удаляются после установки.</string>
+    <string name="ready_title">Готовность к работе</string>
+    <string name="ready_ok">Всё готово: морфология и словарные паки на месте. Выделите арабское слово и выберите Haqomu.</string>
+    <string name="ready_missing_morph">Не хватает морфологии CAMeL — без неё словоформы и клитики не разбираются.</string>
+    <string name="ready_missing_packs">Не хватает словарных паков — без них нечего показывать в попапе.</string>
+    <string name="ready_counts">Морфология: %1$s стеблей. Словарных паков: %2$d.</string>
+    <string name="manual_title">Ручной режим (для продвинутых)</string>
+    <string name="manual_hint">Обычно это не нужно: кнопка «Установить всё» выше делает то же самое сама. Здесь — только если файлы уже скачаны вручную или нужен свой пак.</string>
+    <string name="manual_pack_title">Установка пака из файла (ручной режим)</string>
+    <string name="manual_morph_title">Морфология из файла (ручной режим)</string>
+    <string name="menu_label">Haqomu</string>
     <string name="wizard_step_downloading_pct">Скачивание… %1$d%%</string>
     <string name="wizard_step_downloading_mb">Скачивание… %1$s</string>
     <string name="wizard_step_converting">Конвертация… строк: %1$d</string>
     <string name="wizard_step_verifying">Проверка пака…</string>
     <string name="wizard_step_done">Готово: %1$s</string>
     <string name="wizard_step_failed">Ошибка: %1$s</string>
+    <string name="wizard_all_done">Готово: всё установлено и проверено. Приложение готово к работе — выделите слово и выберите Haqomu.</string>
     <string name="wizard_retry">Повторить</string>
     <string name="morph_done">Морфология подготовлена</string>
     <string name="morph_failed">Не удалось подготовить морфологию: %1$s</string>
 
     <!-- Пункт меню и попап (Ф1, Ф9) -->
-    <string name="lookup_menu_label">Словарь</string>
+    <string name="lookup_menu_label">Haqomu</string>
     <string name="popup_close">Закрыть</string>
     <string name="popup_in_anki">В Anki</string>
     <string name="popup_clitic_base">الأساس: %1$s</string>

@@ -140,18 +140,29 @@
     <string name="wizard_consent">I accept the source terms: CAMeL-Lab (GPL-2), Hans Wehr (personal use), Kaikki/Wiktionary (CC BY-SA 4.0)</string>
     <string name="wizard_install_all">Install everything</string>
     <string name="wizard_note">Files are downloaded from the official sources; Haqomu does not redistribute anything. Temporary files are deleted after installation.</string>
+    <string name="ready_title">Ready to use</string>
+    <string name="ready_ok">Everything is ready: morphology and dictionary packs are installed. Select an Arabic word and choose Haqomu.</string>
+    <string name="ready_missing_morph">CAMeL morphology is missing — word forms and clitics cannot be analysed without it.</string>
+    <string name="ready_missing_packs">Dictionary packs are missing — there is nothing to show in the popup.</string>
+    <string name="ready_counts">Morphology: %1$s stems. Dictionary packs: %2$d.</string>
+    <string name="manual_title">Manual mode (advanced)</string>
+    <string name="manual_hint">Usually not needed: the “Install all” button above does the same. Use this only if you already downloaded files by hand or need a custom pack.</string>
+    <string name="manual_pack_title">Install a pack from a file (manual mode)</string>
+    <string name="manual_morph_title">Morphology from a file (manual mode)</string>
+    <string name="menu_label">Haqomu</string>
     <string name="wizard_step_downloading_pct">Downloading… %1$d%%</string>
     <string name="wizard_step_downloading_mb">Downloading… %1$s</string>
     <string name="wizard_step_converting">Converting… lines: %1$d</string>
     <string name="wizard_step_verifying">Verifying pack…</string>
     <string name="wizard_step_done">Done: %1$s</string>
     <string name="wizard_step_failed">Error: %1$s</string>
+    <string name="wizard_all_done">Done: everything is installed and verified. The app is ready — select a word and choose Haqomu.</string>
     <string name="wizard_retry">Retry</string>
     <string name="morph_done">Morphology prepared</string>
     <string name="morph_failed">Could not prepare morphology: %1$s</string>
 
     <!-- Process-text menu and popup (Ф1, Ф9) -->
-    <string name="lookup_menu_label">Dictionary</string>
+    <string name="lookup_menu_label">Haqomu</string>
     <string name="popup_close">Close</string>
     <string name="popup_in_anki">Add to Anki</string>
     <string name="popup_clitic_base">Base form: %1$s</string>

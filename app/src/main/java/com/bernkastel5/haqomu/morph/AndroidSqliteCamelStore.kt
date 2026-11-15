@@ -51,9 +51,12 @@ class AndroidSqliteCamelStore(path: String) : CamelStore, AutoCloseable {
     }
 
     override fun compatAllows(kind: Char, a: String, b: String): Boolean {
+        // В паке kind хранится парами («ab», «bc», «ac»), как их пишут
+        // tools/build_camel_pack.py и CamelMorphologyParser, — см. PackCompatKey.
+        val key = PackCompatKey.of(kind) ?: return false
         db.rawQuery(
             "SELECT 1 FROM compat WHERE kind = ? AND a = ? AND b = ? LIMIT 1",
-            arrayOf(kind.toString(), a, b),
+            arrayOf(key, a, b),
         ).use { c -> return c.moveToFirst() }
     }
 

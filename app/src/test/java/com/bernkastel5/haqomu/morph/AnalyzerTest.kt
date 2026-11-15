@@ -1,6 +1,7 @@
 package com.bernkastel5.haqomu.morph
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -74,5 +75,19 @@ class AnalyzerTest {
         assertEquals("ذهب", ArabicNormalize.un("ذَهَبَ"))
         assertEquals("اكل", ArabicNormalize.un("أكل"))
         assertEquals("اهدي", ArabicNormalize.un("إهدى"))
+    }
+
+    /**
+     * Регрессия: в собранном паке compat хранится парами kind ('ab' префикс→стебель,
+     * 'bc' стебель→суффикс, 'ac' префикс→суффикс), а анализатор спрашивает одиночной
+     * буквой. Пока эти обозначения не сходились, ни одно слово не разбиралось, и попап
+     * на всё отвечал «похоже на имя собственное».
+     */
+    @Test
+    fun packKindNotationIsMapped() {
+        assertEquals("ab", PackCompatKey.of('a'))
+        assertEquals("bc", PackCompatKey.of('b'))
+        assertEquals("ac", PackCompatKey.of('c'))
+        assertNull(PackCompatKey.of('z'))
     }
 }

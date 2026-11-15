@@ -236,6 +236,17 @@ fun PackWizardSection(onPacksChanged: () -> Unit = {}) {
             ) {
                 Text(stringResource(R.string.wizard_install_all))
             }
+            // Подтверждение результата: после мастера пользователю нужно видеть,
+            // что всё установлено и проверено, а не догадываться по строкам шагов.
+            val allDone = WizardStep.entries.all { steps[it]?.status == StepStatus.DONE }
+            if (allDone && !running) {
+                Text(
+                    text = stringResource(R.string.wizard_all_done),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.padding(top = 10.dp),
+                )
+            }
             Text(
                 text = stringResource(R.string.wizard_note),
                 style = MaterialTheme.typography.bodySmall,

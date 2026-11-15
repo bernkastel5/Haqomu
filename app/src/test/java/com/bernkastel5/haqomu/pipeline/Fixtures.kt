@@ -55,6 +55,9 @@ fun entry(
 class FakeDictionary(entries: List<DictionaryEntry>) : DictionarySource {
     private val all = entries.toList()
 
+    /** Копия набора статей — для тестов, которым нужен словарь без предварительной сборки. */
+    fun allEntries(): List<DictionaryEntry> = all
+
     override fun findByHeadNorm(queryNorm: String, limitPerSource: Int): List<DictionaryEntry> {
         if (queryNorm.isEmpty()) return emptyList()
         val known = Families.ORDER.toSet()

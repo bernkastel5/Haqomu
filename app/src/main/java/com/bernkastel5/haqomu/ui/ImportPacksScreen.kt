@@ -22,6 +22,7 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -34,6 +35,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.bernkastel5.haqomu.R
+import com.bernkastel5.haqomu.camel.MorphologyPack
 import com.bernkastel5.haqomu.pack.AndroidSQLitePackSource
 import com.bernkastel5.haqomu.pack.PackChecks
 import com.bernkastel5.haqomu.pack.PackReport
@@ -57,6 +59,13 @@ fun ImportPacksScreen(onBack: () -> Unit) {
 
     var picked by remember { mutableStateOf<PickedPack?>(null) }
     var installed by remember { mutableStateOf(readInstalledPacks(packsDir)) }
+    // Стебли морфологии перечитываем после мастера и ручной установки, иначе сводка
+    // готовности показывала бы старое состояние до перезапуска экрана.
+    var stems by remember { mutableStateOf(MorphologyPack.status(context)?.stems) }
+    fun refresh() {
+        installed = readInstalledPacks(packsDir)
+        stems = MorphologyPack.status(context)?.stems
+    }
 
     val launcher = rememberLauncherForActivityResult(
         ActivityResultContracts.OpenDocument()
@@ -110,9 +119,10 @@ fun ImportPacksScreen(onBack: () -> Unit) {
                     color = MaterialTheme.colorScheme.onBackground,
                 )
 
-                PackWizardSection(onPacksChanged = { installed = readInstalledPacks(packsDir) })
+                // Сводка готовности: видно, можно ли уже работать, без прокрутки вниз.
+                ReadyCard(stems = stems, packCount = installed.size)
 
-                MorphologySection()
+                PackWizardSection(onPacksChanged = { refresh() })
 
                 if (installed.isNotEmpty()) {
                     Text(
@@ -124,44 +134,34 @@ fun ImportPacksScreen(onBack: () -> Unit) {
                     for (pack in installed) {
                         InstalledPackRow(pack, onDelete = {
                             File(packsDir, pack.name).delete()
-                            installed = readInstalledPacks(packsDir)
+                            refresh()
                             scope.launch { snackbarHostState.showSnackbar(deleteDone) }
                         })
                     }
                 }
 
-                PackInfo(stringResource(R.string.import_camel), stringResource(R.string.import_camel_sub))
-                PackInfo(stringResource(R.string.import_ksaa), stringResource(R.string.import_ksaa_sub))
-                PackInfo(stringResource(R.string.import_kaikki), stringResource(R.string.import_kaikki_sub))
-                PackInfo(stringResource(R.string.import_hw), stringResource(R.string.import_hw_sub))
-
-                OutlinedButton(
-                    onClick = { launcher.launch(arrayOf("*/*")) },
-                    modifier = Modifier.padding(top = 4.dp),
-                ) {
-                    Text(stringResource(R.string.import_pick))
-                }
-
-                val file = picked
-                if (file != null) {
-                    ReportCard(
-                        picked = file,
-                        onInstall = {
-                            if (packsDir.mkdirs() || packsDir.isDirectory) {
-                                val dest = uniquePackFile(packsDir, file.displayName)
-                                if (file.tempFile.renameTo(dest)) {
-                                    installed = readInstalledPacks(packsDir)
-                                    picked = null
-                                    scope.launch { snackbarHostState.showSnackbar(copiedDone) }
-                                }
+                // Ручной режим убран под спойлер: обычный путь — мастер выше, и путать
+                // «выберите файл» с обязательным шагом больше не нужно.
+                Spacer(Modifier.height(18.dp))
+                ManualMode(
+                    onPickPack = { launcher.launch(arrayOf("*/*")) },
+                    picked = picked,
+                    onInstall = {
+                        val file = picked
+                        if (file != null && (packsDir.mkdirs() || packsDir.isDirectory)) {
+                            val dest = uniquePackFile(packsDir, file.displayName)
+                            if (file.tempFile.renameTo(dest)) {
+                                refresh()
+                                picked = null
+                                scope.launch { snackbarHostState.showSnackbar(copiedDone) }
                             }
-                        },
-                        onDismiss = {
-                            file.tempFile.delete()
-                            picked = null
-                        },
-                    )
-                }
+                        }
+                    },
+                    onDismiss = {
+                        picked?.tempFile?.delete()
+                        picked = null
+                    },
+                )
 
                 Text(
                     text = stringResource(R.string.import_copy_note),
@@ -364,6 +364,102 @@ private fun checkLabel(id: String): String {
 }
 
 
+/**
+ * Сводка «всё ли готово к работе». Показывается сразу под вступлением, чтобы после
+ * мастера установки не искать по экрану, установилось ли всё.
+ */
+@Composable
+private fun ReadyCard(stems: String?, packCount: Int) {
+    val morphOk = !stems.isNullOrBlank() && stems != "0"
+    val packsOk = packCount > 0
+    val allOk = morphOk && packsOk
+    Surface(
+        modifier = Modifier.fillMaxWidth().padding(top = 12.dp),
+        shape = RoundedCornerShape(12.dp),
+        color = MaterialTheme.colorScheme.surfaceVariant,
+    ) {
+        Column(Modifier.padding(16.dp)) {
+            Text(
+                text = stringResource(if (allOk) R.string.ready_ok else R.string.ready_title),
+                style = MaterialTheme.typography.titleSmall,
+                color = if (allOk) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onBackground,
+            )
+            if (!allOk) {
+                if (!morphOk) {
+                    Text(
+                        text = stringResource(R.string.ready_missing_morph),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(top = 6.dp),
+                    )
+                }
+                if (!packsOk) {
+                    Text(
+                        text = stringResource(R.string.ready_missing_packs),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(top = 6.dp),
+                    )
+                }
+            }
+            if (stems != null || packCount > 0) {
+                Text(
+                    text = stringResource(R.string.ready_counts, stems?.takeIf { it.isNotBlank() } ?: "0", packCount),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.padding(top = 6.dp),
+                )
+            }
+        }
+    }
+}
+
+/**
+ * Ручной режим: установка пака и морфологии из заранее скачанных файлов.
+ * Свёрнут по умолчанию и подписан явно — обычный путь идёт через мастер установки.
+ */
+@Composable
+private fun ManualMode(
+    onPickPack: () -> Unit,
+    picked: PickedPack?,
+    onInstall: () -> Unit,
+    onDismiss: () -> Unit,
+) {
+    var expanded by remember { mutableStateOf(false) }
+    TextButton(onClick = { expanded = !expanded }) {
+        Text(
+            text = stringResource(R.string.manual_title) + if (expanded) " \u2212" else " +",
+            style = MaterialTheme.typography.labelLarge,
+        )
+    }
+    Text(
+        text = stringResource(R.string.manual_hint),
+        style = MaterialTheme.typography.bodySmall,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+    )
+    if (!expanded) return
+
+    Text(
+        text = stringResource(R.string.manual_pack_title),
+        style = MaterialTheme.typography.titleSmall,
+        color = MaterialTheme.colorScheme.onBackground,
+        modifier = Modifier.padding(top = 14.dp),
+    )
+    PackInfo(stringResource(R.string.import_camel), stringResource(R.string.import_camel_sub))
+    PackInfo(stringResource(R.string.import_ksaa), stringResource(R.string.import_ksaa_sub))
+    PackInfo(stringResource(R.string.import_kaikki), stringResource(R.string.import_kaikki_sub))
+    PackInfo(stringResource(R.string.import_hw), stringResource(R.string.import_hw_sub))
+    OutlinedButton(onClick = onPickPack, modifier = Modifier.padding(top = 4.dp)) {
+        Text(stringResource(R.string.import_pick))
+    }
+    val current = picked
+    if (current != null) {
+        ReportCard(picked = current, onInstall = onInstall, onDismiss = onDismiss)
+    }
+    MorphologySection(manual = true)
+    Spacer(Modifier.height(24.dp))
+}
+
 @Composable
 private fun PackInfo(title: String, body: String) {
     Column(modifier = Modifier.padding(bottom = 14.dp)) {
@@ -380,7 +476,6 @@ private fun PackInfo(title: String, body: String) {
         )
     }
 }
-
 
 private fun formatSize(context: android.content.Context, bytes: Long): String {
     val mb = bytes / 1048576.0

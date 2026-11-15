@@ -70,7 +70,13 @@
             android:taskAffinity=""
             android:label="@string/lookup_menu_label"
             android:theme="@style/Theme.Haqomu.Popup">
-            <intent-filter>
+            <!--
+                Пункт в меню выделения. android:priority поднимает его выше других
+                PROCESS_TEXT-приложений: система сортирует пункты по priority по убыванию,
+                при равенстве — по алфавиту пакета. Так Haqomu оказывается ближе к началу
+                панели «Копировать / Отправить», и долистывать до него не нужно.
+            -->
+            <intent-filter android:priority="1000">
                 <action android:name="android.intent.action.PROCESS_TEXT" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="text/plain" />

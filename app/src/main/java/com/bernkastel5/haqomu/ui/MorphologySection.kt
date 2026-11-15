@@ -32,7 +32,7 @@ import kotlinx.coroutines.launch
  * конвертируется на устройстве в camel_pack.sqlite (ADR-0003). Ничего никуда не отправляется.
  */
 @Composable
-fun MorphologySection() {
+fun MorphologySection(manual: Boolean = false) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     var working by remember { mutableStateOf(false) }
@@ -79,7 +79,7 @@ fun MorphologySection() {
 
     Column(modifier = Modifier.fillMaxWidth()) {
         Text(
-            text = stringResource(R.string.morph_title),
+            text = stringResource(if (manual) R.string.manual_morph_title else R.string.morph_title),
             style = MaterialTheme.typography.labelLarge,
             color = MaterialTheme.colorScheme.primary,
             modifier = Modifier.padding(top = 20.dp, bottom = 8.dp),
