@@ -236,6 +236,17 @@ fun PackWizardSection(onPacksChanged: () -> Unit = {}) {
             ) {
                 Text(stringResource(R.string.wizard_install_all))
             }
+            // Подтверждение результата: после мастера пользователю нужно видеть,
+            // что всё установлено и проверено, а не догадываться по строкам шагов.
+            val allDone = WizardStep.entries.all { steps[it]?.status == StepStatus.DONE }
+            if (allDone && !running) {
+                Text(
+                    text = stringResource(R.string.wizard_all_done),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.padding(top = 10.dp),
+                )
+            }
             Text(
                 text = stringResource(R.string.wizard_note),
                 style = MaterialTheme.typography.bodySmall,
@@ -303,6 +314,12 @@ private fun WizardStepRow(
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.secondary,
                     modifier = Modifier.padding(top = 2.dp),
+                )
+                // Ошибку конвертации/установки копируем целиком: по ней видно, на каком шаге
+                // и на каком файле всё встало, без перепечатывания с телефона.
+                CopyActions(
+                    text = "$name — ${state.detail ?: "?"}",
+                    modifier = Modifier.padding(top = 0.dp),
                 )
                 OutlinedButton(onClick = onRetry, enabled = !running, modifier = Modifier.padding(top = 6.dp)) {
                     Text(stringResource(R.string.wizard_retry))

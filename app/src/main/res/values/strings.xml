@@ -67,7 +67,6 @@
     <string name="text_size_sample">ذَهَبَ الطَّالِبُ إِلَى الْمَدْرَسَةِ.</string>
     <string name="text_size_hint">Размер применяется к статьям в попапе.</string>
     <string name="settings_floating">Плавающая кнопка</string>
-    <string name="floating_caption">Появится в следующей сборке. Сервис доступности читает только предложение вокруг выделенного слова; текст не сохраняется и не передаётся.</string>
     <string name="settings_replay">Повторить мастер настройки</string>
 
     <!-- О программе -->
@@ -141,18 +140,29 @@
     <string name="wizard_consent">Я принимаю условия источников: CAMeL-Lab (GPL-2), Hans Wehr (личное использование), Kaikki/Wiktionary (CC BY-SA 4.0)</string>
     <string name="wizard_install_all">Установить всё</string>
     <string name="wizard_note">Файлы качаются у официальных источников; Haqomu ничего не раздаёт. Временные файлы удаляются после установки.</string>
+    <string name="ready_title">Готовность к работе</string>
+    <string name="ready_ok">Всё готово: морфология и словарные паки на месте. Выделите арабское слово и выберите Haqomu.</string>
+    <string name="ready_missing_morph">Не хватает морфологии CAMeL — без неё словоформы и клитики не разбираются.</string>
+    <string name="ready_missing_packs">Не хватает словарных паков — без них нечего показывать в попапе.</string>
+    <string name="ready_counts">Морфология: %1$s стеблей. Словарных паков: %2$d.</string>
+    <string name="manual_title">Ручной режим (для продвинутых)</string>
+    <string name="manual_hint">Обычно это не нужно: кнопка «Установить всё» выше делает то же самое сама. Здесь — только если файлы уже скачаны вручную или нужен свой пак.</string>
+    <string name="manual_pack_title">Установка пака из файла (ручной режим)</string>
+    <string name="manual_morph_title">Морфология из файла (ручной режим)</string>
+    <string name="menu_label">Haqomu</string>
     <string name="wizard_step_downloading_pct">Скачивание… %1$d%%</string>
     <string name="wizard_step_downloading_mb">Скачивание… %1$s</string>
     <string name="wizard_step_converting">Конвертация… строк: %1$d</string>
     <string name="wizard_step_verifying">Проверка пака…</string>
     <string name="wizard_step_done">Готово: %1$s</string>
     <string name="wizard_step_failed">Ошибка: %1$s</string>
+    <string name="wizard_all_done">Готово: всё установлено и проверено. Приложение готово к работе — выделите слово и выберите Haqomu.</string>
     <string name="wizard_retry">Повторить</string>
     <string name="morph_done">Морфология подготовлена</string>
     <string name="morph_failed">Не удалось подготовить морфологию: %1$s</string>
 
     <!-- Пункт меню и попап (Ф1, Ф9) -->
-    <string name="lookup_menu_label">Словарь</string>
+    <string name="lookup_menu_label">Haqomu</string>
     <string name="popup_close">Закрыть</string>
     <string name="popup_in_anki">В Anki</string>
     <string name="popup_clitic_base">الأساس: %1$s</string>
@@ -210,4 +220,71 @@
     <string name="anki_card_permission">AnkiDroid не дал доступ, карточка сохранена в приложении</string>
     <string name="settings_anki_edit_title">Редактировать карточку перед сохранением</string>
     <string name="settings_anki_edit_hint">Если выключено, кнопка «В Anki» в попапе сразу сохраняет карточку без экрана редактирования. По умолчанию выключено: быстрый сценарий.</string>
+
+    <!-- Доступ к экрану: плавающая кнопка и контекст (Ф2, Ф3) -->
+    <string name="accessibility_service_label">Haqomu: кнопка у выделения</string>
+    <string name="accessibility_service_description">Показывает маленькую кнопку рядом с выделенным арабским словом и передаёт в попап предложение, в котором это слово стоит. Текст экрана не сохраняется и никуда не отправляется.</string>
+    <string name="accessibility_mode_title">Кнопка у выделения</string>
+    <string name="accessibility_mode_hint">По умолчанию выключено. Плавающая кнопка работает поверх других приложений; второй режим ничего не рисует на экране, а только подставляет предложение в попап, открытый из меню выделения.</string>
+    <string name="accessibility_mode_off">Выключено</string>
+    <string name="accessibility_mode_floating">Плавающая кнопка</string>
+    <string name="accessibility_mode_context">Только контекст</string>
+    <string name="accessibility_system_off">Доступ к экрану в системе выключен: нажмите «Открыть настройки доступности» и включите Haqomu.</string>
+    <string name="accessibility_system_on">Доступ к экрану включён в системе.</string>
+    <string name="accessibility_open_settings">Открыть настройки доступности</string>
+    <string name="accessibility_notice_title">Что будет читать Haqomu</string>
+    <string name="accessibility_notice_body">Только текст вокруг выделения в момент, когда вы выделяете слово. Слово нужно для поиска, предложение — чтобы подставить пример в карточку Anki. Текст не записывается в файлы, не уходит в сеть и не попадает в историю. Поля паролей не читаются. Выключить можно в любой момент здесь или в системных настройках.</string>
+    <string name="accessibility_notice_ok">Понятно</string>
+    <string name="accessibility_disabled_note">Сервис выключен: попап и меню выделения работают как раньше, без предложения-контекста.</string>
+    <string name="floating_button_label">Haqomu: открыть словарь</string>
+    <string name="floating_button_letter">H</string>
+    <string name="settings_floating_hint">Два режима: кнопка поверх других приложений или только чтение контекста для попапа. Текст экрана не сохраняется и никуда не отправляется.</string>
+    <string name="settings_accessibility_screen">Доступ к экрану</string>
+
+    <!-- Модель разрешения смыслов (Ф10, Ф13) -->
+    <string name="home_model">Модель смыслов</string>
+    <string name="home_model_sub">Необязательно: подбор смысла по предложению</string>
+    <string name="model_title">Модель смыслов</string>
+    <string name="model_intro">Необязательная модель, которая подсказывает, какой смысл статьи подходит к предложению со словом. Без неё попап работает по словарному порядку — это нормальный режим, а не ошибка.</string>
+    <string name="model_status_label">Состояние</string>
+    <string name="model_status_installed">Установлена: %1$s · %2$s</string>
+    <string name="model_status_missing">Не установлена. Весов в приложении нет: они скачиваются отдельно, по вашей команде.</string>
+    <string name="model_attribution">Источник: %1$s · лицензия %2$s</string>
+    <string name="model_enable_title">Использовать модель в попапе</string>
+    <string name="model_enable_hint">Смысл поднимается на первое место только при разрыве вероятностей не меньше 0,3. Иначе порядок остаётся словарным: модель молчит в большинстве запросов.</string>
+    <string name="model_download_title">Установка</string>
+    <string name="model_download_hint">Нужен архив модели: model.onnx, vocab.txt и model.json в одном zip. int8 занимает около 135 МБ, fp16 — около 270 МБ. Адрес не задан по умолчанию: впишите свой или выберите готовый файл.</string>
+    <string name="model_url_label">Адрес архива модели</string>
+    <string name="model_download">Скачать</string>
+    <string name="model_pick_file">Выбрать файл…</string>
+    <string name="model_progress">Скачано %1$s из %2$s</string>
+    <string name="model_unpacking">Проверка и распаковка: %1$s</string>
+    <string name="model_need_zip">Нужен архив .zip с model.onnx, vocab.txt и model.json</string>
+    <string name="model_need_url">Впишите адрес архива или выберите файл с устройства</string>
+    <string name="model_installed">Модель установлена: %1$s</string>
+    <string name="model_failed">Не получилось: %1$s</string>
+    <string name="model_remove">Удалить модель</string>
+    <string name="model_remove_confirm">Нажмите ещё раз, чтобы удалить</string>
+    <string name="model_removed">Модель удалена, попап работает по словарному порядку</string>
+    <string name="model_privacy">Модель работает на этом устройстве. Предложение из текста и толкования отправляются только в неё и никуда больше.</string>
+    <string name="popup_sense_model">Смысл выбран моделью</string>
+    <string name="copy_action">Скопировать</string>
+    <string name="share_action">Отправить…</string>
+    <string name="copy_done">Скопировано</string>
+    <string name="copy_title_error">Сообщение об ошибке</string>
+    <string name="check_fts_index">FTS-индекс (необязателен)</string>
+    <string name="home_update">Обновление</string>
+    <string name="home_update_sub">Скачать и поставить новую сборку, данные сохраняются</string>
+    <string name="update_title">Обновление</string>
+    <string name="update_intro">Приложение проверяет сборку в том же канале, откуда вы его установили: сравнивает номер версии и предлагает скачать новый APK. Магазина нет, поэтому установка идёт системным установщиком.</string>
+    <string name="update_current">Установлено: %1$s (сборка %2$d)</string>
+    <string name="update_available">Доступно: %1$s (сборка %2$d)</string>
+    <string name="update_commit">Коммит: %1$s</string>
+    <string name="update_check">Проверить обновление</string>
+    <string name="update_install">Скачать и установить</string>
+    <string name="update_progress">Скачивание… %1$d%%</string>
+    <string name="update_working">Проверяю…</string>
+    <string name="update_installer_opened">Открыт системный установщик: подтвердите обновление.</string>
+    <string name="update_need_permission">Нужно разрешить установку из этого источника. Открыл настройки — включите «Разрешить установку неизвестных приложений» для Haqomu, затем вернитесь и повторите.</string>
+    <string name="update_keeps_data">При обновлении поверх сохраняются паки, настройки и очередь карточек Anki: они лежат в памяти приложения, а не в APK.</string>
 </resources>

@@ -48,6 +48,10 @@ fun HomeScreen(onOpen: (Screen) -> Unit) {
         HorizontalDivider(color = MaterialTheme.colorScheme.surfaceVariant)
         HomeRow(R.string.home_preview, R.string.home_preview_sub) { onOpen(Screen.PopupPreview) }
         HorizontalDivider(color = MaterialTheme.colorScheme.surfaceVariant)
+        HomeRow(R.string.home_model, R.string.home_model_sub) { onOpen(Screen.Model) }
+        HorizontalDivider(color = MaterialTheme.colorScheme.surfaceVariant)
+        HomeRow(R.string.home_update, R.string.home_update_sub) { onOpen(Screen.Update) }
+        HorizontalDivider(color = MaterialTheme.colorScheme.surfaceVariant)
         HomeRow(R.string.home_settings, R.string.home_settings_sub) { onOpen(Screen.Settings) }
         HorizontalDivider(color = MaterialTheme.colorScheme.surfaceVariant)
         HomeRow(R.string.home_about, R.string.home_about_sub) { onOpen(Screen.About) }

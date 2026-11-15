@@ -2,7 +2,9 @@ package com.bernkastel5.haqomu.pack
 
 /**
  * Формат пака Haqomu (docs/architecture.md §4): один SQLite-файл на пак,
- * таблицы meta / entry / sense и FTS5-индекс sense_fts.
+ * таблицы meta / entry / sense; FTS-индекс sense_fts — **необязательный** (ADR-0009):
+ * системный SQLite в Android обычно без FTS5, а поиск идёт по entry.head_norm.
+ * Вид индекса пишется сборщиком в meta('fts') = fts5 | fts4 | none.
  *
  * Проверки pure (без Android API) — читают данные через [PackDataSource],
  * поэтому юнит-тесты гоняют их на синтетике. Android-реализация — AndroidSQLitePackSource.
@@ -36,7 +38,7 @@ interface PackDataSource {
 object PackChecks {
     const val SCHEMA_VERSION = "1"
 
-    private val REQUIRED_TABLES = listOf("meta", "entry", "sense", "sense_fts")
+    private val REQUIRED_TABLES = listOf("meta", "entry", "sense")
     private val REQUIRED_COLUMNS = mapOf(
         "meta" to setOf("key", "value"),
         "entry" to setOf("id", "head", "head_norm"),
@@ -129,10 +131,23 @@ object PackChecks {
             checks.add(PackCheck("head_norm_filled", empty == 0L, if (empty == 0L) null else "$empty entries with empty head_norm"))
         }
 
-        // 8. FTS5 работает: запрос к sense_fts падает, если модуль FTS5 недоступен
-        safe("fts5_available") {
-            val n = ds.rowCount("sense_fts")
-            checks.add(PackCheck("fts5_available", n >= 0))
+        // 8. FTS-индекс: необязателен. Если сборщик его сделал (meta fts = fts5/fts4),
+        // проверяем, что таблица на месте и читается движком этого устройства;
+        // пак с fts = none (системный SQLite без FTS) полноценен — поиск идёт по entry.
+        val declaredFts = (runCatching { ds.metaValue("fts") }.getOrNull() ?: "").trim().lowercase()
+        if (declaredFts.isEmpty() || declaredFts == "none") {
+            checks.add(
+                PackCheck(
+                    "fts_available",
+                    true,
+                    if (tables.contains("sense_fts")) "индекс есть, не используется" else "без FTS — поиск по head_norm",
+                )
+            )
+        } else {
+            safe("fts_available") {
+                val n = ds.rowCount("sense_fts")
+                checks.add(PackCheck("fts_available", n >= 0, "$declaredFts, $n rows"))
+            }
         }
 
         return PackReport(meta, checks)

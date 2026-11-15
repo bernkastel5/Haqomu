@@ -13,6 +13,8 @@ data class PopupArticle(
     val senses: List<DictionarySense>,
     /** Откуда статья: "answer" — ответ пайплайна, иначе "lemma <лемма>". */
     val rank: String,
+    /** Ф10: смысл поднят моделью по предложению (в интерфейсе — пометка «выбран моделью»). */
+    val senseChosenByModel: Boolean = false,
     /** Баллы внешнего подтверждения (для ответа пайплайна). */
     val support: Int,
     val isAnswer: Boolean,
@@ -66,7 +68,20 @@ class PipelineEngine(
     fun lookup(rawWord: String): PopupContent {
         val original = rawWord.trim()
         val wc = classifier.classify(original)
-        if (wc.kind == WordKind.NAME) {
+
+        // Ф7: кандидаты из словарных паков — прямой запрос и по леммам.
+        val candidates = mutableListOf<PopupCandidate>()
+        val directEntries = dictionary.findByHeadNorm(ArabicNormalize.nk(original))
+        for ((family, entries) in directEntries.groupBy { it.sourceFamily }) {
+            PickEntry.pick(entries, original)?.let { (_, e) ->
+                candidates += PopupCandidate(entry = e, stage = 0)
+            }
+        }
+
+        // Плашка «имя собственное» — только если словарной статьи тоже нет. Иначе
+        // сбой морфологии (пак не установлен, база нечитаема) превращал бы в «имя»
+        // любое слово, у которого статья в словаре есть.
+        if (wc.kind == WordKind.NAME && candidates.isEmpty()) {
             return PopupContent(
                 original = original,
                 mode = PopupMode.NAME_PLATE,
@@ -77,15 +92,6 @@ class PipelineEngine(
         }
 
         val lemmas = wc.lemmas.distinct().take(2) // Ф6
-
-        // Ф7: кандидаты из словарных паков — прямой запрос и по леммам.
-        val candidates = mutableListOf<PopupCandidate>()
-        val directEntries = dictionary.findByHeadNorm(ArabicNormalize.nk(original))
-        for ((family, entries) in directEntries.groupBy { it.sourceFamily }) {
-            PickEntry.pick(entries, original)?.let { (_, e) ->
-                candidates += PopupCandidate(entry = e, stage = 0)
-            }
-        }
         for ((i, lemma) in lemmas.withIndex()) {
             val lemmaEntries = dictionary.findByHeadNorm(ArabicNormalize.nk(lemma))
             for ((family, entries) in lemmaEntries.groupBy { it.sourceFamily }) {

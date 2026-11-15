@@ -67,7 +67,6 @@
     <string name="text_size_sample">ذَهَبَ الطَّالِبُ إِلَى الْمَدْرَسَةِ.</string>
     <string name="text_size_hint">The size applies to dictionary entries in the popup.</string>
     <string name="settings_floating">Floating button</string>
-    <string name="floating_caption">Arrives in the next build. The accessibility service reads only the sentence around the selection; the text is never saved or sent anywhere.</string>
     <string name="settings_replay">Replay the setup wizard</string>
 
     <!-- About -->
@@ -141,18 +140,29 @@
     <string name="wizard_consent">I accept the source terms: CAMeL-Lab (GPL-2), Hans Wehr (personal use), Kaikki/Wiktionary (CC BY-SA 4.0)</string>
     <string name="wizard_install_all">Install everything</string>
     <string name="wizard_note">Files are downloaded from the official sources; Haqomu does not redistribute anything. Temporary files are deleted after installation.</string>
+    <string name="ready_title">Ready to use</string>
+    <string name="ready_ok">Everything is ready: morphology and dictionary packs are installed. Select an Arabic word and choose Haqomu.</string>
+    <string name="ready_missing_morph">CAMeL morphology is missing — word forms and clitics cannot be analysed without it.</string>
+    <string name="ready_missing_packs">Dictionary packs are missing — there is nothing to show in the popup.</string>
+    <string name="ready_counts">Morphology: %1$s stems. Dictionary packs: %2$d.</string>
+    <string name="manual_title">Manual mode (advanced)</string>
+    <string name="manual_hint">Usually not needed: the “Install all” button above does the same. Use this only if you already downloaded files by hand or need a custom pack.</string>
+    <string name="manual_pack_title">Install a pack from a file (manual mode)</string>
+    <string name="manual_morph_title">Morphology from a file (manual mode)</string>
+    <string name="menu_label">Haqomu</string>
     <string name="wizard_step_downloading_pct">Downloading… %1$d%%</string>
     <string name="wizard_step_downloading_mb">Downloading… %1$s</string>
     <string name="wizard_step_converting">Converting… lines: %1$d</string>
     <string name="wizard_step_verifying">Verifying pack…</string>
     <string name="wizard_step_done">Done: %1$s</string>
     <string name="wizard_step_failed">Error: %1$s</string>
+    <string name="wizard_all_done">Done: everything is installed and verified. The app is ready — select a word and choose Haqomu.</string>
     <string name="wizard_retry">Retry</string>
     <string name="morph_done">Morphology prepared</string>
     <string name="morph_failed">Could not prepare morphology: %1$s</string>
 
     <!-- Process-text menu and popup (Ф1, Ф9) -->
-    <string name="lookup_menu_label">Dictionary</string>
+    <string name="lookup_menu_label">Haqomu</string>
     <string name="popup_close">Close</string>
     <string name="popup_in_anki">Add to Anki</string>
     <string name="popup_clitic_base">Base form: %1$s</string>
@@ -210,4 +220,71 @@
     <string name="anki_card_permission">AnkiDroid denied access, card saved in the app</string>
     <string name="settings_anki_edit_title">Edit the card before saving</string>
     <string name="settings_anki_edit_hint">When off, the In Anki button in the popup saves the card right away, without the editor screen. Off by default: the quick flow is the standard scenario.</string>
+
+    <!-- Screen access: floating button and context (Ф2, Ф3) -->
+    <string name="accessibility_service_label">Haqomu: button on selection</string>
+    <string name="accessibility_service_description">Shows a small button next to the selected Arabic word and passes the sentence around it into the popup. Screen text is never stored or sent anywhere.</string>
+    <string name="accessibility_mode_title">Button on selection</string>
+    <string name="accessibility_mode_hint">Off by default. The floating button draws on top of other apps; the second mode draws nothing and only fills the sentence into a popup opened from the selection menu.</string>
+    <string name="accessibility_mode_off">Off</string>
+    <string name="accessibility_mode_floating">Floating button</string>
+    <string name="accessibility_mode_context">Context only</string>
+    <string name="accessibility_system_off">Screen access is off in the system: tap Open accessibility settings and enable Haqomu.</string>
+    <string name="accessibility_system_on">Screen access is enabled in the system.</string>
+    <string name="accessibility_open_settings">Open accessibility settings</string>
+    <string name="accessibility_notice_title">What Haqomu will read</string>
+    <string name="accessibility_notice_body">Only the text around your selection at the moment you select a word. The word is used for lookup, the sentence becomes the example on the Anki card. The text is never written to files, sent over the network or kept in history. Password fields are not read. You can turn this off here or in the system settings at any time.</string>
+    <string name="accessibility_notice_ok">Got it</string>
+    <string name="accessibility_disabled_note">The service is off: the popup and the selection menu work as before, without the sentence context.</string>
+    <string name="floating_button_label">Haqomu: open the dictionary</string>
+    <string name="floating_button_letter">H</string>
+    <string name="settings_floating_hint">Two modes: a button over other apps, or context only for the popup. Screen text is never stored or sent anywhere.</string>
+    <string name="settings_accessibility_screen">Screen access</string>
+
+    <!-- Sense model (Ф10, Ф13) -->
+    <string name="home_model">Sense model</string>
+    <string name="home_model_sub">Optional: picks the sense that fits the sentence</string>
+    <string name="model_title">Sense model</string>
+    <string name="model_intro">An optional model that suggests which sense of the entry fits the sentence with the word. Without it the popup keeps the dictionary order, which is a normal mode, not a failure.</string>
+    <string name="model_status_label">Status</string>
+    <string name="model_status_installed">Installed: %1$s · %2$s</string>
+    <string name="model_status_missing">Not installed. Weights are not bundled with the app: you download them separately, on your command.</string>
+    <string name="model_attribution">Source: %1$s · license %2$s</string>
+    <string name="model_enable_title">Use the model in the popup</string>
+    <string name="model_enable_hint">A sense is lifted to the top only when the probability margin is at least 0.3. Otherwise the dictionary order stays: the model stays silent for most lookups.</string>
+    <string name="model_download_title">Installation</string>
+    <string name="model_download_hint">You need a model archive: model.onnx, vocab.txt and model.json in one zip. int8 is about 135 MB, fp16 about 270 MB. No default address: enter your own or pick a ready file.</string>
+    <string name="model_url_label">Model archive address</string>
+    <string name="model_download">Download</string>
+    <string name="model_pick_file">Pick a file…</string>
+    <string name="model_progress">Downloaded %1$s of %2$s</string>
+    <string name="model_unpacking">Checking and unpacking: %1$s</string>
+    <string name="model_need_zip">A .zip with model.onnx, vocab.txt and model.json is required</string>
+    <string name="model_need_url">Enter the archive address or pick a file from the device</string>
+    <string name="model_installed">Model installed: %1$s</string>
+    <string name="model_failed">Failed: %1$s</string>
+    <string name="model_remove">Remove the model</string>
+    <string name="model_remove_confirm">Tap again to remove</string>
+    <string name="model_removed">Model removed, the popup uses the dictionary order</string>
+    <string name="model_privacy">The model runs on this device. The sentence and the definitions go only to it, nowhere else.</string>
+    <string name="popup_sense_model">Sense chosen by the model</string>
+    <string name="copy_action">Copy</string>
+    <string name="share_action">Send…</string>
+    <string name="copy_done">Copied</string>
+    <string name="copy_title_error">Error message</string>
+    <string name="check_fts_index">FTS index (optional)</string>
+    <string name="home_update">Update</string>
+    <string name="home_update_sub">Download and install a new build; your data stays</string>
+    <string name="update_title">Update</string>
+    <string name="update_intro">The app checks the same channel it was installed from: it compares version numbers and offers the new APK. There is no store, so installation goes through the system installer.</string>
+    <string name="update_current">Installed: %1$s (build %2$d)</string>
+    <string name="update_available">Available: %1$s (build %2$d)</string>
+    <string name="update_commit">Commit: %1$s</string>
+    <string name="update_check">Check for updates</string>
+    <string name="update_install">Download and install</string>
+    <string name="update_progress">Downloading… %1$d%%</string>
+    <string name="update_working">Checking…</string>
+    <string name="update_installer_opened">System installer opened: confirm the update.</string>
+    <string name="update_need_permission">Installing from this source needs permission. Settings opened — allow “Install unknown apps” for Haqomu, then come back and retry.</string>
+    <string name="update_keeps_data">Updating in place keeps packs, settings and the Anki queue: they live in app storage, not in the APK.</string>
 </resources>

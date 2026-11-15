@@ -67,7 +67,6 @@
     <string name="text_size_sample">ذَهَبَ الطَّالِبُ إِلَى الْمَدْرَسَةِ.</string>
     <string name="text_size_hint">يُطبَّق الحجم على المواد داخل النافذة.</string>
     <string name="settings_floating">الزر العائم</string>
-    <string name="floating_caption">يصل في الإصدار القادم. تقرأ خدمة إمكانية الوصول الجملة المحيطة بالتحديد فقط، ولا يُحفظ النص ولا يُرسل.</string>
     <string name="settings_replay">إعادة معالج الإعداد</string>
 
     <!-- عن التطبيق -->
@@ -141,18 +140,29 @@
     <string name="wizard_consent">أوافق على شروط المصادر: CAMeL-Lab (رخصة GPL-2)، وهانس فير (للاستخدام الشخصي)، وKaikki/Wiktionary (رخصة CC BY-SA 4.0)</string>
     <string name="wizard_install_all">تثبيت الكل</string>
     <string name="wizard_note">تُنزَّل الملفات من المصادر الرسمية؛ لا يعيد Haqomu توزيع أي شيء. تُحذف الملفات المؤقتة بعد التثبيت.</string>
+    <string name="ready_title">الجاهزية للعمل</string>
+    <string name="ready_ok">كل شيء جاهز: الصرف والحزم المعجمية مثبّتة. حدّد كلمة عربية واختر Haqomu.</string>
+    <string name="ready_missing_morph">صرف CAMeL غير مهيّأ — بدونه لا تُحلّل الصيغ واللواصق.</string>
+    <string name="ready_missing_packs">الحزم المعجمية غير مثبّتة — لا يوجد ما يُعرض في النافذة.</string>
+    <string name="ready_counts">الصرف: %1$s جذر. الحزم المعجمية: %2$d.</string>
+    <string name="manual_title">الوضع اليدوي (للمتقدمين)</string>
+    <string name="manual_hint">غالباً غير مطلوب: زر «تثبيت الكل» أعلاه يفعل الشيء نفسه. استخدمه فقط إذا نزّلت الملفات يدوياً أو تحتاج حزمة خاصة.</string>
+    <string name="manual_pack_title">تثبيت حزمة من ملف (الوضع اليدوي)</string>
+    <string name="manual_morph_title">الصرف من ملف (الوضع اليدوي)</string>
+    <string name="menu_label">Haqomu</string>
     <string name="wizard_step_downloading_pct">جارٍ التنزيل… %1$d٪</string>
     <string name="wizard_step_downloading_mb">جارٍ التنزيل… %1$s</string>
     <string name="wizard_step_converting">جارٍ التحويل… الأسطر: %1$d</string>
     <string name="wizard_step_verifying">جارٍ التحقق من الحزمة…</string>
     <string name="wizard_step_done">تم: %1$s</string>
     <string name="wizard_step_failed">خطأ: %1$s</string>
+    <string name="wizard_all_done">تم: كل شيء مثبّت ومُتحقَّق منه. التطبيق جاهز — حدّد كلمة واختر Haqomu.</string>
     <string name="wizard_retry">إعادة المحاولة</string>
     <string name="morph_done">تم تجهيز الصرف</string>
     <string name="morph_failed">تعذر تجهيز الصرف: %1$s</string>
 
     <!-- قائمة التحديد والنافذة (Ф1, Ф9) -->
-    <string name="lookup_menu_label">المعجم</string>
+    <string name="lookup_menu_label">Haqomu</string>
     <string name="popup_close">إغلاق</string>
     <string name="popup_in_anki">أضف إلى Anki</string>
     <string name="popup_clitic_base">الأساس: %1$s</string>
@@ -210,4 +220,71 @@
     <string name="anki_card_permission">لم يمنح AnkiDroid الإذن، حُفظت البطاقة في التطبيق</string>
     <string name="settings_anki_edit_title">تحرير البطاقة قبل الحفظ</string>
     <string name="settings_anki_edit_hint">عند الإيقاف، يحفظ زر «في Anki» في النافذة المنبثقة البطاقة فورًا دون شاشة التحرير. الإيقاف هو الوضع الافتراضي.</string>
+
+    <!-- الوصول إلى الشاشة: الزر العائم والسياق (Ф2، Ф3) -->
+    <string name="accessibility_service_label">Haqomu: زر عند التحديد</string>
+    <string name="accessibility_service_description">يعرض زرًا صغيرًا بجوار الكلمة العربية المحددة، ويمرّر الجملة المحيطة بها إلى النافذة. لا يُحفظ نص الشاشة ولا يُرسل إلى أي جهة.</string>
+    <string name="accessibility_mode_title">زر عند التحديد</string>
+    <string name="accessibility_mode_hint">متوقف افتراضيًا. الزر العائم يظهر فوق التطبيقات الأخرى؛ والوضع الثاني لا يرسم شيئًا، بل يمرّر الجملة إلى النافذة المفتوحة من قائمة التحديد.</string>
+    <string name="accessibility_mode_off">متوقف</string>
+    <string name="accessibility_mode_floating">زر عائم</string>
+    <string name="accessibility_mode_context">السياق فقط</string>
+    <string name="accessibility_system_off">الوصول إلى الشاشة متوقف في النظام: اضغط «فتح إعدادات إمكانية الوصول» وفعّل Haqomu.</string>
+    <string name="accessibility_system_on">الوصول إلى الشاشة مفعّل في النظام.</string>
+    <string name="accessibility_open_settings">فتح إعدادات إمكانية الوصول</string>
+    <string name="accessibility_notice_title">ما الذي سيقرأه Haqomu</string>
+    <string name="accessibility_notice_body">النص المحيط بالتحديد فقط، في لحظة تحديد الكلمة. الكلمة للبحث، والجملة تصبح المثال في بطاقة Anki. لا يُكتب النص في ملفات ولا يُرسل عبر الشبكة ولا يُحفظ في سجل. لا تُقرأ حقول كلمات المرور. يمكنك الإيقاف من هنا أو من إعدادات النظام في أي وقت.</string>
+    <string name="accessibility_notice_ok">فهمت</string>
+    <string name="accessibility_disabled_note">الخدمة متوقفة: النافذة وقائمة التحديد تعملان كما كانتا، دون جملة السياق.</string>
+    <string name="floating_button_label">Haqomu: فتح القاموس</string>
+    <string name="floating_button_letter">H</string>
+    <string name="settings_floating_hint">وضعان: زر فوق التطبيقات الأخرى، أو السياق فقط للنافذة. لا يُحفظ نص الشاشة ولا يُرسل إلى أي جهة.</string>
+    <string name="settings_accessibility_screen">الوصول إلى الشاشة</string>
+
+    <!-- نموذج ترجيح المعاني (Ф10، Ф13) -->
+    <string name="home_model">نموذج المعاني</string>
+    <string name="home_model_sub">اختياري: يختار المعنى المناسب للجملة</string>
+    <string name="model_title">نموذج المعاني</string>
+    <string name="model_intro">نموذج اختياري يقترح أي معنى في المادة يناسب الجملة التي وردت فيها الكلمة. بدونه تعمل النافذة بالترتيب المعجمي، وهذا وضع طبيعي لا خطأ.</string>
+    <string name="model_status_label">الحالة</string>
+    <string name="model_status_installed">مثبّت: %1$s · %2$s</string>
+    <string name="model_status_missing">غير مثبّت. الأوزان ليست مضمّنة في التطبيق: تنزّلها بنفسك عند الطلب.</string>
+    <string name="model_attribution">المصدر: %1$s · الرخصة %2$s</string>
+    <string name="model_enable_title">استخدام النموذج في النافذة</string>
+    <string name="model_enable_hint">يُرفع المعنى إلى المقدمة فقط إذا كان فرق الاحتمالين ٠٫٣ على الأقل. وإلا يبقى الترتيب المعجمي: يصمت النموذج في معظم الطلبات.</string>
+    <string name="model_download_title">التثبيت</string>
+    <string name="model_download_hint">تحتاج أرشيف النموذج: model.onnx وvocab.txt وmodel.json في ملف zip واحد. نسخة int8 نحو ١٣٥ ميغابايت، وfp16 نحو ٢٧٠. لا يوجد عنوان افتراضي: اكتب عنوانك أو اختر ملفًا جاهزًا.</string>
+    <string name="model_url_label">عنوان أرشيف النموذج</string>
+    <string name="model_download">تنزيل</string>
+    <string name="model_pick_file">اختيار ملف…</string>
+    <string name="model_progress">نُزّل %1$s من %2$s</string>
+    <string name="model_unpacking">التحقق والفك: %1$s</string>
+    <string name="model_need_zip">يلزم أرشيف ‎.zip‎ يحوي model.onnx وvocab.txt وmodel.json</string>
+    <string name="model_need_url">اكتب عنوان الأرشيف أو اختر ملفًا من الجهاز</string>
+    <string name="model_installed">ثُبّت النموذج: %1$s</string>
+    <string name="model_failed">لم ينجح: %1$s</string>
+    <string name="model_remove">حذف النموذج</string>
+    <string name="model_remove_confirm">اضغط مرة أخرى للحذف</string>
+    <string name="model_removed">حُذف النموذج، وتعمل النافذة بالترتيب المعجمي</string>
+    <string name="model_privacy">يعمل النموذج على هذا الجهاز. تُرسل الجملة والتعريفات إليه فقط، ولا إلى أي جهة أخرى.</string>
+    <string name="popup_sense_model">المعنى اختاره النموذج</string>
+    <string name="copy_action">نسخ</string>
+    <string name="share_action">إرسال…</string>
+    <string name="copy_done">تم النسخ</string>
+    <string name="copy_title_error">رسالة الخطأ</string>
+    <string name="check_fts_index">فهرس FTS (اختياري)</string>
+    <string name="home_update">التحديث</string>
+    <string name="home_update_sub">تنزيل نسخة جديدة وتثبيتها مع الاحتفاظ بالبيانات</string>
+    <string name="update_title">التحديث</string>
+    <string name="update_intro">يتحقق التطبيق من النسخة في القناة التي ثُبِّت منها: يقارن رقم الإصدار ويعرض تنزيل ملف APK الجديد. لا يوجد متجر، لذا يجري التثبيت عبر مثبِّت النظام.</string>
+    <string name="update_current">المثبَّت: %1$s (بناء %2$d)</string>
+    <string name="update_available">المتاح: %1$s (بناء %2$d)</string>
+    <string name="update_commit">الإيداع: %1$s</string>
+    <string name="update_check">التحقق من التحديث</string>
+    <string name="update_install">تنزيل وتثبيت</string>
+    <string name="update_progress">جارٍ التنزيل… %1$d%%</string>
+    <string name="update_working">جارٍ التحقق…</string>
+    <string name="update_installer_opened">فُتح مثبِّت النظام: أكِّد التحديث.</string>
+    <string name="update_need_permission">يلزم السماح بالتثبيت من هذا المصدر. فُتحت الإعدادات — اسمح بـ«تثبيت تطبيقات غير معروفة» لتطبيق Haqomu ثم عُد وأعد المحاولة.</string>
+    <string name="update_keeps_data">عند التحديث تبقى الحزم والإعدادات وقائمة بطاقات Anki: إنها في ذاكرة التطبيق لا في ملف APK.</string>
 </resources>

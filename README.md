@@ -183,6 +183,45 @@ KSAA без ранкера — 54%, с ранкером — 57%, Hans Wehr — 5
 - `docs/TZ.md` — техническое задание приложения (сценарии, требования, метрики, лицензии).
 - `docs/architecture.md` — итоговый пайплайн: стадии, цифры, формат пака, отклонённые подходы.
 - `docs/handoff.md` — что передать агенту, который пишет приложение, и что передавать нельзя.
+- `docs/adr/` — принятые решения по ходу работы; `0007-accessibility-service.md` — плавающая
+  кнопка и предложение-контекст (какие права нужны, что сервис читает и чего не делает);
+  `0008-sense-model.md` — модель разрешения смыслов (ONNX, формат бандла, порог 0.3);
+  `0009-fts-optional.md` — FTS-индекс в паке необязателен (Android без FTS5);
+  `0010-in-app-update.md` — обновление APK из релиза, versionCode и сохранность данных.
+
+## Тестовая сборка для телефона
+
+CI собирает debug-APK (`:app:assembleDebug`), а `tools/publish_apk.sh` после сборки кладёт его
+в ветку **`apk-build`** — одной ревизией без истории — и в релиз **`apk-latest`**. APK в основной
+ветке и в истории репозитория не появляется.
+
+- Релиз (постоянная ссылка): <https://github.com/bernkastel5/Haqomu/releases/download/apk-latest/haqomu-debug.apk>
+- Ветка: [`apk-build/haqomu-debug.apk`](https://github.com/bernkastel5/Haqomu/raw/apk-build/haqomu-debug.apk)
+  (рядом `BUILD.txt` — коммит, размер, sha256)
+- Копия для телефона — в корне Google Drive владельца проекта.
+
+Размер ~80 МБ: это нативный рантайм ONNX Runtime под три ABI (весов модели в APK нет).
+Публикация требует *Read and write permissions* в Settings → Actions → General → Workflow permissions.
+
+Установка: скачать файл на телефоне, разрешить установку из этого источника, открыть.
+Пакет `com.bernkastel5.haqomu.debug` — ставится рядом с release-версией; подпись —
+отладочный ключ CI (для магазина нужна отдельная, фаза 10). Словарные паки и модель
+смыслов в APK не входят: их ставит пользователь на экранах «Импорт паков» и «Модель смыслов».
+
+## Модель разрешения смыслов (необязательно)
+
+Модель подсказывает, какой смысл статьи подходит к предложению. Весов в репозитории и в APK нет
+(CC BY-SA 4.0): бандл (`model.onnx` + `vocab.txt` + `model.json`) собирается у вас и устанавливается
+на экране «Модель смыслов» файлом или по адресу. Порог уверенности — 0.3, порядок статей не меняется.
+
+```bash
+# из готового экспорта
+python3 tools/make_model_bundle.py --onnx agb_int8.onnx --vocab vocab.txt \
+    --name "ArabGlossBERT int8" --out haqomu-agb-int8.zip
+
+# либо скачать SinaLab/ArabGlossBERT и экспортировать (optimum + transformers + onnxruntime)
+python3 tools/make_model_bundle.py --from-hf --quantize int8 --out haqomu-agb-int8.zip
+```
 
 ## Сборка приложения (для разработчиков)
 
@@ -193,5 +232,10 @@ KSAA без ранкера — 54%, с ранкером — 57%, Hans Wehr — 5
 ```bash
 gradle :app:assembleDebug :app:testDebugUnitTest
 ```
+
+Сервис доступности (плавающая кнопка, Ф2/Ф3) выключен по умолчанию, включается только в системных
+настройках доступности; отдельного разрешения «поверх других приложений» не требует (окно
+`TYPE_ACCESSIBILITY_OVERLAY`). Текст экрана читается только в момент выделения и не сохраняется —
+подробности в `docs/adr/0007-accessibility-service.md`.
 
 CI: `.github/workflows/build.yml` — сборка, юнит-тесты, проверка Python-инструментов. Версии зависимостей зафиксированы в `gradle/libs.versions.toml`; обновление — отдельным изменением. Состояние проекта и план — `PROJECT_STATE.md`; решения по стеку — `docs/adr/`.

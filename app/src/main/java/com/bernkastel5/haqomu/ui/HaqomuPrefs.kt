@@ -1,6 +1,7 @@
 package com.bernkastel5.haqomu.ui
 
 import android.content.Context
+import com.bernkastel5.haqomu.service.AccessibilityMode
 import com.bernkastel5.haqomu.ui.theme.ThemeMode
 
 /**
@@ -15,6 +16,13 @@ object HaqomuPrefs {
     private const val KEY_DECK = "anki_deck"
     private const val KEY_CONNECT_URL = "anki_connect_url"
     private const val KEY_ANKI_EDIT_BEFORE_SAVE = "anki_edit_before_save"
+    private const val KEY_ACCESSIBILITY = "accessibility_mode"
+    private const val KEY_FLOATING_NOTICE_SEEN = "floating_notice_seen"
+    private const val KEY_SENSE_MODEL = "sense_model_enabled"
+    private const val KEY_MODEL_URL = "sense_model_url"
+    private const val KEY_UPDATE_CHECKED_AT = "update_checked_at"
+    private const val KEY_UPDATE_SEEN_CODE = "update_seen_code"
+    private const val KEY_INSTALL_ATTEMPTS = "install_attempts"
 
     private fun prefs(context: Context) =
         context.getSharedPreferences(FILE, Context.MODE_PRIVATE)
@@ -66,4 +74,64 @@ object HaqomuPrefs {
 
     fun setAnkiEditBeforeSave(context: Context, value: Boolean) =
         prefs(context).edit().putBoolean(KEY_ANKI_EDIT_BEFORE_SAVE, value).apply()
+
+    /**
+     * Режим сервиса доступности (Ф2): выключен по умолчанию. Значение — настройка
+     * приложения; сам сервис включается только в системных настройках.
+     */
+    fun accessibilityMode(context: Context): AccessibilityMode =
+        AccessibilityMode.fromStored(prefs(context).getString(KEY_ACCESSIBILITY, "off"))
+
+    fun setAccessibilityMode(context: Context, mode: AccessibilityMode) =
+        prefs(context).edit().putString(KEY_ACCESSIBILITY, AccessibilityMode.storedValue(mode)).apply()
+
+    /** Показано ли объяснение при первом включении плавающей кнопки (TZ §8). */
+    fun floatingNoticeSeen(context: Context): Boolean =
+        prefs(context).getBoolean(KEY_FLOATING_NOTICE_SEEN, false)
+
+    fun setFloatingNoticeSeen(context: Context, value: Boolean) =
+        prefs(context).edit().putBoolean(KEY_FLOATING_NOTICE_SEEN, value).apply()
+
+    /**
+     * Включена ли модель разрешения смыслов (Ф10). По умолчанию **выключена**:
+     * модель опциональна, скачивается отдельно (D-014) и меняет порядок смыслов,
+     * только когда уверена (порог 0.3).
+     */
+    fun senseModelEnabled(context: Context): Boolean =
+        prefs(context).getBoolean(KEY_SENSE_MODEL, false)
+
+    fun setSenseModelEnabled(context: Context, value: Boolean) =
+        prefs(context).edit().putBoolean(KEY_SENSE_MODEL, value).apply()
+
+    /** Адрес бандла модели для кнопки «Скачать» (по умолчанию — пусто, файл вручную). */
+    fun senseModelUrl(context: Context): String =
+        prefs(context).getString(KEY_MODEL_URL, "") ?: ""
+
+    fun setSenseModelUrl(context: Context, url: String) =
+        prefs(context).edit().putString(KEY_MODEL_URL, url.trim()).apply()
+
+    /** Когда последний раз проверяли обновление (мс от эпохи, 0 — не проверяли). */
+    fun updateCheckedAt(context: Context): Long =
+        prefs(context).getLong(KEY_UPDATE_CHECKED_AT, 0L)
+
+    fun setUpdateCheckedAt(context: Context, value: Long) =
+        prefs(context).edit().putLong(KEY_UPDATE_CHECKED_AT, value).apply()
+
+    /** versionCode сборки, о которой пользователь уже знает (чтобы не поздравлять дважды). */
+    fun updateSeenCode(context: Context): Int =
+        prefs(context).getInt(KEY_UPDATE_SEEN_CODE, 0)
+
+    fun setUpdateSeenCode(context: Context, value: Int) =
+        prefs(context).edit().putInt(KEY_UPDATE_SEEN_CODE, value).apply()
+
+    /**
+     * Сколько раз подряд не удалось поставить обновление.
+     * После нескольких неудач приложение подсказывает скачать APK вручную:
+     * системный установщик может отказать (например, из-за подписи).
+     */
+    fun installAttempts(context: Context): Int =
+        prefs(context).getInt(KEY_INSTALL_ATTEMPTS, 0)
+
+    fun setInstallAttempts(context: Context, value: Int) =
+        prefs(context).edit().putInt(KEY_INSTALL_ATTEMPTS, value).apply()
 }

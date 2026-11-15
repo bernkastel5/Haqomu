@@ -118,4 +118,13 @@ class PipelineEngineTest {
             assertTrue(r.articles.first().isAnswer)
         }
     }
+
+    @Test
+    fun namePlateOnlyWhenDictionaryHasNoArticle() {
+        // Регрессия к жалобе «на все слова отвечает имя собственное»: даже если морфология
+        // не разобрала слово (пустая база), статья в словаре должна победить плашку имени.
+        val r = engine(standardDict()).lookup("ذهب")
+        assertEquals(PopupMode.ARTICLES, r.mode)
+        assertTrue(r.articles.isNotEmpty())
+    }
 }

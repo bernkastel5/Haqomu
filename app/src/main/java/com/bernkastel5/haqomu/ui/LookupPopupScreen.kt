@@ -43,6 +43,8 @@ import com.bernkastel5.haqomu.anki.CardText
 import com.bernkastel5.haqomu.anki.PendingCard
 import com.bernkastel5.haqomu.anki.SaveOutcome
 import com.bernkastel5.haqomu.camel.MorphologyPack
+import com.bernkastel5.haqomu.gloss.SenseModelCache
+import com.bernkastel5.haqomu.gloss.SenseResolver
 import com.bernkastel5.haqomu.lookup.LookupQuery
 import com.bernkastel5.haqomu.lookup.PopupFormat
 import com.bernkastel5.haqomu.morph.Analyzer
@@ -77,11 +79,13 @@ fun LookupPopupScreen(
     rawText: String?,
     onClose: () -> Unit,
     onOpenApp: () -> Unit,
+    /** Предложение вокруг выделения из сервиса доступности (Ф3); пусто на пути PROCESS_TEXT. */
+    sentence: String = "",
 ) {
     val context = LocalContext.current
     var state by remember { mutableStateOf<PopupState>(PopupState.Loading) }
 
-    LaunchedEffect(rawText) {
+    LaunchedEffect(rawText, sentence) {
         state = withContext(Dispatchers.IO) {
             val word = LookupQuery.extract(rawText) ?: return@withContext PopupState.Invalid
             val packsDir = File(context.filesDir, "packs")
@@ -97,7 +101,16 @@ fun LookupPopupScreen(
                 } catch (_: Exception) {
                     return@withContext PopupState.MissingPacks
                 }
-                PopupState.Ready(PipelineEngine(Analyzer(camel), dict).lookup(word))
+                val resolved = PipelineEngine(Analyzer(camel), dict).lookup(word)
+                // Ф10: порядок смыслов внутри первой статьи, только если модель уверена
+                // (порог 0.3) и есть предложение; иначе — словарный порядок как раньше.
+                PopupState.Ready(
+                    SenseResolver.resolve(
+                        content = resolved,
+                        sentence = sentence,
+                        model = SenseModelCache.get(context),
+                    )
+                )
             } catch (e: Exception) {
                 PopupState.Error(e.message ?: e.javaClass.simpleName)
             } finally {
@@ -149,6 +162,7 @@ fun LookupPopupScreen(
                 is PopupState.Ready -> ReadySheet(
                     modifier = Modifier.weight(1f),
                     content = st.content,
+                    sentence = sentence,
                     onClose = onClose,
                 )
             }
@@ -206,6 +220,7 @@ private fun PlateSheet(
 private fun ReadySheet(
     modifier: Modifier = Modifier,
     content: PopupContent,
+    sentence: String,
     onClose: () -> Unit,
 ) {
     val context = LocalContext.current
@@ -231,6 +246,20 @@ private fun ReadySheet(
                     fontSize = (15 * scale).sp,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(top = 2.dp),
+                )
+            }
+        }
+        if (sentence.isNotEmpty()) {
+            CompositionRtl {
+                Text(
+                    text = sentence,
+                    fontFamily = FontFamily.Serif,
+                    fontSize = (15 * scale).sp,
+                    lineHeight = (24 * scale).sp,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    maxLines = 3,
+                    modifier = Modifier.padding(top = 4.dp),
+                    overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis,
                 )
             }
         }
@@ -291,7 +320,13 @@ private fun ReadySheet(
                 }
             } else {
                 content.articles.forEach { article ->
-                    ArticleCard(article = article, scale = scale, onClose = onClose)
+                    ArticleCard(
+                        article = article,
+                        content = content,
+                        scale = scale,
+                        sentence = sentence,
+                        onClose = onClose,
+                    )
                 }
             }
         }
@@ -313,16 +348,26 @@ private fun ReadySheet(
 // ---------------------------------------------------------------- статья
 
 @Composable
-private fun ArticleCard(article: PopupArticle, scale: Float, onClose: () -> Unit) {
+private fun ArticleCard(
+    article: PopupArticle,
+    content: PopupContent,
+    scale: Float,
+    sentence: String,
+    onClose: () -> Unit,
+) {
     val context = LocalContext.current
     val dictionaryLabel = sourceLabel(article.sourceFamily)
 
+    // Слово в карточке — так, как оно выделено в тексте (TZ §3.3); голова статьи с
+    // огласовкой — отдельно, в поле Tashkeel. Без выделения (предпросмотр) — голова.
+    val expression = content.original.ifBlank { article.head }
+
     fun cardIntent(meaning: String) = AnkiCardActivity.newIntent(
         context = context,
-        expression = article.head,
+        expression = expression,
         tashkeel = article.head,
         meaning = meaning,
-        sentence = "",
+        sentence = sentence,
         root = article.root.orEmpty(),
         dictionary = dictionaryLabel,
     )
@@ -340,10 +385,10 @@ private fun ArticleCard(article: PopupArticle, scale: Float, onClose: () -> Unit
         }
         // стандартный сценарий: нажать «В Anki» и больше не взаимодействовать с карточкой
         val card = PendingCard(
-            expression = article.head,
+            expression = expression,
             tashkeel = article.head,
             meaning = meaning,
-            sentence = "",
+            sentence = sentence,
             root = article.root.orEmpty(),
             dictionary = dictionaryLabel,
         )
@@ -379,6 +424,13 @@ private fun ArticleCard(article: PopupArticle, scale: Float, onClose: () -> Unit
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.primary,
                 )
+                if (article.senseChosenByModel) {
+                    Text(
+                        text = " · " + stringResource(R.string.popup_sense_model),
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.secondary,
+                    )
+                }
                 val pos = article.pos
                 if (!pos.isNullOrBlank()) {
                     Text(
