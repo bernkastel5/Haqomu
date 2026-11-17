@@ -15,6 +15,12 @@ data class PopupArticle(
     val rank: String,
     /** Ф10: смысл поднят моделью по предложению (в интерфейсе — пометка «выбран моделью»). */
     val senseChosenByModel: Boolean = false,
+    /**
+     * Ф11: смысл поднят по словам предложения без модели ([com.bernkastel5.haqomu.gloss.ContextRanking]).
+     * Отдельная пометка, потому что это эвристика, а не измеренная уверенность модели:
+     * пользователь должен видеть разницу.
+     */
+    val senseChosenByContext: Boolean = false,
     /** Баллы внешнего подтверждения (для ответа пайплайна). */
     val support: Int,
     val isAnswer: Boolean,

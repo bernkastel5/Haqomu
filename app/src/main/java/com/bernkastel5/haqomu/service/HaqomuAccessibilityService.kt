@@ -12,7 +12,6 @@ import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
 import com.bernkastel5.haqomu.R
 import com.bernkastel5.haqomu.lookup.LookupPopupActivity
-import com.bernkastel5.haqomu.lookup.SelectionCapture
 import com.bernkastel5.haqomu.lookup.SelectionInfo
 import com.bernkastel5.haqomu.ui.HaqomuPrefs
 
@@ -104,25 +103,24 @@ class HaqomuAccessibilityService : AccessibilityService() {
                 hideBubble()
                 return
             }
-            val text = node.text
-            if (!FloatingButtonRules.isUsableText(text, node.isPassword)) {
-                hideBubble()
-                return
-            }
-            val start = node.textSelectionStart
-            val end = node.textSelectionEnd
-            if (start < 0 || end <= start) {
-                hideBubble()
-                return
-            }
-            val info = SelectionCapture.capture(text?.toString(), start, end)
+            // Текст узла есть не всегда: WebView/Compose/браузеры отдают выделение только
+            // в событии. Смещения тоже не всегда валидны. SelectionLocator разбирает все
+            // три случая, чтобы предложение-контекст не терялось (Ф3).
+            val selected = event.text?.joinToString("") { it.toString() }
+            val info = SelectionLocator.locate(
+                nodeText = node.text,
+                selectedText = selected,
+                selStart = node.textSelectionStart,
+                selEnd = node.textSelectionEnd,
+                isPassword = node.isPassword,
+            )
             if (info == null) {
                 hideBubble()
                 return
             }
             // Контекст запоминаем всегда: им пользуется и кнопка, и PROCESS_TEXT-попап.
             SelectionHub.remember(info)
-            if (!FloatingButtonRules.shouldShow(mode, end - start)) {
+            if (!FloatingButtonRules.shouldShow(mode, info.word.length)) {
                 hideBubble()
                 return
             }

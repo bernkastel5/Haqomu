@@ -16,6 +16,11 @@ package com.bernkastel5.haqomu.camel
 data class StemEntry(
     val stem: String, val cat: String, val pos: String, val lex: String,
     val lexLogprob: Double, val root: String, val featsJson: String?,
+    /**
+     * Огласованный вид стебля из calima (`diac`). Хранится отдельной колонкой, чтобы
+     * карточка могла показать слово с огласовкой (Ф15). Пусто — база огласовку не дала.
+     */
+    val stemDiac: String = "",
 )
 
 data class AffixEntry(val form: String, val kind: String, val cat: String, val featsJson: String) {
@@ -135,7 +140,7 @@ object CamelMorphologyParser {
                 SEC_STEMS -> if (s.isNotEmpty()) {
                     val parts = line.split('\t')
                     if (parts.size == 3) {
-                        val feats = parseFeatsTokens(parts[2].split(' '))
+                        val feats = parseFeatsTokens(whitespaceTokens(parts[2]))
                         val logprob = feats["lex_logprob"]?.toDoubleOrNull() ?: -99.0
                         sink.onStem(
                             StemEntry(
@@ -146,6 +151,7 @@ object CamelMorphologyParser {
                                 lexLogprob = logprob,
                                 root = feats["root"] ?: "",
                                 featsJson = null,
+                                stemDiac = feats["diac"] ?: "",
                             )
                         )
                         nStems += 1

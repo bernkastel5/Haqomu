@@ -49,6 +49,8 @@ import com.bernkastel5.haqomu.lookup.LookupQuery
 import com.bernkastel5.haqomu.lookup.PopupFormat
 import com.bernkastel5.haqomu.morph.Analyzer
 import com.bernkastel5.haqomu.morph.AndroidSqliteCamelStore
+import com.bernkastel5.haqomu.morph.StoreTashkeelSource
+import com.bernkastel5.haqomu.morph.Tashkeel
 import com.bernkastel5.haqomu.pack.AndroidPackDictionary
 import com.bernkastel5.haqomu.pipeline.PipelineEngine
 import com.bernkastel5.haqomu.pipeline.PopupArticle
@@ -64,7 +66,15 @@ private sealed interface PopupState {
     data object Loading : PopupState
     data object Invalid : PopupState
     data object MissingPacks : PopupState
-    data class Ready(val content: PopupContent) : PopupState
+    data class Ready(
+        val content: PopupContent,
+        /**
+         * Выделенное слово с огласовкой (Ф15); null — база форму не знает или у слова
+         * уже есть огласовка. В карточку уходит вместо головы статьи, чтобы поле Tashkeel
+         * относилось к тому же слову, что поле «слово», а не к другой форме.
+         */
+        val tashkeel: String? = null,
+    ) : PopupState
     data class Error(val message: String) : PopupState
 }
 
@@ -102,14 +112,18 @@ fun LookupPopupScreen(
                     return@withContext PopupState.MissingPacks
                 }
                 val resolved = PipelineEngine(Analyzer(camel), dict).lookup(word)
-                // Ф10: порядок смыслов внутри первой статьи, только если модель уверена
-                // (порог 0.3) и есть предложение; иначе — словарный порядок как раньше.
+                // Ф10/Ф11: порядок смыслов внутри первой статьи по предложению. Сначала
+                // модель (если установлена и уверена, порог 0.3), иначе — эвристика по
+                // словам предложения; без предложения — словарный порядок как раньше.
+                val content = SenseResolver.resolve(
+                    content = resolved,
+                    sentence = sentence,
+                    model = SenseModelCache.get(context),
+                )
+                // Ф15: огласовка выделенного слова из морфологической базы (без модели).
                 PopupState.Ready(
-                    SenseResolver.resolve(
-                        content = resolved,
-                        sentence = sentence,
-                        model = SenseModelCache.get(context),
-                    )
+                    content = content,
+                    tashkeel = Tashkeel.tashkeel(word, StoreTashkeelSource(camel)),
                 )
             } catch (e: Exception) {
                 PopupState.Error(e.message ?: e.javaClass.simpleName)
@@ -163,6 +177,7 @@ fun LookupPopupScreen(
                     modifier = Modifier.weight(1f),
                     content = st.content,
                     sentence = sentence,
+                    tashkeel = st.tashkeel,
                     onClose = onClose,
                 )
             }
@@ -221,6 +236,7 @@ private fun ReadySheet(
     modifier: Modifier = Modifier,
     content: PopupContent,
     sentence: String,
+    tashkeel: String?,
     onClose: () -> Unit,
 ) {
     val context = LocalContext.current
@@ -325,6 +341,7 @@ private fun ReadySheet(
                         content = content,
                         scale = scale,
                         sentence = sentence,
+                        tashkeel = tashkeel,
                         onClose = onClose,
                     )
                 }
@@ -353,19 +370,23 @@ private fun ArticleCard(
     content: PopupContent,
     scale: Float,
     sentence: String,
+    tashkeel: String?,
     onClose: () -> Unit,
 ) {
     val context = LocalContext.current
     val dictionaryLabel = sourceLabel(article.sourceFamily)
 
-    // Слово в карточке — так, как оно выделено в тексте (TZ §3.3); голова статьи с
-    // огласовкой — отдельно, в поле Tashkeel. Без выделения (предпросмотр) — голова.
+    // Слово в карточке — так, как оно выделено в тексте (TZ §3.3); поле Tashkeel —
+    // та же словоформа с огласовкой (Ф15). Если база форму не знает — голова статьи:
+    // у неё огласовка из словаря, и это честнее, чем пустое поле или выдумка.
+    // Без выделения (предпросмотр) — голова.
     val expression = content.original.ifBlank { article.head }
+    val tashkeelValue = tashkeel?.takeIf { it.isNotBlank() } ?: article.head
 
     fun cardIntent(meaning: String) = AnkiCardActivity.newIntent(
         context = context,
         expression = expression,
-        tashkeel = article.head,
+        tashkeel = tashkeelValue,
         meaning = meaning,
         sentence = sentence,
         root = article.root.orEmpty(),
@@ -386,7 +407,7 @@ private fun ArticleCard(
         // стандартный сценарий: нажать «В Anki» и больше не взаимодействовать с карточкой
         val card = PendingCard(
             expression = expression,
-            tashkeel = article.head,
+            tashkeel = tashkeelValue,
             meaning = meaning,
             sentence = sentence,
             root = article.root.orEmpty(),
@@ -427,6 +448,13 @@ private fun ArticleCard(
                 if (article.senseChosenByModel) {
                     Text(
                         text = " · " + stringResource(R.string.popup_sense_model),
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.secondary,
+                    )
+                } else if (article.senseChosenByContext) {
+                    // Отдельная подпись: это правило по словам предложения, а не модель.
+                    Text(
+                        text = " · " + stringResource(R.string.popup_sense_context),
                         style = MaterialTheme.typography.labelMedium,
                         color = MaterialTheme.colorScheme.secondary,
                     )

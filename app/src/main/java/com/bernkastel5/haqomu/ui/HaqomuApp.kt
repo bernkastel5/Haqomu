@@ -14,7 +14,7 @@ import androidx.compose.ui.platform.LocalContext
 import com.bernkastel5.haqomu.ui.theme.HaqomuTheme
 
 /** Экраны приложения. Навигация через состояние, без внешних зависимостей. */
-enum class Screen { Home, Import, Anki, Settings, Accessibility, Model, Update, About, PopupPreview }
+enum class Screen { Home, Reader, Import, Anki, Settings, Accessibility, Model, Update, About, PopupPreview }
 
 @Composable
 fun HaqomuApp() {
@@ -39,6 +39,7 @@ fun HaqomuApp() {
             }
             when (screen) {
                 Screen.Home -> HomeScreen(onOpen = { screen = it })
+                Screen.Reader -> ReaderScreen(onBack = { screen = Screen.Home })
                 Screen.Import -> ImportPacksScreen(onBack = { screen = Screen.Home })
                 Screen.Anki -> AnkiSetupScreen(onBack = { screen = Screen.Home })
                 Screen.Settings -> SettingsScreen(

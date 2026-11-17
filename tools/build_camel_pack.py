@@ -98,7 +98,9 @@ def convert(src, out, keep_feats=False):
                     feats_json = json.dumps(feats, ensure_ascii=False)
                 else:
                     feats_json = None
-                stems.append((stem, cat, pos, lex, logprob, root, feats_json))
+                # stem_diac — огласованный вид стебля из calima (Ф15: огласовка в карточке).
+                stem_diac = feats.get('diac', '')
+                stems.append((stem, cat, pos, lex, logprob, root, feats_json, stem_diac))
             elif section == SECTION_AB and s:
                 toks = s.split()
                 if len(toks) == 2:
@@ -129,7 +131,8 @@ def convert(src, out, keep_feats=False):
     CREATE TABLE meta (key TEXT PRIMARY KEY, value TEXT);
     CREATE TABLE stems (
       stem TEXT NOT NULL, cat TEXT NOT NULL, pos TEXT NOT NULL,
-      lex TEXT NOT NULL, lex_logprob REAL NOT NULL, root TEXT, feats TEXT
+      lex TEXT NOT NULL, lex_logprob REAL NOT NULL, root TEXT, feats TEXT,
+      stem_diac TEXT NOT NULL DEFAULT ''
     );
     CREATE TABLE affixes (
       form TEXT NOT NULL, kind TEXT NOT NULL CHECK(kind IN ('prefix','suffix')),
@@ -138,7 +141,7 @@ def convert(src, out, keep_feats=False):
     CREATE TABLE compat (kind TEXT NOT NULL CHECK(kind IN ('ab','bc','ac')),
                          a TEXT NOT NULL, b TEXT NOT NULL);
     """)
-    cur.executemany('INSERT INTO stems VALUES (?,?,?,?,?,?,?)', stems)
+    cur.executemany('INSERT INTO stems VALUES (?,?,?,?,?,?,?,?)', stems)
     cur.executemany('INSERT INTO affixes VALUES (?,?,?,?)',
                     [(p, 'prefix', c, j) for p, c, j in prefixes] +
                     [(p, 'suffix', c, j) for p, c, j in suffixes])
@@ -176,7 +179,7 @@ def selftest():
         '\tNSUFF\tpos:- lex:-',
         'ون\tM_PL_NOM\tpos:- lex:-',
         '###STEMS###',
-        'ذهب\tVERB_STEM\tpos:VERB lex:ذهب lex_logprob:-0.50 root:ذ ه ب',
+        'ذهب\tVERB_STEM\tpos:VERB lex:ذهب lex_logprob:-0.50 root:ذ ه ب diac:ذَهَبَ',
         'بيت\tNOUN_STEM\tpos:NOUN lex:بيت lex_logprob:-0.80 root:ب ي ت',
         '###TABLE AB###',
         'CONJ VERB_STEM',
@@ -219,6 +222,9 @@ def selftest():
         if ok_ab and ok_ab.fetchone():
             got.append((pre, stem, suf))
     assert ('و', 'ذهب', '') in got, got
+    # Ф15: огласованный вид стебля лежит отдельной колонкой и доступен запросом
+    diac = cur.execute("SELECT stem_diac FROM stems WHERE stem='ذهب'").fetchone()[0]
+    assert diac == 'ذَهَبَ', diac
     conn.close()
     os.unlink(src); os.unlink(out)
     print('SELFTEST OK —', counts)

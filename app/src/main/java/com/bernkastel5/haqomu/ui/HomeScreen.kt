@@ -42,6 +42,8 @@ fun HomeScreen(onOpen: (Screen) -> Unit) {
 
         HorizontalDivider(color = MaterialTheme.colorScheme.surfaceVariant)
 
+        HomeRow(R.string.home_reader, R.string.home_reader_sub) { onOpen(Screen.Reader) }
+        HorizontalDivider(color = MaterialTheme.colorScheme.surfaceVariant)
         HomeRow(R.string.home_import, R.string.home_import_sub) { onOpen(Screen.Import) }
         HorizontalDivider(color = MaterialTheme.colorScheme.surfaceVariant)
         HomeRow(R.string.home_anki, R.string.home_anki_sub) { onOpen(Screen.Anki) }

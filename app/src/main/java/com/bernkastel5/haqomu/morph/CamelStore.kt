@@ -7,6 +7,8 @@ data class StemRow(
     val lex: String,
     val lexLogprob: Double,
     val root: String?,
+    /** Огласованный вид стебля (calima `diac`); пусто в паках, собранных до Ф15. */
+    val diac: String = "",
 )
 
 /** Строка таблицы affixes; feats — разобранные пары "ключ:значение" calima. */

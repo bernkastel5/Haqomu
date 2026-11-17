@@ -12,9 +12,21 @@ class AndroidSqliteCamelStore(path: String) : CamelStore, AutoCloseable {
     private val db: SQLiteDatabase =
         SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READONLY)
 
+    /** Есть ли в паке колонка огласовки (паки до Ф15 её не имеют). */
+    private val hasDiac: Boolean by lazy {
+        try {
+            db.rawQuery("SELECT stem_diac FROM stems LIMIT 1", null).use {
+                it.columnCount > 0
+            }
+        } catch (_: Exception) {
+            false
+        }
+    }
+
     override fun stems(stem: String): List<StemRow> {
+        val columns = if (hasDiac) "cat, pos, lex, lex_logprob, root, stem_diac" else "cat, pos, lex, lex_logprob, root"
         db.rawQuery(
-            "SELECT cat, pos, lex, lex_logprob, root FROM stems WHERE stem = ?",
+            "SELECT $columns FROM stems WHERE stem = ?",
             arrayOf(stem),
         ).use { c ->
             val out = mutableListOf<StemRow>()
@@ -26,6 +38,7 @@ class AndroidSqliteCamelStore(path: String) : CamelStore, AutoCloseable {
                         lex = c.getString(2),
                         lexLogprob = c.getDouble(3),
                         root = c.getString(4),
+                        diac = if (hasDiac) c.getString(5).orEmpty() else "",
                     )
                 )
             }

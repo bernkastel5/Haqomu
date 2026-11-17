@@ -268,6 +268,7 @@
     <string name="model_removed">Модель удалена, попап работает по словарному порядку</string>
     <string name="model_privacy">Модель работает на этом устройстве. Предложение из текста и толкования отправляются только в неё и никуда больше.</string>
     <string name="popup_sense_model">Смысл выбран моделью</string>
+    <string name="popup_sense_context">Смысл по предложению</string>
     <string name="copy_action">Скопировать</string>
     <string name="share_action">Отправить…</string>
     <string name="copy_done">Скопировано</string>
@@ -287,4 +288,18 @@
     <string name="update_installer_opened">Открыт системный установщик: подтвердите обновление.</string>
     <string name="update_need_permission">Нужно разрешить установку из этого источника. Открыл настройки — включите «Разрешить установку неизвестных приложений» для Haqomu, затем вернитесь и повторите.</string>
     <string name="update_keeps_data">При обновлении поверх сохраняются паки, настройки и очередь карточек Anki: они лежат в памяти приложения, а не в APK.</string>
+    <string name="reader_title">Читалка</string>
+    <string name="home_reader">Читалка</string>
+    <string name="home_reader_sub">Книги в приложении: тап по слову открывает словарь</string>
+    <string name="reader_empty_title">Открыть книгу</string>
+    <string name="reader_empty_body">Книга открывается из памяти телефона и никуда не отправляется. Тап по арабскому слову открывает тот же словарь, что и выделение в других приложениях: со смыслом по предложению и кнопкой «В Anki».</string>
+    <string name="reader_pick">Выбрать книгу</string>
+    <string name="reader_formats">Форматы: EPUB, PDF с текстовым слоем, FB2, HTML, TXT. Сканы без текстового слоя не открываются: распознавание текста (OCR) пока не сделано.</string>
+    <string name="reader_loading">Открываю: %1$s</string>
+    <string name="reader_failed_title">Книга не открылась</string>
+    <string name="reader_failed_body">Не удалось прочитать «%1$s». Проверьте формат: EPUB, PDF с текстовым слоем, FB2, HTML, TXT. Книги с защитой (DRM) и сканы без текста не поддерживаются.</string>
+    <string name="reader_chapter_of">%1$s · %2$d из %3$d</string>
+    <string name="reader_prev">Назад по книге</string>
+    <string name="reader_next">Дальше</string>
+    <string name="reader_tap_hint">Тап по слову открывает словарь</string>
 </resources>

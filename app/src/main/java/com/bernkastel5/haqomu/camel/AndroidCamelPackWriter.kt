@@ -37,7 +37,7 @@ class AndroidCamelPackWriter(private val outPath: String) : PackSink, Closeable 
         db = SQLiteDatabase.openOrCreateDatabase(outPath, null)
         for (stmt in SCHEMA_STATEMENTS) db.execSQL(stmt)
         db.beginTransaction()
-        insStem = db.compileStatement("INSERT INTO stems VALUES (?,?,?,?,?,?,?)")
+        insStem = db.compileStatement("INSERT INTO stems VALUES (?,?,?,?,?,?,?,?)")
         insAffix = db.compileStatement("INSERT INTO affixes VALUES (?,?,?,?)")
         insCompat = db.compileStatement("INSERT INTO compat VALUES (?,?,?)")
     }
@@ -50,6 +50,7 @@ class AndroidCamelPackWriter(private val outPath: String) : PackSink, Closeable 
         insStem.bindDouble(5, entry.lexLogprob)
         if (entry.root.isBlank()) insStem.bindNull(6) else insStem.bindString(6, entry.root)
         if (entry.featsJson == null) insStem.bindNull(7) else insStem.bindString(7, entry.featsJson)
+        insStem.bindString(8, entry.stemDiac)
         insStem.executeInsert()
     }
 
@@ -99,7 +100,9 @@ class AndroidCamelPackWriter(private val outPath: String) : PackSink, Closeable 
     companion object {
         private val SCHEMA_STATEMENTS = listOf(
             "CREATE TABLE meta (key TEXT PRIMARY KEY, value TEXT)",
-            "CREATE TABLE stems (stem TEXT NOT NULL, cat TEXT NOT NULL, pos TEXT NOT NULL, lex TEXT NOT NULL, lex_logprob REAL NOT NULL, root TEXT, feats TEXT)",
+            // stem_diac — огласованный вид стебля из calima (Ф15: огласовка в карточке).
+            // Колонка добавлена в конец: старые паки без неё читаются с пустым значением.
+            "CREATE TABLE stems (stem TEXT NOT NULL, cat TEXT NOT NULL, pos TEXT NOT NULL, lex TEXT NOT NULL, lex_logprob REAL NOT NULL, root TEXT, feats TEXT, stem_diac TEXT NOT NULL DEFAULT '')",
             "CREATE TABLE affixes (form TEXT NOT NULL, kind TEXT NOT NULL CHECK(kind IN ('prefix','suffix')), cat TEXT NOT NULL, feats TEXT NOT NULL)",
             "CREATE TABLE compat (kind TEXT NOT NULL CHECK(kind IN ('ab','bc','ac')), a TEXT NOT NULL, b TEXT NOT NULL)",
         )

@@ -83,5 +83,35 @@
             </intent-filter>
         </activity>
 
+        <!--
+            Читалка по кнопке «Поделиться»/«Открыть с помощью» из файлового менеджера:
+            книга приходит как content:// и остаётся в приложении. Фильтр только по
+            документным типам, чтобы Haqomu не предлагался для чего попало.
+        -->
+        <activity
+            android:name=".ReaderActivity"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:label="@string/reader_title"
+            android:theme="@style/Theme.Haqomu">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:mimeType="application/epub+zip" />
+                <data android:mimeType="application/pdf" />
+                <data android:mimeType="application/x-fictionbook+xml" />
+                <data android:mimeType="text/html" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="application/epub+zip" />
+                <data android:mimeType="application/pdf" />
+                <data android:mimeType="application/x-fictionbook+xml" />
+            </intent-filter>
+        </activity>
+
     </application>
 </manifest>

@@ -268,6 +268,7 @@
     <string name="model_removed">حُذف النموذج، وتعمل النافذة بالترتيب المعجمي</string>
     <string name="model_privacy">يعمل النموذج على هذا الجهاز. تُرسل الجملة والتعريفات إليه فقط، ولا إلى أي جهة أخرى.</string>
     <string name="popup_sense_model">المعنى اختاره النموذج</string>
+    <string name="popup_sense_context">المعنى حسب الجملة</string>
     <string name="copy_action">نسخ</string>
     <string name="share_action">إرسال…</string>
     <string name="copy_done">تم النسخ</string>
@@ -287,4 +288,18 @@
     <string name="update_installer_opened">فُتح مثبِّت النظام: أكِّد التحديث.</string>
     <string name="update_need_permission">يلزم السماح بالتثبيت من هذا المصدر. فُتحت الإعدادات — اسمح بـ«تثبيت تطبيقات غير معروفة» لتطبيق Haqomu ثم عُد وأعد المحاولة.</string>
     <string name="update_keeps_data">عند التحديث تبقى الحزم والإعدادات وقائمة بطاقات Anki: إنها في ذاكرة التطبيق لا في ملف APK.</string>
+    <string name="reader_title">القارئ</string>
+    <string name="home_reader">القارئ</string>
+    <string name="home_reader_sub">الكتب داخل التطبيق: المس كلمة لفتح القاموس</string>
+    <string name="reader_empty_title">افتح كتاباً</string>
+    <string name="reader_empty_body">يُفتح الكتاب من ذاكرة الهاتف ولا يُرسل إلى أي مكان. المس كلمة عربية ليفتح القاموس نفسه المستخدم عند تحديد النص في التطبيقات الأخرى، مع المعنى حسب الجملة وزر الإضافة إلى Anki.</string>
+    <string name="reader_pick">اختر كتاباً</string>
+    <string name="reader_formats">الصيغ: EPUB، وPDF الذي يحتوي طبقة نصية، وFB2، وHTML، وTXT. الصور الممسوحة بلا طبقة نصية لا تُفتح: التعرف الضوئي على الحروف لم يُنجز بعد.</string>
+    <string name="reader_loading">جارٍ الفتح: %1$s</string>
+    <string name="reader_failed_title">لم يُفتح الكتاب</string>
+    <string name="reader_failed_body">تعذّر قراءة "%1$s". الصيغ المدعومة: EPUB، وPDF بطبقة نصية، وFB2، وHTML، وTXT. الكتب المحمية والصور الممسوحة بلا نص غير مدعومة.</string>
+    <string name="reader_chapter_of">%1$s · %2$d من %3$d</string>
+    <string name="reader_prev">السابق</string>
+    <string name="reader_next">التالي</string>
+    <string name="reader_tap_hint">المس كلمة لفتح القاموس</string>
 </resources>

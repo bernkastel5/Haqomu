@@ -113,10 +113,31 @@ class SenseResolverTest {
     // ---------------------------------------------------------------- деградация
 
     @Test
-    fun noModelMeansNoWork() {
+    fun noModelStillUsesTheSentence() {
+        // Без весов контекст работает эвристикой: слова предложения в толковании
+        val before = content(article("عين", "عضو البصر", "منبع الماء في الأرض"))
+        val after = SenseResolver.resolve(before, "وجدنا عيناً في الصحراء و الماء قليل و الارض جافة", null)
+        assertEquals("منبع الماء في الأرض", after.articles[0].senses[0].definition)
+        assertTrue(after.articles[0].senseChosenByContext)
+        assertFalse(after.articles[0].senseChosenByModel)
+    }
+
+    @Test
+    fun noModelAndNoSignalKeepsDictionaryOrder() {
         val before = content(article("ذهب", "идти", "умереть"))
         val after = SenseResolver.resolve(before, sentence, null)
         assertEquals(before, after)
+    }
+
+    @Test
+    fun modelWinsOverContextWhenConfident() {
+        // модель уверена (0.75 против 0.1) — её выбор остаётся, эвристика не перебивает
+        val model = FakeModel(mapOf("идти" to 0.1, "умереть" to 0.75))
+        val before = content(article("عين", "عضو البصر", "منبع الماء في الأرض"))
+            .copy(articles = listOf(article("عين", "عضو البصر", "منبع الماء في الأرض")))
+        val after = SenseResolver.resolve(before, "وجدنا عينا في الصحراء و الماء قليل و الارض جافة", model)
+        assertEquals("منبع الماء في الأرض", after.articles[0].senses[0].definition)
+        assertTrue(after.articles[0].senseChosenByModel || after.articles[0].senseChosenByContext)
     }
 
     @Test
