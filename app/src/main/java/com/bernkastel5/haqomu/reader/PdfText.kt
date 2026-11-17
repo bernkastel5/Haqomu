@@ -124,34 +124,194 @@ object PdfText {
         }
 
         /**
-         * Распаковка потока: FlateDecode через [Inflater]. null — поток не текстовый
-         * (картинка) или сжат так, что читать без библиотеки нет смысла.
+         * Распаковка потока по цепочке фильтров словаря.
+         *
+         * Книги сжимают контент по-разному, и порядок фильтров задан в `/Filter`
+         * (`/Filter [/ASCII85Decode /FlateDecode]` — сначала ASCII85, затем zlib).
+         * Поддержаны те, что встречаются в текстовых книгах: `ASCII85Decode`,
+         * `ASCIIHexDecode`, `FlateDecode`, `LZWDecode` (в варианте без EarlyChange
+         * тоже: большинство книг пишет его по умолчанию), плюс «пустой» `Crypt`
+         * для незашифрованных файлов. Изображения и прочие кодировки отбрасываются
+         * (`null`): читать их как текст — значит показывать мусор.
          */
         private fun inflateIfNeeded(dict: String, raw: ByteArray): ByteArray? {
-            val flate = dict.contains("FlateDecode")
-            if (!flate) {
-                return if (dict.contains("/Image") || dict.contains("/DCTDecode") || dict.contains("/JPXDecode")) null else raw
+            if (dict.contains("/Image") || dict.contains("/DCTDecode") || dict.contains("/JPXDecode") ||
+                dict.contains("/JBIG2Decode") || dict.contains("/CCITTFaxDecode")
+            ) {
+                return null
             }
-            return try {
-                val inflater = Inflater()
-                inflater.setInput(raw)
-                val out = java.io.ByteArrayOutputStream(minOf(raw.size * 4, 1 shl 20))
-                val buffer = ByteArray(16 * 1024)
-                var total = 0
-                while (!inflater.finished() && total < MAX_STREAM_BYTES) {
-                    val n = try {
-                        inflater.inflate(buffer)
-                    } catch (_: DataFormatException) {
-                        break
-                    }
-                    if (n == 0) {
-                        if (inflater.needsInput() || inflater.needsDictionary()) break
-                        continue
-                    }
-                    out.write(buffer, 0, n)
-                    total += n
+            val filters = filtersOf(dict)
+            if (filters.isEmpty()) return raw
+            var data: ByteArray? = raw
+            for (filter in filters) {
+                data = when (filter) {
+                    "ASCII85Decode", "A85" -> ascii85Decode(data ?: return null)
+                    "ASCIIHexDecode", "AHx" -> asciiHexDecode(data ?: return null)
+                    "FlateDecode", "Fl" -> flateDecode(data ?: return null, dict)
+                    "LZWDecode", "LZW" -> lzwDecode(data ?: return null)
+                    "Crypt" -> data
+                    // RunLength и предсказание цвета для текста не нужны; неизвестный
+                    // фильтр — честный отказ, а не мусор на экране.
+                    else -> return null
+                } ?: return null
+            }
+            return data
+        }
+
+        /** Имена фильтров из `/Filter` в порядке применения (массив или одно имя). */
+        private fun filtersOf(dict: String): List<String> {
+            val array = Regex("/Filter\\s*\\[([^\\]]*)\\]").find(dict)?.groupValues?.get(1)
+            val names = if (array != null) {
+                Regex("/([A-Za-z0-9]+)").findAll(array).map { it.groupValues[1] }.toList()
+            } else {
+                Regex("/Filter\\s*/([A-Za-z0-9]+)").find(dict)?.groupValues?.get(1)?.let { listOf(it) } ?: emptyList()
+            }
+            return names
+        }
+
+        /** zlib-поток через [Inflater]; хвост за `endstream` не мешает. */
+        private fun flateDecode(raw: ByteArray, dict: String): ByteArray? = try {
+            val inflater = Inflater()
+            inflater.setInput(raw)
+            val out = java.io.ByteArrayOutputStream(minOf(raw.size * 4, 1 shl 20))
+            val buffer = ByteArray(16 * 1024)
+            var total = 0
+            var guard = 0
+            while (!inflater.finished() && total < MAX_STREAM_BYTES && guard < 1_000_000) {
+                guard++
+                val n = try {
+                    inflater.inflate(buffer)
+                } catch (_: DataFormatException) {
+                    break
                 }
-                inflater.end()
+                if (n == 0) {
+                    if (inflater.needsInput() || inflater.needsDictionary()) break
+                    continue
+                }
+                out.write(buffer, 0, n)
+                total += n
+            }
+            inflater.end()
+            out.toByteArray()
+        } catch (_: Exception) {
+            null
+        }
+
+        /** ASCII85 (`~>` в конце, `z` — четыре нуля). */
+        fun ascii85Decode(raw: ByteArray): ByteArray? {
+          try {
+            val out = java.io.ByteArrayOutputStream(raw.size)
+            val group = IntArray(5)
+            var count = 0
+            var i = 0
+            // Необязательный префикс <~ и обязательный суффикс ~>
+            if (raw.size >= 2 && raw[0] == '<'.code.toByte() && raw[1] == '~'.code.toByte()) i = 2
+            while (i < raw.size) {
+                val b = raw[i].toInt() and 0xFF
+                i++
+                if (b == '~'.code) break
+                if (b == 'z'.code && count == 0) {
+                    repeat(4) { out.write(0) }
+                    continue
+                }
+                if (b <= 32) continue // пробелы и переводы строк
+                if (b < 33 || b > 117) return null
+                group[count++] = b - 33
+                if (count == 5) {
+                    var value = 0L
+                    for (k in 0 until 5) value = value * 85 + group[k]
+                    for (k in 3 downTo 0) out.write(((value shr (k * 8)) and 0xFF).toInt())
+                    count = 0
+                }
+            }
+            if (count > 1) {
+                // хвост: дополняем максимальными цифрами, пишем count-1 байт
+                for (k in count until 5) group[k] = 84
+                var value = 0L
+                for (k in 0 until 5) value = value * 85 + group[k]
+                for (k in 0 until count - 1) out.write(((value shr ((3 - k) * 8)) and 0xFF).toInt())
+            }
+            return out.toByteArray()
+          } catch (_: Exception) {
+            return null
+          }
+        }
+
+        /** ASCIIHex: пары hex-цифр, `>` в конце игнорируется. */
+        fun asciiHexDecode(raw: ByteArray): ByteArray? {
+          try {
+            val hex = StringBuilder(raw.size)
+            for (byte in raw) {
+                val c = (byte.toInt() and 0xFF).toChar()
+                if (c == '>') break
+                if (c.isWhitespace()) continue
+                if (!c.isLetterOrDigit()) return null
+                hex.append(c)
+            }
+            if (hex.length % 2 == 1) hex.append('0')
+            val out = ByteArray(hex.length / 2)
+            for (k in 0 until hex.length / 2) {
+                out[k] = hex.substring(k * 2, k * 2 + 2).toIntOrNull(16)?.toByte() ?: return null
+            }
+            return out
+          } catch (_: Exception) {
+            return null
+          }
+        }
+
+        /**
+         * LZW (PDF-вариант: стартовый код 9 бит, EarlyChange 1 — код расширяется
+         * на единицу раньше). Встречается в старых книгах; ошибка разбора — null.
+         */
+        fun lzwDecode(raw: ByteArray): ByteArray? {
+            return try {
+                val out = java.io.ByteArrayOutputStream(raw.size * 2)
+                val dict = HashMap<Int, ByteArray>(512)
+                var codeLen = 9
+                var nextCode = 258
+                fun reset() {
+                    dict.clear()
+                    for (k in 0 until 256) dict[k] = byteArrayOf(k.toByte())
+                    codeLen = 9
+                    nextCode = 258
+                }
+                reset()
+                var bitBuf = 0L
+                var bitCount = 0
+                var prev: ByteArray? = null
+                var i = 0
+                while (i < raw.size) {
+                    bitBuf = (bitBuf shl 8) or (raw[i].toInt() and 0xFF).toLong()
+                    bitCount += 8
+                    i++
+                    while (bitCount >= codeLen) {
+                        val code = ((bitBuf shr (bitCount - codeLen)) and ((1L shl codeLen) - 1)).toInt()
+                        bitCount -= codeLen
+                        if (code == 256) {
+                            reset()
+                            prev = null
+                            continue
+                        }
+                        if (code == 257) return out.toByteArray()
+                        val previousEntry = prev
+                        val entry: ByteArray = when {
+                            code < 256 -> byteArrayOf(code.toByte())
+                            dict.containsKey(code) -> dict[code]!!
+                            previousEntry != null -> previousEntry + previousEntry[0]
+                            else -> return null
+                        }
+                        out.write(entry)
+                        if (out.size() > MAX_STREAM_BYTES) return null
+                        val previous = prev
+                        if (previous != null && nextCode < 4096) {
+                            dict[nextCode] = previous + entry[0]
+                            nextCode++
+                            // EarlyChange = 1: длина кода растёт, когда таблица ещё не полна
+                            if (nextCode + 1 > (1 shl codeLen) && codeLen < 12) codeLen++
+                        }
+                        prev = entry
+                    }
+                }
                 out.toByteArray()
             } catch (_: Exception) {
                 null

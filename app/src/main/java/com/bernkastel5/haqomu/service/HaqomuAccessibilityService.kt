@@ -13,6 +13,7 @@ import android.view.accessibility.AccessibilityNodeInfo
 import com.bernkastel5.haqomu.R
 import com.bernkastel5.haqomu.lookup.LookupPopupActivity
 import com.bernkastel5.haqomu.lookup.SelectionInfo
+import com.bernkastel5.haqomu.lookup.SelectionLocator
 import com.bernkastel5.haqomu.ui.HaqomuPrefs
 
 /**
